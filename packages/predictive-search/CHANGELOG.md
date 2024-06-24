@@ -1,7 +1,12 @@
 # @bryt-designs/predictive-search
 
-## 1.1.0
+## 0.1.0
 
 ### Minor Changes
 
-- Initial proof of concept
+- Initial setup for packages
+
+### Patch Changes
+
+- Updated dependencies
+  - @bryt-designs/storefront-client@0.1.0
