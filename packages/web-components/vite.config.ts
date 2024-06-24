@@ -32,4 +32,7 @@ export default defineConfig({
     target: "esnext", // transpile as little as possible
   },
   plugins: [dts()],
+  define: {
+    "process.env.NODE_ENV": '"production"',
+  },
 });
