@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.4.2
+
+### Patch Changes
+
+- Testing solid version to see if it works with existing store
+
 ## 0.4.1
 
 ### Patch Changes

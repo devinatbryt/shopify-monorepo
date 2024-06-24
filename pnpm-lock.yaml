@@ -92,7 +92,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0
       solid-js:
-        specifier: ^1.8.17
+        specifier: ^1.8.11
         version: 1.8.17
     devDependencies:
       '@repo/typescript-config':
