@@ -9,15 +9,19 @@ export default defineConfig({
   build: {
     lib: {
       name: "Shopify.StorefrontPredictiveSearch",
-      entry: "./src/index.ts",
-      formats: ["es", "umd", "iife"],
+      entry: {
+        index: "./src/index.ts",
+      },
+      formats: ["es"],
     },
     rollupOptions: {
       external: ["@bryt-designs/storefront-client"],
       output: {
-        globals: {
-          "@bryt-designs/storefront-client": "Shopify.StorefrontClient",
+        paths: (id) => {
+          console.log(id);
+          return id;
         },
+        inlineDynamicImports: false,
       },
     },
     target: "esnext", // transpile as little as possible

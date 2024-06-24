@@ -12,14 +12,18 @@
   "devDependencies": {
     "dotenv-cli": "github:motdotla/dotenv-cli",
     "prettier": "^3.2.5",
+    "syncpack": "^12.3.2",
     "turbo": "^2.0.4",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vite-plugin-dts": "^3.9.1",
+    "vite-plugin-solid": "^2.10.2"
   },
   "packageManager": "pnpm@9.1.2",
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
-    "@changesets/cli": "^2.27.5"
+    "@changesets/cli": "^2.27.5",
+    "solid-js": "^1.8.17"
   }
 }

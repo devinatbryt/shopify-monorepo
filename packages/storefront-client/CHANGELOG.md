@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.4.1
+
+### Patch Changes
+
+- Enabled to be more compatible with jsDelivr
+
 ## 0.4.0
 
 ### Minor Changes

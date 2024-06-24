@@ -19,6 +19,9 @@ type Config = {
   key?: string;
 };
 
+// @ts-ignore
+if (typeof window.Shopify === "undefined") window.Shopify = {};
+
 if (import.meta.env.MODE === "development") {
   window.Shopify.storefrontConfig = {
     accessToken: import.meta.env.VITE_SHOPIFY_SHOP_DOMAIN || "",
@@ -34,7 +37,7 @@ export default function StorefrontClient(
     apiVersion = window.Shopify?.storefrontConfig?.apiVersion,
     shouldPersist = window.Shopify?.storefrontConfig?.shouldPersist || false,
     key = window?.Shopify?.storefrontConfig?.key || "storefront-client",
-  }: Config = window.Shopify.storefrontConfig
+  }: Config = window?.Shopify?.storefrontConfig
 ) {
   const queryClient = new QueryClient();
   const createQueryFn = async ({
@@ -100,10 +103,14 @@ export default function StorefrontClient(
   };
 }
 
+if (typeof window.Shopify.StorefrontClient === "undefined")
+  window.Shopify.StorefrontClient = StorefrontClient;
+
 declare global {
   interface Window {
     Shopify: {
       storefrontConfig: Config;
+      StorefrontClient: typeof StorefrontClient;
     };
   }
 }
