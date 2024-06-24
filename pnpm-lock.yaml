@@ -11,9 +11,6 @@ importers:
       '@changesets/cli':
         specifier: ^2.27.5
         version: 2.27.5
-      solid-js:
-        specifier: ^1.8.17
-        version: 1.8.17
     devDependencies:
       dotenv-cli:
         specifier: github:motdotla/dotenv-cli
@@ -30,6 +27,9 @@ importers:
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
+      vite:
+        specifier: ^5.3.1
+        version: 5.3.1(@types/node@20.14.8)
       vite-plugin-dts:
         specifier: ^3.9.1
         version: 3.9.1(@types/node@20.14.8)(rollup@4.18.0)(typescript@5.4.5)(vite@5.3.1(@types/node@20.14.8))
@@ -92,7 +92,7 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0
       solid-js:
-        specifier: ^1.8.11
+        specifier: ^1.8.17
         version: 1.8.17
     devDependencies:
       '@repo/typescript-config':
