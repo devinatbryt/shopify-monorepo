@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.0
+
+### Minor Changes
+
+- Replace builstep process.env data
+
 ## 0.3.0
 
 ### Minor Changes
