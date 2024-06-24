@@ -12,6 +12,16 @@ import { animate } from "motion";
 
 import { customShadowlessElement } from "./utils/solid-element";
 
+function getContext(element) {
+  const elementContextSymbol = Object.getOwnPropertySymbols(element).find(
+    (s) => s.description === "element-context"
+  );
+  const contextSymbol = Object.getOwnPropertySymbols(
+    element[elementContextSymbol]
+  ).find((s) => s.description === "context");
+  return element[elementContextSymbol][contextSymbol];
+}
+
 function AccordionBlock(props, { element }) {
   const [accordion, setAccordion] = getContext(element);
   const children = Array.from(element.children);
