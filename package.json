@@ -5,7 +5,9 @@
     "build": "dotenv -- turbo build",
     "dev": "dotenv -- turbo dev",
     "lint": "dotenv -- turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "version-packages": "changeset version",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "release": "turbo build && changeset publish"
   },
   "devDependencies": {
     "dotenv-cli": "github:motdotla/dotenv-cli",

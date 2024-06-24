@@ -1,7 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +8,7 @@
     "preview": "vite preview"
   },
   "files": [
-    "dist"
+    "dist/**"
   ],
   "exports": {
     "./accordion-block": {
