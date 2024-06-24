@@ -11,10 +11,11 @@ export default defineConfig({
   },
   build: {
     lib: {
-      name: "web-components",
+      name: "WebComponents",
       entry: {
         "accordion-block/index": resolve(rootDir, "src/accordion-block.js"),
       },
+      formats: ["iife"],
     },
     rollupOptions: {
       external: [
