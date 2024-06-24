@@ -15,8 +15,6 @@ export default defineConfig({
       entry: {
         "accordion-block/index": resolve(rootDir, "src/accordion-block.js"),
       },
-      // @ts-ignore
-      formats: ["amd"],
     },
     rollupOptions: {
       external: [

@@ -12,13 +12,11 @@ export default defineConfig({
       entry: "./src/index.ts",
       formats: ["es", "umd", "iife"],
     },
-    // rollupOptions: {
-    //   external: [
-    //     ...Object.keys(pkg.dependencies), // don't bundle dependencies
-    //     /^node:.*/, // don't bundle built-in Node.js modules (use protocol imports!)
-    //   ],
-    // },
+    rollupOptions: {},
     target: "esnext", // transpile as little as possible
   },
   plugins: [dts()], // emit TS declaration files
+  define: {
+    "process.env.NODE_ENV": '"production"',
+  },
 });
