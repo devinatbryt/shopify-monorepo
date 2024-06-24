@@ -1,0 +1,32 @@
+{
+  "name": "@bryt-designs/predictive-search",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/predictive-search.js",
+      "require": "./dist/predictive-search.umd.cjs",
+      "types": "./dist/index.d.ts",
+      "browser": "./dist/predictive-search.iife.js"
+    }
+  },
+  "main": "./dist/predictive-search.umd.cjs",
+  "module": "./dist/predictive-search.js",
+  "browser": "./dist/predictive-search.iife.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@bryt-designs/storefront-client": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@shopify/hydrogen": "^2024.4.7",
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^3.9.1"
+  }
+}
