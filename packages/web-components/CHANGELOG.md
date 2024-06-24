@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.7
+
+### Patch Changes
+
+- Added solid-js as dependency
+
 ## 0.4.6
 
 ### Patch Changes

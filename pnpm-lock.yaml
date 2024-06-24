@@ -118,6 +118,9 @@ importers:
       motion:
         specifier: ^10.18.0
         version: 10.18.0
+      solid-js:
+        specifier: ^1.8.17
+        version: 1.8.17
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*

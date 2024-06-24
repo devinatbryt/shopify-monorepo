@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -19,7 +19,8 @@
     "@bryt-designs/predictive-search": "workspace:*",
     "@bryt-designs/storefront-client": "workspace:*",
     "component-register": "^0.6.7",
-    "motion": "^10.18.0"
+    "motion": "^10.18.0",
+    "solid-js": "^1.8.17"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
