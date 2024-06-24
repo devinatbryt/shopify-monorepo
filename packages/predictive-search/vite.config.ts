@@ -12,17 +12,10 @@ export default defineConfig({
       entry: {
         index: "./src/index.ts",
       },
-      formats: ["es"],
+      formats: ["es", "cjs"],
     },
     rollupOptions: {
       external: ["@bryt-designs/storefront-client"],
-      output: {
-        paths: (id) => {
-          console.log(id);
-          return id;
-        },
-        inlineDynamicImports: false,
-      },
     },
     target: "esnext", // transpile as little as possible
   },

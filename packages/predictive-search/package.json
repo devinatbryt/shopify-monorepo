@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/predictive-search",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "type": "module",
   "files": [
     "dist"
@@ -8,11 +8,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "browser": "./dist/index.iife.js"
+      "import": "./dist/index.js",
+      "module": "./dist/index.cjs"
     }
   },
-  "browser": "./dist/index.iife.js",
   "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

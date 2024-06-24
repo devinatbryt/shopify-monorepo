@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 0.3.4
+
+### Patch Changes
+
+- Made compatible with jsDelivr
+
 ## 0.3.3
 
 ### Patch Changes
