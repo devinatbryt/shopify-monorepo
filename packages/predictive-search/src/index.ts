@@ -1,7 +1,6 @@
 import type {
   SearchableField,
   PredictiveSearchLimitScope,
-  PredictiveSearchType,
   SearchUnavailableProductsType,
 } from "@shopify/hydrogen/storefront-api-types";
 
@@ -9,6 +8,9 @@ import StorefrontClient from "@bryt-designs/storefront-client";
 
 import buildSuggestionQuery from "./utils/buildSuggestionQuery";
 import { DEFAULT_FRAGMENTS, DEFAULT_QUERY_KEY } from "./utils/const";
+
+// @ts-ignore
+if (typeof window.Shopify === "undefined") window.Shopify = {};
 
 type Variables = {
   query: string;
@@ -72,5 +74,16 @@ const StorefrontPredictiveSearch = {
       .getQueryState(typeof key === "function" ? key() : (key as any));
   },
 };
+
+if (typeof window.Shopify.StorefrontPredictiveSearch === "undefined")
+  window.Shopify.StorefrontPredictiveSearch = StorefrontPredictiveSearch;
+
+type PredictiveSearchType = typeof StorefrontPredictiveSearch;
+
+declare global {
+  interface Shopify {
+    StorefrontPredictiveSearch: PredictiveSearchType;
+  }
+}
 
 export default StorefrontPredictiveSearch;

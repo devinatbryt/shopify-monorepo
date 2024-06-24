@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.4.3
+
+### Patch Changes
+
+- Global type fixes
+
 ## 0.4.2
 
 ### Patch Changes

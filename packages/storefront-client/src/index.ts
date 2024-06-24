@@ -11,7 +11,7 @@ import { persistQueryClient } from "@tanstack/solid-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import lz from "lz-string";
 
-type Config = {
+export type Config = {
   accessToken: string;
   shopDomain: string;
   apiVersion: string;
@@ -106,11 +106,12 @@ export default function StorefrontClient(
 if (typeof window.Shopify.StorefrontClient === "undefined")
   window.Shopify.StorefrontClient = StorefrontClient;
 
+type StorefrontClientType = typeof StorefrontClient;
+
 declare global {
-  interface Window {
-    Shopify: {
-      storefrontConfig: Config;
-      StorefrontClient: typeof StorefrontClient;
-    };
+  export var Shopify: Shopify;
+  export interface Shopify {
+    storefrontConfig: Config;
+    StorefrontClient: StorefrontClientType;
   }
 }
