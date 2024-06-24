@@ -8,6 +8,14 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./accordion-block": {
+      "browser": "./dist/accordion-block.amd.js"
+    }
+  },
   "dependencies": {
     "@bryt-designs/predictive-search": "workspace:*",
     "@bryt-designs/storefront-client": "workspace:*",

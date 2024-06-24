@@ -6,7 +6,7 @@ import {
   on,
   batch,
 } from "solid-js";
-import { createStore, SetStoreFunction, Store } from "solid-js/store";
+import { createStore } from "solid-js/store";
 import { createContext, provide, consume } from "component-register";
 import { animate } from "motion";
 

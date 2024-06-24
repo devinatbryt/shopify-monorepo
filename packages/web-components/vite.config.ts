@@ -12,8 +12,11 @@ export default defineConfig({
   build: {
     lib: {
       name: "web-components",
-      entry: [resolve(rootDir, "./src/accordion-block.js")],
-      formats: ["cjs"],
+      entry: {
+        "accordion-block/index": resolve(rootDir, "src/accordion-block.js"),
+      },
+      // @ts-ignore
+      formats: ["amd"],
     },
     rollupOptions: {
       external: [
@@ -30,5 +33,5 @@ export default defineConfig({
     },
     target: "esnext", // transpile as little as possible
   },
-  plugins: [dts()], // emit TS declaration files
+  plugins: [dts()],
 });
