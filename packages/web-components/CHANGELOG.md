@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.19
+
+### Patch Changes
+
+- Attempt at bug fixing issue
+
 ## 0.4.18
 
 ### Patch Changes
