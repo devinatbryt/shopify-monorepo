@@ -23,15 +23,16 @@ export default defineConfig({
     },
     rollupOptions: {
       external: Object.keys(pkg.dependencies),
-      output: {
-        globals: {
-          "@bryt-designs/storefront-client": "Shopify.StorefrontClient",
-          "@bryt-designs/predictive-search":
-            "Shopify.StorefrontPredictiveSearch",
-        },
-      },
+      // output: {
+      //   globals: {
+      //     "@bryt-designs/storefront-client": "Shopify.StorefrontClient",
+      //     "@bryt-designs/predictive-search":
+      //       "Shopify.StorefrontPredictiveSearch",
+      //   },
+      // },
     },
     target: "esnext", // transpile as little as possible
+    minify: "terser",
   },
   plugins: [dts()],
   define: {
