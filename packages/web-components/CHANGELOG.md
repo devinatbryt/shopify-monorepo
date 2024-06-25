@@ -1,5 +1,29 @@
 # @bryt-designs/web-components
 
+## 0.4.17
+
+### Patch Changes
+
+- Confirmed the bug was within Shopify's dev environment
+
+## 0.4.16
+
+### Patch Changes
+
+- Attempt #3 at fixing weird browser bug
+
+## 0.4.15
+
+### Patch Changes
+
+- Attempt at fixing weird bug
+
+## 0.4.14
+
+### Patch Changes
+
+- Attempt at fixing web component
+
 ## 0.4.13
 
 ### Patch Changes

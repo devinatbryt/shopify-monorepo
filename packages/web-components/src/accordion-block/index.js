@@ -10,7 +10,7 @@ import { createStore } from "solid-js/store";
 import { createContext, withConsumer, withProvider } from "component-register";
 import { animate } from "motion";
 
-import customShadowlessElement from "../utils/customShadowlessElement";
+import { customShadowlessElement } from "../utils/customShadowlessElement";
 
 function getContext(element) {
   const elementContextSymbol = Object.getOwnPropertySymbols(element).find(
@@ -90,20 +90,18 @@ function AccordionTrigger(props, { element, accordion }) {
   const [state, setAccordion] = accordion;
   const accordionItem = element.closest("accordion-item");
 
-  onMount(() => {
-    const handleClick = (e) => {
-      if (props.preventDefault) e.preventDefault();
-      const index = parseInt(accordionItem.getAttribute("index"));
-      if (state.isAnimating) return;
-      if (index === state.activeIndex) return setAccordion("activeIndex", -1);
-      return setAccordion("activeIndex", index);
-    };
+  const handleClick = (e) => {
+    if (props.preventDefault) e.preventDefault();
+    const index = parseInt(accordionItem.getAttribute("index"));
+    if (state.isAnimating) return;
+    if (index === state.activeIndex) return setAccordion("activeIndex", -1);
+    return setAccordion("activeIndex", index);
+  };
 
-    element.addEventListener("click", handleClick);
+  element.addEventListener("click", handleClick);
 
-    onCleanup(() => {
-      element.removeEventListener("click", handleClick);
-    });
+  onCleanup(() => {
+    element.removeEventListener("click", handleClick);
   });
 }
 
@@ -152,7 +150,7 @@ function AccordionContent(props, { element, accordion }) {
 
   const transition = { duration: 0.35 };
 
-  const expand = (element) => {
+  const expand = async (element) => {
     showElement(element);
 
     const height = getHeight(element),
@@ -184,7 +182,7 @@ function AccordionContent(props, { element, accordion }) {
     });
   };
 
-  const collapse = (element) => {
+  const collapse = async (element) => {
     const height = getHeight(element),
       pt = getPaddingTop(element),
       pb = getPaddingBottom(element);
@@ -231,7 +229,7 @@ function AccordionContent(props, { element, accordion }) {
 
 // Context
 const AccordionContext = createContext(
-  (state = { activeIndex: 1, isAnimating: false, items: [] }) => {
+  (state = { activeIndex: -1, isAnimating: false, items: [] }) => {
     return createStore(state);
   }
 );
@@ -241,7 +239,11 @@ customShadowlessElement(
   "accordion-block",
   { activeIndex: -1 },
   AccordionBlock,
-  withProvider(AccordionContext)
+  withProvider(AccordionContext, {
+    activeIndex: -1,
+    isAnimating: false,
+    items: [],
+  })
 );
 customShadowlessElement(
   "accordion-item",

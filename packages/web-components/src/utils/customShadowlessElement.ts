@@ -4,10 +4,11 @@ import {
   type ComponentType as mComponentType,
   type FunctionComponent,
   type ComponentOptions,
+  noShadowDOM,
 } from "component-register";
 
 export type ComponentType<T> = mComponentType<T>;
-import { noShadowDOM, withSolid } from "solid-element";
+import { withSolid } from "solid-element";
 
 function withNoShadowDOM<T extends object>(
   Component: ComponentType<T> = () => {}
@@ -19,7 +20,7 @@ function withNoShadowDOM<T extends object>(
   };
 }
 
-export default function customShadowlessElement<T extends object>(
+function customShadowlessElement<T extends object>(
   tagName: string,
   props: T,
   Component: ComponentType<T> = () => {},
@@ -32,3 +33,5 @@ export default function customShadowlessElement<T extends object>(
     ...rest
   )(Component);
 }
+
+export { customShadowlessElement };
