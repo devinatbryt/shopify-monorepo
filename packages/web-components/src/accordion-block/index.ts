@@ -11,11 +11,12 @@ import {
   createContext,
   provide,
   consume,
-  ICustomElement,
+  type ICustomElement,
 } from "component-register";
 import { animate } from "motion";
 
-import { customShadowlessElement } from "../utils/customShadowlessElement";
+import customShadowlessElement from "../utils/customShadowlessElement";
+import isCustomElement from "../utils/isCustomElement";
 // Context
 const AccordionContext = createContext(
   (state = { activeIndex: -1, isAnimating: false, items: [] }) => {
@@ -74,7 +75,8 @@ customShadowlessElement(
   "accordion-item",
   { index: 0, isExpanded: false, ariaExpanded: false, tabindex: 0 },
   (props, { element }) => {
-    const [state, setState] = consume(AccordionContext);
+    if (!isCustomElement(element)) return;
+    const [state, setState] = consume(AccordionContext, element);
 
     createEffect(
       on(
@@ -91,8 +93,11 @@ customShadowlessElement(
       on(
         () => ({ activeIndex: state.activeIndex }),
         ({ activeIndex }) => {
-          element.setAttribute("is-expanded", props.index === activeIndex);
-          element.setAttribute("aria-expanded", props.index === activeIndex);
+          element.setAttribute("is-expanded", `${props.index === activeIndex}`);
+          element.setAttribute(
+            "aria-expanded",
+            `${props.index === activeIndex}`
+          );
         }
       )
     );
@@ -103,12 +108,15 @@ customShadowlessElement(
   "accordion-trigger",
   { preventDefault: true },
   (props, { element }) => {
-    const [state, setAccordion] = consume(AccordionContext);
+    if (!isCustomElement(element)) return;
+    const [state, setAccordion] = consume(AccordionContext, element);
     const accordionItem = element.closest("accordion-item");
 
     const handleClick = (e: Event) => {
+      if (!accordionItem)
+        return console.warn("No accordion-item found as a relative parent!");
       if (props.preventDefault) e.preventDefault();
-      const index = parseInt(accordionItem.getAttribute("index"));
+      const index = parseInt(accordionItem?.getAttribute("index") || "-1");
       if (state.isAnimating) return;
       if (index === state.activeIndex) return setAccordion("activeIndex", -1);
       return setAccordion("activeIndex", index);
@@ -126,7 +134,8 @@ customShadowlessElement(
   "accordion-content",
   { shouldScrollIntoView: false },
   (props, { element }) => {
-    const [state, setState] = consume(AccordionContext);
+    if (!isCustomElement(element)) return;
+    const [state, setState] = consume(AccordionContext, element);
     const [isFirstRender, setIsFirstRender] = createSignal(true);
 
     onMount(() => {
@@ -232,8 +241,7 @@ customShadowlessElement(
       on(
         () => {
           const accordionItem = element.closest("accordion-item");
-          const index = parseInt(accordionItem.getAttribute("index"));
-          console.log("Accordion Content(index)", index);
+          const index = parseInt(accordionItem?.getAttribute("index") || "0");
           const item = state.items[index - 1];
           return { isExpanded: item?.isExpanded };
         },

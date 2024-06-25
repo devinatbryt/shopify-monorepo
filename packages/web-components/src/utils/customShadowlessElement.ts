@@ -20,7 +20,7 @@ function withNoShadowDOM<T extends object>(
   };
 }
 
-function customShadowlessElement<T extends object>(
+export default function customShadowlessElement<T extends object>(
   tagName: string,
   props: T,
   Component: ComponentType<T> = () => {},
@@ -33,5 +33,3 @@ function customShadowlessElement<T extends object>(
     ...rest
   )(Component);
 }
-
-export { customShadowlessElement };
