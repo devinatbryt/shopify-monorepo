@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.23
+
+### Patch Changes
+
+- Attempt at fixing bug...
+
 ## 0.4.22
 
 ### Patch Changes

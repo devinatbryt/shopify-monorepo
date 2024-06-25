@@ -233,6 +233,7 @@ customShadowlessElement(
         () => {
           const accordionItem = element.closest("accordion-item");
           const index = parseInt(accordionItem.getAttribute("index"));
+          console.log("Accordion Content(index)", index);
           const item = state.items[index - 1];
           return { isExpanded: item?.isExpanded };
         },
