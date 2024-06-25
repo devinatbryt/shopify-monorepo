@@ -16,7 +16,7 @@ export default defineConfig({
       entry: {
         "accordion-block/index": resolve(
           rootDir,
-          "src/accordion-block/index.js"
+          "src/accordion-block/index.ts"
         ),
       },
       formats: ["es", "cjs"],
@@ -32,7 +32,6 @@ export default defineConfig({
       // },
     },
     target: "esnext", // transpile as little as possible
-    minify: false,
   },
   plugins: [dts()],
   define: {

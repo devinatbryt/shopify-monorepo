@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.22
+
+### Patch Changes
+
+- Attempt at fixing weird bug by moving things around.
+
 ## 0.4.21
 
 ### Patch Changes
