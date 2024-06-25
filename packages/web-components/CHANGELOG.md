@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.29
+
+### Patch Changes
+
+- Attempt at fixing weird solid element issue where props were not reactive
+
 ## 0.4.28
 
 ### Patch Changes

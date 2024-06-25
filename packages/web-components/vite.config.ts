@@ -22,7 +22,11 @@ export default defineConfig({
       formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: [...Object.keys(pkg.dependencies), "solid-js/store"],
+      external: [
+        ...Object.keys(pkg.dependencies),
+        "solid-js/store",
+        "solid-js/web",
+      ],
       // output: {
       //   globals: {
       //     "@bryt-designs/storefront-client": "Shopify.StorefrontClient",

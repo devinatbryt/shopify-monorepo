@@ -15,7 +15,7 @@ import {
 } from "component-register";
 import { animate } from "motion";
 
-import customShadowlessElement from "../utils/customShadowlessElement";
+import { customShadowlessElement } from "../utils/solid-element";
 import isCustomElement from "../utils/isCustomElement";
 // Context
 const AccordionContext = createContext(
