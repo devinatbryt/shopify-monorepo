@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.25
+
+### Patch Changes
+
+- Added logs to see if context is there
+
 ## 0.4.24
 
 ### Patch Changes

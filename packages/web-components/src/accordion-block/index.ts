@@ -138,6 +138,10 @@ customShadowlessElement(
     const [state, setState] = consume(AccordionContext, element);
     const [isFirstRender, setIsFirstRender] = createSignal(true);
 
+    createEffect(() => {
+      console.log("Accordion Content(state)", state.activeIndex, state);
+    });
+
     onMount(() => {
       setIsFirstRender(false);
     });
