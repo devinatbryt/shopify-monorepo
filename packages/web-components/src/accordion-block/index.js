@@ -10,7 +10,7 @@ import { createStore } from "solid-js/store";
 import { createContext, withConsumer, withProvider } from "component-register";
 import { animate } from "motion";
 
-import { customShadowlessElement } from "./utils/solid-element";
+import { customShadowlessElement } from "../utils/solid-element";
 
 function getContext(element) {
   const elementContextSymbol = Object.getOwnPropertySymbols(element).find(

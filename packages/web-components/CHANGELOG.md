@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.10
+
+### Patch Changes
+
+- First attempt at making the package compatible with jsDelivr
+
 ## 0.4.9
 
 ### Patch Changes

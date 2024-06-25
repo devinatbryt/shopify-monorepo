@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
+import pkg from "./package.json" assert { type: "json" };
 
 import { resolve } from "path";
 
@@ -13,15 +14,15 @@ export default defineConfig({
     lib: {
       name: "WebComponents",
       entry: {
-        "accordion-block/index": resolve(rootDir, "src/accordion-block.js"),
+        "accordion-block/index": resolve(
+          rootDir,
+          "src/accordion-block/index.js"
+        ),
       },
-      formats: ["iife"],
+      formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: [
-        "@bryt-designs/storefront-client",
-        "@bryt-designs/predictive-search",
-      ],
+      external: Object.keys(pkg.dependencies),
       output: {
         globals: {
           "@bryt-designs/storefront-client": "Shopify.StorefrontClient",

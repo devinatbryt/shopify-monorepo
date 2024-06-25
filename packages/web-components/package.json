@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.4.9",
+  "version": "0.4.10",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,8 +11,10 @@
     "dist"
   ],
   "exports": {
-    "./accordion-block": {
-      "browser": "./dist/accordion-block.amd.js"
+    "/accordion-block": {
+      "import": "./dist/accordion-block/index.cjs",
+      "module": "./dist/accordion-block/index.js",
+      "types": "./src/accordion-block/index.d.ts"
     }
   },
   "dependencies": {
