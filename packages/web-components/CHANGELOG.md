@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.28
+
+### Patch Changes
+
+- Attempt at figuring out why accordion-item props aren't reactive
+
 ## 0.4.27
 
 ### Patch Changes
