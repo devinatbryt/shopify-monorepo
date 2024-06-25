@@ -247,9 +247,11 @@ customShadowlessElement(
           const accordionItem = element.closest("accordion-item");
           const index = parseInt(accordionItem?.getAttribute("index") || "0");
           const item = state.items[index - 1];
+          console.log("Accordion Content(item) outside", item);
           return { isExpanded: item?.isExpanded };
         },
         (item) => {
+          console.log("Accordion Content(item) inside", item);
           if (!item) return;
           setState("isAnimating", true);
           if (!item.isExpanded)

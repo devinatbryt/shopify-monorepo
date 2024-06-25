@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.26
+
+### Patch Changes
+
+- Added more logs to get to bottom of issue
+
 ## 0.4.25
 
 ### Patch Changes
