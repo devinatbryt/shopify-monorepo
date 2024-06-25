@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.21
+
+### Patch Changes
+
+- Attempt at fixing weird jsDelivr compilation bugs
+
 ## 0.4.20
 
 ### Patch Changes

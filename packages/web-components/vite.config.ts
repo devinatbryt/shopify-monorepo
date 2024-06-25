@@ -32,6 +32,7 @@ export default defineConfig({
       // },
     },
     target: "esnext", // transpile as little as possible
+    minify: false,
   },
   plugins: [dts()],
   define: {
