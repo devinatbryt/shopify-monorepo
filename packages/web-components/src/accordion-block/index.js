@@ -231,7 +231,7 @@ function AccordionContent(props, { element, accordion }) {
 
 // Context
 const AccordionContext = createContext(
-  (state = { activeIndex: 1, isAnimating: false, items: [] }) => {
+  (state = { activeIndex: -1, isAnimating: false, items: [] }) => {
     return createStore(state);
   }
 );
@@ -241,7 +241,11 @@ customShadowlessElement(
   "accordion-block",
   { activeIndex: -1 },
   AccordionBlock,
-  withProvider(AccordionContext)
+  withProvider(AccordionContext, {
+    activeIndex: -1,
+    isAnimating: false,
+    items: [],
+  })
 );
 customShadowlessElement(
   "accordion-item",

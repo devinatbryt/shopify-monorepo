@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.20
+
+### Patch Changes
+
+- Removed terser and included solid-js/store within external deps
+
 ## 0.4.19
 
 ### Patch Changes

@@ -22,7 +22,7 @@ export default defineConfig({
       formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: Object.keys(pkg.dependencies),
+      external: [...Object.keys(pkg.dependencies), "solid-js/store"],
       // output: {
       //   globals: {
       //     "@bryt-designs/storefront-client": "Shopify.StorefrontClient",
@@ -32,7 +32,6 @@ export default defineConfig({
       // },
     },
     target: "esnext", // transpile as little as possible
-    minify: "terser",
   },
   plugins: [dts()],
   define: {
