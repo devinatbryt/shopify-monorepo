@@ -82,6 +82,7 @@ customShadowlessElement(
       on(
         () => ({ isExpanded: props.isExpanded }),
         ({ isExpanded }) => {
+          console.log("AccordionItem(props)", isExpanded, props.index, state);
           setState("items", props.index - 1, {
             isExpanded: isExpanded || false,
           });
@@ -137,10 +138,6 @@ customShadowlessElement(
     if (!isCustomElement(element)) return;
     const [state, setState] = consume(AccordionContext, element);
     const [isFirstRender, setIsFirstRender] = createSignal(true);
-
-    createEffect(() => {
-      console.log("Accordion Content(state)", state.activeIndex, state);
-    });
 
     onMount(() => {
       setIsFirstRender(false);
@@ -247,11 +244,9 @@ customShadowlessElement(
           const accordionItem = element.closest("accordion-item");
           const index = parseInt(accordionItem?.getAttribute("index") || "0");
           const item = state.items[index - 1];
-          console.log("Accordion Content(item) outside", item);
           return { isExpanded: item?.isExpanded };
         },
         (item) => {
-          console.log("Accordion Content(item) inside", item);
           if (!item) return;
           setState("isAnimating", true);
           if (!item.isExpanded)

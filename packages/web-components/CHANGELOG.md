@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.27
+
+### Patch Changes
+
+- Logging inside of accordion item
+
 ## 0.4.26
 
 ### Patch Changes
