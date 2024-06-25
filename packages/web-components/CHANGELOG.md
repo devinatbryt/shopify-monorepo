@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.13
+
+### Patch Changes
+
+- Attempt at fixing weird inconsistency with accordion
+
 ## 0.4.12
 
 ### Patch Changes

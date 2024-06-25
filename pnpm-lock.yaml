@@ -113,11 +113,14 @@ importers:
         specifier: workspace:*
         version: link:../storefront-client
       component-register:
-        specifier: ^0.6.7
-        version: 0.6.19
+        specifier: ^0.8.3
+        version: 0.8.3
       motion:
         specifier: ^10.18.0
         version: 10.18.0
+      solid-element:
+        specifier: ^1.8.0
+        version: 1.8.0(solid-js@1.8.17)
       solid-js:
         specifier: ^1.8.17
         version: 1.8.17
@@ -1268,8 +1271,8 @@ packages:
     resolution: {integrity: sha512-KRs7WVDKg86PWiuAqhDrAQnTXZKraVcCc6vFdL14qrZ/DcWwuRo7VoiYXalXO7S5GKpqYiVEwCbgFDfxNHKJBQ==}
     engines: {node: ^12.20.0 || >=14}
 
-  component-register@0.6.19:
-    resolution: {integrity: sha512-iPgZw6sB52sopTA5Gj84BDWuYv9th+dOz35FoBd5678xyHJfYKem9viUpXi81dSwt+OfmnZY/SOG/fHIlwP4Ew==}
+  component-register@0.8.3:
+    resolution: {integrity: sha512-/0u8ov0WPWi2FL78rgB9aFOcfY8pJT4jP/l9NTOukGNLVQ6hk35sEJE1RkEnNQU3yk48Qr7HlDQjRQKEVfgeWg==}
 
   computeds@0.0.1:
     resolution: {integrity: sha512-7CEBgcMjVmitjYo5q8JTJVra6X5mQ20uTThdK+0kR7UEaDrAWEQcRiBtWJzga4eRpP6afNwwLsX2SET2JhVB1Q==}
@@ -2787,6 +2790,11 @@ packages:
     resolution: {integrity: sha512-vCsKNQxb7PnCNd2wY1WClWifAc2lwqsG8OaswpJkVJsvMGcnEntdTCDajZCkk93Ay1U3t/9puJmb525Rg5MZBA==}
     engines: {node: '>=6'}
     hasBin: true
+
+  solid-element@1.8.0:
+    resolution: {integrity: sha512-DG8HBCej5kNExUiFbVG8OFZojMGcLF8keXdGLEcHXBYtJ7zhm+a8HJnl5lfmBlTYGRk4ApgoBvlwH1ibg7quaQ==}
+    peerDependencies:
+      solid-js: ^1.8.0
 
   solid-js@1.8.17:
     resolution: {integrity: sha512-E0FkUgv9sG/gEBWkHr/2XkBluHb1fkrHywUgA6o6XolPDCJ4g1HaLmQufcBBhiF36ee40q+HpG/vCZu7fLpI3Q==}
@@ -4656,7 +4664,7 @@ snapshots:
   commander@9.5.0:
     optional: true
 
-  component-register@0.6.19: {}
+  component-register@0.8.3: {}
 
   computeds@0.0.1: {}
 
@@ -6298,6 +6306,11 @@ snapshots:
       strip-ansi: 6.0.1
       wcwidth: 1.0.1
       yargs: 15.4.1
+
+  solid-element@1.8.0(solid-js@1.8.17):
+    dependencies:
+      component-register: 0.8.3
+      solid-js: 1.8.17
 
   solid-js@1.8.17:
     dependencies:

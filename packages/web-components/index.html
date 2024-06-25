@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+    <script type="text/javascript">
+      if (!window.Shopify) window.Shopify = {};
+      window.Shopify.storefrontConfig = {
+        shopDomain: "awesome-bryt-apps.myshopify.com",
+        apiVersion: "2024-04",
+        accessToken: "c5e7d6954b84975963e596e273405c8b",
+      };
+    </script>
+  </head>
+  <body>
+    <accordion-block>
+      <accordion-item>
+        <accordion-trigger>
+          <button>Test</button>
+        </accordion-trigger>
+        <accordion-content> Hello world! </accordion-content>
+      </accordion-item>
+    </accordion-block>
+    <script type="module" src="/dist/accordion-block/index.js"></script>
+  </body>
+</html>
