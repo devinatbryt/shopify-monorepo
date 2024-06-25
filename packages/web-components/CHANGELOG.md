@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.5.0
+
+### Minor Changes
+
+- Found issue to be with solid-element package, ported over to repo
+
 ## 0.4.29
 
 ### Patch Changes

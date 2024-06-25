@@ -82,7 +82,6 @@ customShadowlessElement(
       on(
         () => props.isExpanded,
         (isExpanded) => {
-          console.log("AccordionItem(props)", isExpanded, props.index, state);
           setState("items", props.index - 1, {
             isExpanded: isExpanded || false,
           });
