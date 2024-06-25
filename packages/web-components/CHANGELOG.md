@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.4.11
+
+### Patch Changes
+
+- Minor typo fix in package.json
+
 ## 0.4.10
 
 ### Patch Changes
