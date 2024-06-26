@@ -390,6 +390,9 @@ const StorefrontCart = (function () {
 
   return {
     cart: cartQueryData,
+    get error() {
+      return cartQuery.error;
+    },
     get status() {
       return cartQuery.status;
     },

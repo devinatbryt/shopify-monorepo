@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.5.1
+
+### Patch Changes
+
+- Attempt at bug fixing
+
 ## 0.5.0
 
 ### Minor Changes

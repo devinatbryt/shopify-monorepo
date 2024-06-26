@@ -1,5 +1,25 @@
 # @bryt-designs/predictive-search
 
+## 1.0.5
+
+### Patch Changes
+
+- Attempt at bug fixing
+- Updated dependencies
+  - @bryt-designs/storefront-client@0.5.1
+
+## 1.0.4
+
+### Patch Changes
+
+- Added logging
+
+## 1.0.3
+
+### Patch Changes
+
+- Ensure to include proper packages within vite config
+
 ## 1.0.2
 
 ### Patch Changes

@@ -11,8 +11,6 @@ import lz from "lz-string";
 
 import { persistQueryClient } from "@tanstack/solid-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
-import * as GQLClient from "@shopify/graphql-client";
-
 import { createStorefrontApiClient } from "@shopify/storefront-api-client";
 export type {
   StorefrontApiClient,
@@ -20,6 +18,7 @@ export type {
   StorefrontOperations,
   StorefrontMutations,
 } from "@shopify/storefront-api-client";
+export type * as GQLClient from "@shopify/graphql-client";
 
 export type Config = {
   accessToken: string;
@@ -49,7 +48,6 @@ export default function StorefrontClient(
     key = window?.Shopify?.storefrontConfig?.key || "storefront-client",
   }: Config = window?.Shopify?.storefrontConfig
 ) {
-  GQLClient;
   const queryClient = new QueryClient();
   const client = createStorefrontApiClient({
     publicAccessToken: accessToken,
