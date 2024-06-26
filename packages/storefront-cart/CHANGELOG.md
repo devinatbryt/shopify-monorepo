@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 1.0.1
+
+### Patch Changes
+
+- Potential bug fix with reactive cart
+
 ## 1.0.0
 
 ### Minor Changes

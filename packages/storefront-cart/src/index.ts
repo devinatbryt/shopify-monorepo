@@ -70,7 +70,6 @@ const StorefrontCart = (function () {
     },
     initialData: undefined,
     enabled: !!cartId(),
-    reconcile: JSON.stringify(getCartQueryKey()),
     throwOnError: false,
   }));
 
