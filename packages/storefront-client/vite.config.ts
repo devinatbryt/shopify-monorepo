@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
-import dts from "vite-plugin-dts";
 import pkg from "./package.json" assert { type: "json" };
+import dtsPlugin from "vite-plugin-dts";
 
 export default defineConfig({
   server: {
@@ -15,13 +15,7 @@ export default defineConfig({
       formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: [
-        "solid-js",
-        "@tanstack/solid-query",
-        "@tanstack/query-sync-storage-persister",
-        "@tanstack/solid-query-persist-client",
-        "lz-string",
-      ],
+      external: [...Object.keys(pkg.dependencies), "@shopify/graphql-client"],
       output: {
         name: "Shopify.StorefrontClient",
         // paths: (id) => {
@@ -34,7 +28,7 @@ export default defineConfig({
     },
     target: "esnext", // transpile as little as possible
   },
-  plugins: [dts()], // emit TS declaration files
+  plugins: [dtsPlugin()], // emit TS declaration files
   define: {
     "process.env.NODE_ENV": '"production"',
   },

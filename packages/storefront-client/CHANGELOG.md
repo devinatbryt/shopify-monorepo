@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.5.0
+
+### Minor Changes
+
+- New package and stable support for storefront client
+
 ## 0.4.3
 
 ### Patch Changes

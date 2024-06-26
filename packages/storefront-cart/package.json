@@ -1,5 +1,5 @@
 {
-  "name": "@bryt-designs/predictive-search",
+  "name": "@bryt-designs/storefront-cart",
   "version": "1.0.0",
   "type": "module",
   "files": [
@@ -21,14 +21,28 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@bryt-designs/storefront-client": "workspace:*"
+    "@bryt-designs/storefront-client": "workspace:*",
+    "@shopify/graphql-client": "^1.0.0",
+    "@solid-primitives/storage": "^3.7.1",
+    "@types/js-cookie": "^3.0.6",
+    "js-cookie": "^3.0.5",
+    "lodash.uniq": "^4.5.0",
+    "solid-js": "^1.8.17",
+    "zod": "^3.23.8"
   },
   "peerDependencies": {
     "@bryt-designs/storefront-client": "workspace:*"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
     "@repo/typescript-config": "workspace:*",
+    "@shopify/api-codegen-preset": "^1.0.1",
     "@shopify/hydrogen": "^2024.4.7",
-    "vite": "^5.3.1"
+    "@tanstack/solid-query": "^5.45.0",
+    "@types/lodash.uniq": "^4.5.9",
+    "graphql-config": "^5.0.3",
+    "vite": "^5.3.1",
+    "vite-plugin-graphql-codegen": "^3.3.8",
+    "vite-plugin-static-copy": "^1.0.5"
   }
 }

@@ -52,13 +52,14 @@ const StorefrontPredictiveSearch = {
 
       return {
         queryKey: [k, v, f],
-        queryFn: async ({ queryKey, signal }) => {
+        queryFn: async ({ queryKey }) => {
           const [_, variables, fragments] = queryKey;
-          const res = await client.query({
-            query: buildSuggestionQuery(fragments as string[]),
-            variables: variables as Variables,
-            signal: signal,
-          });
+          const res = await client.query(
+            buildSuggestionQuery(fragments as string[]),
+            {
+              variables: variables as Variables,
+            }
+          );
 
           return res?.data?.predictiveSearch;
         },

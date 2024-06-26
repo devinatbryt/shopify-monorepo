@@ -7,9 +7,19 @@ import {
   type DefaultError,
 } from "@tanstack/solid-query";
 
+import lz from "lz-string";
+
 import { persistQueryClient } from "@tanstack/solid-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
-import lz from "lz-string";
+import * as GQLClient from "@shopify/graphql-client";
+
+import { createStorefrontApiClient } from "@shopify/storefront-api-client";
+export type {
+  StorefrontApiClient,
+  StorefrontQueries,
+  StorefrontOperations,
+  StorefrontMutations,
+} from "@shopify/storefront-api-client";
 
 export type Config = {
   accessToken: string;
@@ -39,33 +49,13 @@ export default function StorefrontClient(
     key = window?.Shopify?.storefrontConfig?.key || "storefront-client",
   }: Config = window?.Shopify?.storefrontConfig
 ) {
+  GQLClient;
   const queryClient = new QueryClient();
-  const createQueryFn = async ({
-    query,
-    variables = {},
-    signal,
-  }: {
-    query: string;
-    variables: Record<string, any>;
-    signal: AbortSignal;
-  }) => {
-    const res = await fetch(
-      `https://${shopDomain}/api/${apiVersion}/graphql.json`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Shopify-Storefront-Access-Token": accessToken,
-          Accept: "application/json",
-        },
-        signal: signal,
-        body: JSON.stringify({ query, variables }),
-      }
-    );
-    const jsonRes = await res.json();
-    if (jsonRes?.errors) throw jsonRes.errors;
-    return jsonRes;
-  };
+  const client = createStorefrontApiClient({
+    publicAccessToken: accessToken,
+    storeDomain: shopDomain,
+    apiVersion,
+  });
 
   if (shouldPersist) {
     persistQueryClient({
@@ -80,7 +70,8 @@ export default function StorefrontClient(
   }
 
   return {
-    query: createQueryFn,
+    query: client.request,
+    queryStream: client.requestStream,
     createQuery: <
       TQueryFnData = unknown,
       TError = DefaultError,
@@ -95,8 +86,20 @@ export default function StorefrontClient(
         options,
         () => queryClient
       ),
-    createMutation: (options: Parameters<typeof createMutation>[0]) =>
-      createMutation(options, () => queryClient),
+    createMutation: <
+      TData = unknown,
+      TError = DefaultError,
+      TVariables = void,
+      TContext = unknown,
+    >(
+      options: Parameters<
+        typeof createMutation<TData, TError, TVariables, TContext>
+      >[0]
+    ) =>
+      createMutation<TData, TError, TVariables, TContext>(
+        options,
+        () => queryClient
+      ),
     createQueries: (options: Parameters<typeof createQueries>[0]) =>
       createQueries(options, () => queryClient),
     useQueryClient: () => queryClient,
