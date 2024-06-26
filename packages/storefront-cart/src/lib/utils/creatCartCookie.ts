@@ -53,7 +53,6 @@ export default function createCartCookie() {
 
   createEffect(() => {
     const id = storefrontCartId();
-    console.log(id);
     if (!id) return;
     setCartId(parseId(id));
   });

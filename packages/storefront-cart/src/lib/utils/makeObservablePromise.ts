@@ -4,15 +4,22 @@ export default async function makeObservablePromise<
   T extends any,
 >(signal: Accessor<Value>, cb: (val: Value) => T) {
   const obs = observable(signal);
-  return new Promise<T>(async (resolve, reject) => {
+
+  let sub: ReturnType<typeof obs.subscribe>;
+
+  const req = await new Promise<T>(async (resolve, reject) => {
     try {
-      const sub = obs.subscribe(async (value) => {
+      sub = obs.subscribe(async (value) => {
         if (!value) return console.warn("Waiting for value");
-        sub.unsubscribe();
-        resolve(await cb(value));
+        resolve(cb(value));
       });
     } catch (error) {
       reject(error);
     }
   });
+
+  // @ts-ignore
+  sub.unsubscribe();
+
+  return req;
 }

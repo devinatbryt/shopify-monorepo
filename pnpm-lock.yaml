@@ -85,6 +85,9 @@ importers:
       '@shopify/graphql-client':
         specifier: ^1.0.0
         version: 1.0.0
+      '@solid-primitives/resource':
+        specifier: ^0.2.0
+        version: 0.2.0(solid-js@1.8.17)
       '@solid-primitives/storage':
         specifier: ^3.7.1
         version: 3.7.1(solid-js@1.8.17)
@@ -1406,6 +1409,11 @@ packages:
   '@sindresorhus/merge-streams@2.3.0':
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
+
+  '@solid-primitives/resource@0.2.0':
+    resolution: {integrity: sha512-1aloWqlkgTTlaMIlYwSzTOHwrYtkbtyGi0hZPE92H1t1i/hAp2gIm3rBxdk87g3mDWiHcHC1Ci6tcjwW0tmOtA==}
+    peerDependencies:
+      solid-js: ^1.6.0
 
   '@solid-primitives/storage@3.7.1':
     resolution: {integrity: sha512-tAmZKQg44RjDjrtWO/5hCOrktQspn/yVV0ySb7yKr7B3CVQlTQtldw3W8UetytJSD9podb9cplvvkq75fgpB1Q==}
@@ -6250,6 +6258,10 @@ snapshots:
       '@shopify/graphql-client': 1.0.0
 
   '@sindresorhus/merge-streams@2.3.0': {}
+
+  '@solid-primitives/resource@0.2.0(solid-js@1.8.17)':
+    dependencies:
+      solid-js: 1.8.17
 
   '@solid-primitives/storage@3.7.1(solid-js@1.8.17)':
     dependencies:

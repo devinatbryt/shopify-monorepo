@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 1.0.2
+
+### Patch Changes
+
+- aggregate cart data
+
 ## 1.0.1
 
 ### Patch Changes

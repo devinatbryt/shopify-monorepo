@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/storefront-cart",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "files": [
     "dist"
@@ -23,6 +23,7 @@
   "dependencies": {
     "@bryt-designs/storefront-client": "workspace:*",
     "@shopify/graphql-client": "^1.0.0",
+    "@solid-primitives/resource": "^0.2.0",
     "@solid-primitives/storage": "^3.7.1",
     "@types/js-cookie": "^3.0.6",
     "js-cookie": "^3.0.5",
