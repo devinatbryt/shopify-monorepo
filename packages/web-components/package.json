@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -23,7 +23,7 @@
     "component-register": "^0.8.3",
     "motion": "^10.18.0",
     "solid-element": "^1.8.0",
-    "solid-js": "^1.8.17"
+    "solid-js": "^1.8.18"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",

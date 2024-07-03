@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.5.3
+
+### Patch Changes
+
+- Fixed solid-js version and fixed minor formatId bug
+
 ## 0.5.2
 
 ### Patch Changes

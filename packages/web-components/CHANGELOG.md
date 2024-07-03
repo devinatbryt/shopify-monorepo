@@ -1,5 +1,14 @@
 # @bryt-designs/web-components
 
+## 0.5.4
+
+### Patch Changes
+
+- Fixed solid-js version and fixed minor formatId bug
+- Updated dependencies
+  - @bryt-designs/storefront-client@0.5.3
+  - @bryt-designs/predictive-search@1.0.3
+
 ## 0.5.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @bryt-designs/predictive-search
 
+## 1.0.8
+
+### Patch Changes
+
+- Fixed solid-js version and fixed minor formatId bug
+- Updated dependencies
+  - @bryt-designs/storefront-client@0.5.3
+
 ## 1.0.7
 
 ### Patch Changes

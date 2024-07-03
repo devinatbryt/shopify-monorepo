@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const inputSchema = z.number().or(z.string().regex(/^\d+$/));
+const inputSchema = z.number().or(z.string());
 
 const resource = z.enum([
   "Cart",
