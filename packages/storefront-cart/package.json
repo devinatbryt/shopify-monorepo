@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/storefront-cart",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "type": "module",
   "files": [
     "dist"
@@ -36,6 +36,7 @@
     "@repo/typescript-config": "workspace:*",
     "@shopify/api-codegen-preset": "^1.0.1",
     "@shopify/hydrogen": "^2024.4.7",
+    "@tanstack/solid-query": "^5.45.0",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash.uniq": "^4.5.9",
     "graphql-config": "^5.0.3",

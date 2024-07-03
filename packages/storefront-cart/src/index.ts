@@ -140,9 +140,6 @@ const StorefrontCart = (function () {
         return req.data.cartLinesAdd.cart;
       });
     },
-    onSuccess(data) {
-      setCartData(() => convertCartStructToREST(data));
-    },
     onSettled: () => {
       invalidateCartQuery();
     },
@@ -189,9 +186,6 @@ const StorefrontCart = (function () {
     onError: (_, __, context) => {
       if (!context?.previousCart) return;
       setCartData(() => context.previousCart);
-    },
-    onSuccess: (data) => {
-      setCartData(() => convertCartStructToREST(data));
     },
     onSettled: () => {
       invalidateCartQuery();
@@ -259,9 +253,6 @@ const StorefrontCart = (function () {
       if (!context?.previousCart) return;
       setCartData(() => context.previousCart);
     },
-    onSuccess: (data) => {
-      setCartData(() => convertCartStructToREST(data));
-    },
     onSettled: () => {
       invalidateCartQuery();
     },
@@ -301,9 +292,6 @@ const StorefrontCart = (function () {
     onError: (_, __, context) => {
       if (!context?.previousCart) return;
       setCartData(() => context.previousCart);
-    },
-    onSuccess: (data) => {
-      setCartData(() => convertCartStructToREST(data));
     },
     onSettled: () => {
       invalidateCartQuery();

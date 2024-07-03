@@ -144,27 +144,25 @@ export const createCartMutation = `#graphql
     mutation createCart($input: CartInput) {
       cartCreate(input:$input) {
         cart {
-          ...CartFragment
+          id
         }
       }
     }
-    ${cartFragment}
 `;
 
 export const getCartIdQuery = `#graphql
     query getCartId($id: ID!) {
         cart(id: $id) {
-            ...CartFragment
+          id
         }
     }
-    ${cartFragment}
 `;
 
 export const addItemsToCartMutation = `#graphql
     mutation addItemsToCart($id: ID!, $lines: [CartLineInput!]!) {
       cartLinesAdd(cartId: $id, lines: $lines) {
         cart {
-          ...CartFragment
+          id
         }
         userErrors {
           field
@@ -172,14 +170,13 @@ export const addItemsToCartMutation = `#graphql
         }
       }
     }
-    ${cartFragment}
 `;
 
 export const removeItemsFromCartMutation = `#graphql
     mutation removeFromCart($id: ID!, $lineIds: [ID!]!) {
       cartLinesRemove(cartId: $id, lineIds: $lineIds) {
         cart {
-          ...CartFragment
+          id
         }
         userErrors {
           field
@@ -187,14 +184,13 @@ export const removeItemsFromCartMutation = `#graphql
         }
       }
     }
-    ${cartFragment}
 `;
 
 export const updateItemsInCartMutation = `#graphql
     mutation updateCartLines($id: ID!, $lines: [CartLineUpdateInput!]!) {
       cartLinesUpdate(cartId: $id, lines: $lines) {
         cart {
-          ...CartFragment
+          id
         }
         userErrors {
           field
@@ -202,7 +198,6 @@ export const updateItemsInCartMutation = `#graphql
         }
       }
     }
-    ${cartFragment}
 `;
 
 export const updateCartNoteMutation = `#graphql
@@ -224,7 +219,11 @@ export const updateCartDiscountCodesMutation = `#graphql
     mutation updateCartDiscounts($id: ID!, $discountCodes: [String!]) {
       cartDiscountCodesUpdate(cartId: $id, discountCodes: $discountCodes) {
         cart {
-          ...CartFragment
+          id
+          discountCodes {
+            code
+            applicable
+          }
         }
         userErrors {
           field
@@ -232,7 +231,6 @@ export const updateCartDiscountCodesMutation = `#graphql
         }
       }
     }
-    ${cartFragment}
 `;
 
 export const getCartQuery = `#graphql

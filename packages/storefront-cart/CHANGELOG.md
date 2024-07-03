@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 1.0.9
+
+### Patch Changes
+
+- Minor performance fixes
+
 ## 1.0.8
 
 ### Patch Changes
