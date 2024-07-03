@@ -7,7 +7,6 @@ import uniq from "lodash.uniq";
 import Cookies from "js-cookie";
 import { createEffect, createSignal, observable, on } from "solid-js";
 import { unwrap } from "solid-js/store";
-import { createAggregated } from "@solid-primitives/resource";
 import { makePersisted } from "@solid-primitives/storage";
 
 import client from "./lib/client";
@@ -90,7 +89,6 @@ const StorefrontCart = (function () {
     return () => observer.subscribe(cb).unsubscribe;
   }
 
-  const cartQueryData = createAggregated(() => unwrap(cartQuery.data));
   const getCartData = () =>
     queryClient.getQueryData<CartData>(getCartQueryKey());
   const setCartData = (cb: (data: CartData) => CartData) =>
@@ -397,7 +395,10 @@ const StorefrontCart = (function () {
   }));
 
   return {
-    cart: cartQueryData,
+    cart() {
+      cartQuery.isLoading;
+      return cartQuery.data;
+    },
     get error() {
       return cartQuery.error;
     },
@@ -488,7 +489,7 @@ const StorefrontCart = (function () {
 })();
 
 if (window.Shopify.storefrontConfig.debug) {
-  createEffect(on(StorefrontCart.cart, (cart) => console.log(cart)));
+  createEffect(on(StorefrontCart.cart, (cart) => console.log(unwrap(cart))));
 }
 
 export default StorefrontCart;

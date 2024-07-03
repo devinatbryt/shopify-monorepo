@@ -82,18 +82,9 @@ importers:
       '@bryt-designs/storefront-client':
         specifier: workspace:*
         version: link:../storefront-client
-      '@shopify/graphql-client':
-        specifier: ^1.0.0
-        version: 1.0.0
-      '@solid-primitives/resource':
-        specifier: ^0.2.0
-        version: 0.2.0(solid-js@1.8.17)
       '@solid-primitives/storage':
         specifier: ^3.7.1
         version: 3.7.1(solid-js@1.8.17)
-      '@types/js-cookie':
-        specifier: ^3.0.6
-        version: 3.0.6
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -122,6 +113,9 @@ importers:
       '@tanstack/solid-query':
         specifier: ^5.45.0
         version: 5.45.0(solid-js@1.8.17)
+      '@types/js-cookie':
+        specifier: ^3.0.6
+        version: 3.0.6
       '@types/lodash.uniq':
         specifier: ^4.5.9
         version: 4.5.9
@@ -1370,9 +1364,6 @@ packages:
   '@shopify/api-codegen-preset@1.0.1':
     resolution: {integrity: sha512-mFge//KVgdhzpliF/GBTwhFPciu2tqKf3zlJHPA+hYwksqqTXqUG8VOFJ96Hjt/kuYExgyF5EjJP4nFTL5C+pA==}
 
-  '@shopify/graphql-client@1.0.0':
-    resolution: {integrity: sha512-K3F13BK6dB17yJASRE9Oyn7Etpj58R3cOwzFHB06yCLhWLGcI7JllK+HxZQTgtA3wbLonG3yxt5ns6XNKitphw==}
-
   '@shopify/graphql-codegen@0.1.0':
     resolution: {integrity: sha512-G3sSesLj7Czt/J2Bj+XlQ8u4pkfQEt32hsjoS3UGZlf1eAiVw0aBBddp+NI5HqBAi0gM/f7GLRAhG3kktPhZmA==}
     engines: {node: '>=18'}
@@ -1400,11 +1391,6 @@ packages:
   '@sindresorhus/merge-streams@2.3.0':
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
     engines: {node: '>=18'}
-
-  '@solid-primitives/resource@0.2.0':
-    resolution: {integrity: sha512-1aloWqlkgTTlaMIlYwSzTOHwrYtkbtyGi0hZPE92H1t1i/hAp2gIm3rBxdk87g3mDWiHcHC1Ci6tcjwW0tmOtA==}
-    peerDependencies:
-      solid-js: ^1.6.0
 
   '@solid-primitives/storage@3.7.1':
     resolution: {integrity: sha512-tAmZKQg44RjDjrtWO/5hCOrktQspn/yVV0ySb7yKr7B3CVQlTQtldw3W8UetytJSD9podb9cplvvkq75fgpB1Q==}
@@ -6199,8 +6185,6 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@shopify/graphql-client@1.0.0': {}
-
   '@shopify/graphql-codegen@0.1.0(encoding@0.1.13)(graphql@16.9.0)':
     dependencies:
       '@graphql-codegen/add': 5.0.3(graphql@16.9.0)
@@ -6245,10 +6229,6 @@ snapshots:
       - xstate
 
   '@sindresorhus/merge-streams@2.3.0': {}
-
-  '@solid-primitives/resource@0.2.0(solid-js@1.8.17)':
-    dependencies:
-      solid-js: 1.8.17
 
   '@solid-primitives/storage@3.7.1(solid-js@1.8.17)':
     dependencies:
