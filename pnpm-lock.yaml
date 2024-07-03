@@ -140,9 +140,6 @@ importers:
 
   packages/storefront-client:
     dependencies:
-      '@shopify/storefront-api-client':
-        specifier: ^1.0.0
-        version: 1.0.0
       '@tanstack/query-sync-storage-persister':
         specifier: ^5.45.0
         version: 5.45.0
@@ -162,9 +159,6 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
-      '@shopify/graphql-client':
-        specifier: ^1.0.0
-        version: 1.0.0
       vite:
         specifier: ^5.3.1
         version: 5.3.1(@types/node@20.14.8)(terser@5.31.1)
@@ -1402,9 +1396,6 @@ packages:
     peerDependenciesMeta:
       vite:
         optional: true
-
-  '@shopify/storefront-api-client@1.0.0':
-    resolution: {integrity: sha512-TAyCsD+d/Fiwek3YM1/60pXpQTUUX99DM3HpcIed09By5/rAQbQhYWwf9rZDBIJnGXqS/fl3VO4Tqp+173tocw==}
 
   '@sindresorhus/merge-streams@2.3.0':
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
@@ -6252,10 +6243,6 @@ snapshots:
       - '@types/react'
       - react-dom
       - xstate
-
-  '@shopify/storefront-api-client@1.0.0':
-    dependencies:
-      '@shopify/graphql-client': 1.0.0
 
   '@sindresorhus/merge-streams@2.3.0': {}
 

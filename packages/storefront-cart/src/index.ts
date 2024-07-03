@@ -57,11 +57,13 @@ const StorefrontCart = (function () {
 
   const cartQuery = client.createQuery(() => ({
     queryKey: getCartQueryKey(),
-    queryFn: async ({ queryKey }) => {
+    queryFn: async ({ queryKey, signal }) => {
       const [_, variables] = queryKey;
 
-      let res = await client.query(getCartQuery, {
+      let res = await client.query({
+        query: getCartQuery,
         variables,
+        signal,
       });
 
       if (!res?.data?.cart) {
@@ -126,7 +128,8 @@ const StorefrontCart = (function () {
           : undefined,
       }));
       return makeObservablePromise(cartId, async (cartId) => {
-        const req = await client.query(addItemsToCartMutationGQL, {
+        const req = await client.query({
+          query: addItemsToCartMutationGQL,
           variables: {
             id: cartId,
             lines,
@@ -151,7 +154,8 @@ const StorefrontCart = (function () {
     mutationFn: async (lineIds: string[]) => {
       lineIds = lineIds.map((id) => formatId(id, "CartLine"));
       return makeObservablePromise(cartId, async (cartId) => {
-        const req = await client.query(removeItemsFromCartMutationGQL, {
+        const req = await client.query({
+          query: removeItemsFromCartMutationGQL,
           variables: {
             id: cartId,
             lineIds,
@@ -210,7 +214,8 @@ const StorefrontCart = (function () {
           : undefined,
       }));
       return makeObservablePromise(cartId, async (cartId) => {
-        const req = await client.query(updateItemsInCartMutationGQL, {
+        const req = await client.query({
+          query: updateItemsInCartMutationGQL,
           variables: {
             id: cartId,
             lines: newLines,
@@ -267,7 +272,8 @@ const StorefrontCart = (function () {
   const updateCartNoteMutation = client.createMutation(() => ({
     mutationFn: async (note: string) => {
       return makeObservablePromise(cartId, async (cartId) => {
-        const req = await client.query(updateCartNoteMutationGQL, {
+        const req = await client.query({
+          query: updateCartNoteMutationGQL,
           variables: {
             id: cartId,
             note,
@@ -310,7 +316,8 @@ const StorefrontCart = (function () {
     mutationFn: async (discountCode: string) => {
       const codes = uniq([...discounts(), discountCode]);
       const cart = await makeObservablePromise(cartId, async (cartId) => {
-        const req = await client.query(updateCartDiscountCodesMutationGQL, {
+        const req = await client.query({
+          query: updateCartDiscountCodesMutationGQL,
           variables: {
             id: cartId,
             discountCodes: codes,
@@ -344,7 +351,8 @@ const StorefrontCart = (function () {
     mutationFn: async (discountCode: string) => {
       const codes = discounts().filter((code) => code !== discountCode);
       return makeObservablePromise(cartId, async (cartId) => {
-        const req = await client.query(updateCartDiscountCodesMutationGQL, {
+        const req = await client.query({
+          query: updateCartDiscountCodesMutationGQL,
           variables: {
             id: cartId,
             discountCodes: codes,
@@ -479,7 +487,9 @@ const StorefrontCart = (function () {
   };
 })();
 
-createEffect(on(StorefrontCart.cart, (cart) => console.log(cart)));
+if (window.Shopify.storefrontConfig.debug) {
+  createEffect(on(StorefrontCart.cart, (cart) => console.log(cart)));
+}
 
 export default StorefrontCart;
 

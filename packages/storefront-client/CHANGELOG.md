@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.5.2
+
+### Patch Changes
+
+- Big rewrite to hopefully patch/fix bugs
+
 ## 0.5.1
 
 ### Patch Changes

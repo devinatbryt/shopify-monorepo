@@ -1,3 +1,5 @@
+import type { CreateQueryFnOptions, StorefrontOperations } from "./lib/types";
+
 import {
   QueryClient,
   createQuery,
@@ -6,19 +8,17 @@ import {
   type QueryKey,
   type DefaultError,
 } from "@tanstack/solid-query";
-
 import lz from "lz-string";
 
 import { persistQueryClient } from "@tanstack/solid-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
-import { createStorefrontApiClient } from "@shopify/storefront-api-client";
+import { processJSONResponse } from "./lib/utilities";
+
 export type {
-  StorefrontApiClient,
-  StorefrontQueries,
   StorefrontOperations,
+  StorefrontQueries,
   StorefrontMutations,
-} from "@shopify/storefront-api-client";
-export type * as GQLClient from "@shopify/graphql-client";
+} from "./lib/types";
 
 export type Config = {
   accessToken: string;
@@ -26,6 +26,7 @@ export type Config = {
   apiVersion: string;
   shouldPersist?: boolean;
   key?: string;
+  debug?: boolean;
 };
 
 // @ts-ignore
@@ -48,12 +49,29 @@ export default function StorefrontClient(
     key = window?.Shopify?.storefrontConfig?.key || "storefront-client",
   }: Config = window?.Shopify?.storefrontConfig
 ) {
+  const createQueryFn = async <QueryString extends string>({
+    query,
+    variables,
+    signal,
+  }: CreateQueryFnOptions<QueryString>) => {
+    type ReturnData = StorefrontOperations[QueryString]["return"];
+    const res = await fetch(
+      `https://${shopDomain}/api/${apiVersion}/graphql.json`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Storefront-Access-Token": accessToken,
+          Accept: "application/json",
+        },
+        signal: signal,
+        body: JSON.stringify({ query, variables }),
+      }
+    );
+    return processJSONResponse<ReturnData>(res);
+  };
+
   const queryClient = new QueryClient();
-  const client = createStorefrontApiClient({
-    publicAccessToken: accessToken,
-    storeDomain: shopDomain,
-    apiVersion,
-  });
 
   if (shouldPersist) {
     persistQueryClient({
@@ -68,8 +86,7 @@ export default function StorefrontClient(
   }
 
   return {
-    query: client.request,
-    queryStream: client.requestStream,
+    query: createQueryFn,
     createQuery: <
       TQueryFnData = unknown,
       TError = DefaultError,

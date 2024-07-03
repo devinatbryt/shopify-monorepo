@@ -41,25 +41,18 @@ const StorefrontPredictiveSearch = {
   ) => {
     return client.createQuery(() => {
       const k = typeof key === "function" ? key() : key,
-        f = typeof fragments === "function" ? fragments() : fragments;
-
-      let v = typeof variables === "function" ? variables() : variables;
-
-      v = {
-        ...v,
-        query: v?.query || "",
-      };
+        f = typeof fragments === "function" ? fragments() : fragments,
+        v = typeof variables === "function" ? variables() : variables;
 
       return {
         queryKey: [k, v, f],
-        queryFn: async ({ queryKey }) => {
+        queryFn: async ({ queryKey, signal }) => {
           const [_, variables, fragments] = queryKey;
-          const res = await client.query(
-            buildSuggestionQuery(fragments as string[]),
-            {
-              variables: variables as Variables,
-            }
-          );
+          const res = await client.query({
+            query: buildSuggestionQuery(fragments as string[]),
+            variables,
+            signal,
+          });
 
           return res?.data?.predictiveSearch;
         },
