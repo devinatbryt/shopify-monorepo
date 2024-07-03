@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 1.0.7
+
+### Patch Changes
+
+- f82c1da: Minor reactive bug fix for storefront cart.
+
 ## 1.0.6
 
 ### Patch Changes
