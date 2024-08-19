@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.5.4
+
+### Patch Changes
+
+- Brought over new "gnav-header" web component
+
 ## 0.5.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -15,6 +15,11 @@
       "import": "./dist/accordion-block/index.js",
       "module": "./dist/accordion-block/index.cjs",
       "types": "./src/accordion-block/index.d.ts"
+    },
+    "./gnav-header": {
+      "import": "./dist/gnav-header/index.js",
+      "module": "./dist/gnav-header/index.cjs",
+      "types": "./src/gnav-header/index.d.ts"
     }
   },
   "dependencies": {
@@ -23,7 +28,8 @@
     "component-register": "^0.8.3",
     "motion": "^10.18.0",
     "solid-element": "^1.8.0",
-    "solid-js": "^1.8.18"
+    "solid-js": "^1.8.18",
+    "stickybits": "^3.7.11"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",

@@ -49,15 +49,40 @@
       };
     </script>
   </head>
+  <style>
+    gnav-header {
+      position: sticky;
+      display: block;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    gnav-header gnav-header-section {
+      pointer-events: all;
+    }
+
+    gnav-header-section {
+      padding: 1rem;
+      display: block;
+      border-bottom: 1px solid lightgray;
+    }
+
+    body {
+      height: 500vh;
+      margin: 0;
+      box-sizing: border-box;
+    }
+  </style>
   <body>
-    <accordion-block>
-      <accordion-item>
-        <accordion-trigger>
-          <button>Test</button>
-        </accordion-trigger>
-        <accordion-content> Hello world! </accordion-content>
-      </accordion-item>
-    </accordion-block>
-    <script src="./src/predictive-search/index.ts" type="module"></script>
+    <gnav-header>
+      <gnav-header-section hide-on-trigger style="background: beige"
+        >Banner!</gnav-header-section
+      >
+      <gnav-header-section>Hello</gnav-header-section>
+    </gnav-header>
+    <script type="module" src="./src/gnav-header/index.ts"></script>
   </body>
 </html>

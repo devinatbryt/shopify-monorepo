@@ -1,5 +1,14 @@
 # @bryt-designs/web-components
 
+## 0.5.5
+
+### Patch Changes
+
+- Brought over new "gnav-header" web component
+- Updated dependencies
+  - @bryt-designs/storefront-client@0.5.4
+  - @bryt-designs/predictive-search@1.0.4
+
 ## 0.5.4
 
 ### Patch Changes

@@ -40,6 +40,8 @@ if (import.meta.env.MODE === "development") {
   };
 }
 
+// Port over custom solid-query integration for better performance
+
 export default function StorefrontClient(
   {
     accessToken = window.Shopify?.storefrontConfig?.accessToken,

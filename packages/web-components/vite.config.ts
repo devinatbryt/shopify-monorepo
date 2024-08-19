@@ -18,6 +18,7 @@ export default defineConfig({
           rootDir,
           "src/accordion-block/index.ts"
         ),
+        "gnav-header/index": resolve(rootDir, "src/gnav-header/index.ts"),
       },
       formats: ["es", "cjs"],
     },
