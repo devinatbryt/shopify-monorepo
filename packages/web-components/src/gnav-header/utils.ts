@@ -39,5 +39,8 @@ export function updateCssVar(
   varName: keyof typeof CSSVars,
   amount: number | string
 ) {
-  document.documentElement.style.setProperty(`--${varName}`, `${amount}px`);
+  document.documentElement.style.setProperty(
+    `--${CSSVars[varName]}`,
+    `${amount}px`
+  );
 }

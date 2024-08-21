@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.5.6
+
+### Patch Changes
+
+- Minor bug fix for css variables
+
 ## 0.5.5
 
 ### Patch Changes
