@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.5.8
+
+### Patch Changes
+
+- Minor css var naming fix
+
 ## 0.5.7
 
 ### Patch Changes
