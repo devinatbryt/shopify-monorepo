@@ -3,7 +3,7 @@ import stickybits from "stickybits";
 import { onCleanup, createEffect, createSignal, on, onMount } from "solid-js";
 import { animate } from "motion";
 
-import { debounce, groupBy, updateCssVar } from "./utils";
+import { debounce, getCssVarValue, groupBy, updateCssVar } from "./utils";
 import { createQueueable } from "../hooks";
 import { customShadowlessElement } from "../utils/solid-element";
 
@@ -95,25 +95,27 @@ customShadowlessElement(
       }, 0);
     }
 
+    function getGroupedSections(sections: NodeListOf<HTMLElement>) {
+      return groupBy(Array.from(sections), (elem: HTMLElement, i) => {
+        const isHidden = shouldHideSectionOnTrigger(elem);
+        elem.setAttribute("position", `${i + 1}`);
+        if (isHidden) return "hidden";
+        return "visible";
+      });
+    }
+
     function handleScrollDownAnimation() {
       const animations = [];
-      const groupedSections = groupBy(
-        Array.from(sections),
-        (elem: HTMLElement, i) => {
-          const isHidden = shouldHideSectionOnTrigger(elem);
-          elem.setAttribute("position", `${i + 1}`);
-          if (isHidden) return "hidden";
-          return "visible";
-        }
-      );
+      const groupedSections = getGroupedSections(sections);
 
       if (!groupedSections?.hidden) groupedSections.hidden = [];
+      if (!groupedSections?.visible) groupedSections.visible = [];
 
       let offset = groupedSections.hidden.reduce((total, el) => {
         return total + el.getBoundingClientRect().height;
       }, 0);
 
-      groupedSections.hidden?.forEach((section) => {
+      groupedSections.hidden.forEach((section) => {
         const bounding = section.getBoundingClientRect();
         const animation = animate(section, {
           y: `${(section.offsetTop + offset) * -1}px`,
@@ -124,7 +126,7 @@ customShadowlessElement(
 
       offset = 0;
 
-      groupedSections.visible?.forEach((section) => {
+      groupedSections.visible.forEach((section) => {
         const bounding = section.getBoundingClientRect();
         const animation = animate(section, {
           y: `${offset - section.offsetTop}px`,
@@ -142,25 +144,35 @@ customShadowlessElement(
     }
 
     function handleScrollUpAnimation() {
-      updateCssVar("stickyHeaderHeight", element.offsetHeight);
+      updateCssVar(
+        "stickyHeaderHeight",
+        element.getBoundingClientRect().height
+      );
       return Promise.allSettled([
         animate(sections, {
           y: "0px",
         }).finished,
-        animateStickyHeaderTop().finished,
+        animateStickyHeaderTop(false).finished,
       ]);
     }
 
-    function animateStickyHeaderTop() {
-      return animate(async () => {
-        const calculatedTop = Array.from(sections).reduce((total, section) => {
-          const isHidden = shouldHideSectionOnTrigger(section);
-          if (isHidden) return total;
-          const rect = section.getBoundingClientRect();
-          return total + rect.top + rect.height;
-        }, 0);
+    function animateStickyHeaderTop(isScrollingDown = true) {
+      let stickyHeaderTop = getCssVarValue("stickyHeaderTop");
 
-        updateCssVar("stickyHeaderTop", calculatedTop);
+      if (!stickyHeaderTop)
+        stickyHeaderTop = `${isScrollingDown ? element.offsetHeight : getCollapsedHeaderHeight()}`;
+
+      const from = parseFloat(stickyHeaderTop);
+      let difference = 0;
+
+      if (isScrollingDown) difference = from - getCollapsedHeaderHeight();
+      else difference = element.getBoundingClientRect().height - from;
+
+      return animate((progress) => {
+        let newValue = 0;
+        if (isScrollingDown) newValue = from - difference * progress;
+        else newValue = from + difference * progress;
+        updateCssVar("stickyHeaderTop", newValue);
       });
     }
   }

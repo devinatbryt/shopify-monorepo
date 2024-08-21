@@ -1,5 +1,12 @@
 # @bryt-designs/web-components
 
+## 0.5.9
+
+### Patch Changes
+
+- Correctly implemented how the sticky header top css variable is animated
+- Adjust sticky header height value to use exact height
+
 ## 0.5.8
 
 ### Patch Changes

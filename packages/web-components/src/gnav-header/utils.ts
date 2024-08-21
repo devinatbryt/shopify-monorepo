@@ -41,3 +41,9 @@ export function updateCssVar(
 ) {
   document.documentElement.style.setProperty(CSSVars[varName], `${amount}px`);
 }
+
+export function getCssVarValue(varName: keyof typeof CSSVars) {
+  return getComputedStyle(document.documentElement).getPropertyValue(
+    CSSVars[varName]
+  );
+}
