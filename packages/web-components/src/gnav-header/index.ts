@@ -113,7 +113,7 @@ customShadowlessElement(
         return total + el.getBoundingClientRect().height;
       }, 0);
 
-      groupedSections.hidden.forEach((section) => {
+      groupedSections.hidden?.forEach((section) => {
         const bounding = section.getBoundingClientRect();
         const animation = animate(section, {
           y: `${(section.offsetTop + offset) * -1}px`,
@@ -124,7 +124,7 @@ customShadowlessElement(
 
       offset = 0;
 
-      groupedSections.visible.forEach((section) => {
+      groupedSections.visible?.forEach((section) => {
         const bounding = section.getBoundingClientRect();
         const animation = animate(section, {
           y: `${offset - section.offsetTop}px`,

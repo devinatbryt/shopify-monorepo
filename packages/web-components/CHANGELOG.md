@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.5.7
+
+### Patch Changes
+
+- Minor bug fix to ensure no errors occur when there are no visible sections
+
 ## 0.5.6
 
 ### Patch Changes
