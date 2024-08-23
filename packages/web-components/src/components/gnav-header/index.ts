@@ -4,8 +4,8 @@ import { onCleanup, createEffect, createSignal, on, onMount } from "solid-js";
 import { animate } from "motion";
 
 import { debounce, getCssVarValue, groupBy, updateCssVar } from "./utils";
-import { createQueueable } from "../hooks";
-import { customShadowlessElement } from "../utils/solid-element";
+import { createQueueable } from "../../hooks";
+import { customShadowlessElement } from "../../utils/solid-element";
 
 customShadowlessElement(
   "gnav-header",

@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.6.1
+
+### Patch Changes
+
+- Minor repo bug fix
+
 ## 0.6.0
 
 ### Minor Changes
