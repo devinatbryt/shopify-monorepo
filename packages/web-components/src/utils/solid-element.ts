@@ -8,9 +8,17 @@ import {
   noShadowDOM,
   compose,
 } from "component-register";
-export type ComponentType<T> = mComponentType<T>;
 import { createRoot, createSignal } from "solid-js";
 import { insert } from "solid-js/web";
+
+export type ComponentType<T> = mComponentType<T>;
+
+type CorrectComponentOptions = { element: HTMLElement & ICustomElement };
+
+export type CorrectComponentType<T> = (
+  props: T,
+  options: CorrectComponentOptions
+) => unknown;
 
 function createProps<T extends object>(raw: T) {
   const keys = Object.keys(raw) as (keyof T)[];
@@ -117,4 +125,12 @@ function customShadowlessElement<T extends object>(
   )(Component);
 }
 
-export { customElement, customShadowlessElement };
+const correctElementType = <T>(
+  component: CorrectComponentType<T>
+): ComponentType<T> => {
+  return (props: T, options) => {
+    return component(props, options as CorrectComponentOptions);
+  };
+};
+
+export { customElement, customShadowlessElement, correctElementType };

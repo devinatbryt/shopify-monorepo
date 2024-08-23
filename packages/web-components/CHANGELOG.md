@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.7.0
+
+### Minor Changes
+
+- Ported over and updated how drawer component works
+
 ## 0.6.1
 
 ### Patch Changes

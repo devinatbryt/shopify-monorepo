@@ -13,20 +13,32 @@ export default defineConfig({
   build: {
     lib: {
       name: "WebComponents",
-      entry: {
-        "accordion-block/index": resolve(
-          rootDir,
-          "src/components/accordion-block/index.ts"
-        ),
-        "gnav-header/index": resolve(
-          rootDir,
-          "src/components/gnav-header/index.ts"
-        ),
-        "element-portal/index": resolve(
-          rootDir,
-          "src/components/element-portal/index.ts"
-        ),
-      },
+      entry: Object.keys(pkg.exports).reduce(
+        (entries, key) => {
+          const name = key.replace("./", "");
+          entries[`${name}/index`] = resolve(
+            rootDir,
+            `src/components/${name}/index.ts`
+          );
+          return entries;
+        },
+        {} as Record<string, string>
+      ),
+      // entry: {
+      //   "accordion-block/index": resolve(
+      //     rootDir,
+      //     "src/components/accordion-block/index.ts"
+      //   ),
+      //   "gnav-header/index": resolve(
+      //     rootDir,
+      //     "src/components/gnav-header/index.ts"
+      //   ),
+      //   "element-portal/index": resolve(
+      //     rootDir,
+      //     "src/components/element-portal/index.ts"
+      //   ),
+      //   "drawer/index": resolve(rootDir, "src/components/drawer/index.ts"),
+      // },
       formats: ["es", "cjs"],
     },
     rollupOptions: {

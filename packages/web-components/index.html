@@ -84,6 +84,14 @@
       <gnav-header-section hide-on-trigger>Hello</gnav-header-section>
       <gnav-header-section hide-on-trigger>Hello</gnav-header-section>
     </gnav-header>
-    <script type="module" src="./src/gnav-header/index.ts"></script>
+    <drawer-trigger target="#test" action="toggle" on="click">
+      <button>Open me</button>
+    </drawer-trigger>
+    <drawer-context is-open="true" id="test">
+      <drawer-backdrop></drawer-backdrop>
+      <drawer-content> Hello world </drawer-content>
+    </drawer-context>
+    <script type="module" src="./src/components/gnav-header/index.ts"></script>
+    <script type="module" src="./src/components/drawer/index.ts"></script>
   </body>
 </html>

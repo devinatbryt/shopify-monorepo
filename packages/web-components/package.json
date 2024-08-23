@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -20,13 +20,27 @@
       "import": "./dist/gnav-header/index.js",
       "module": "./dist/gnav-header/index.cjs",
       "types": "./src/gnav-header/index.d.ts"
+    },
+    "./element-portal": {
+      "import": "./dist/element-portal/index.js",
+      "module": "./dist/element-portal/index.cjs",
+      "types": "./src/element-portal/index.d.ts"
+    },
+    "./drawer": {
+      "import": "./dist/drawer/index.js",
+      "module": "./dist/drawer/index.cjs",
+      "types": "./src/drawer/index.d.ts"
     }
   },
   "dependencies": {
     "@bryt-designs/predictive-search": "workspace:*",
     "@bryt-designs/storefront-client": "workspace:*",
+    "@solid-primitives/event-listener": "^2.3.3",
+    "body-scroll-lock-upgrade": "^1.1.0",
     "component-register": "^0.8.3",
+    "focus-trap": "^7.5.4",
     "motion": "^10.18.0",
+    "observe-element-in-viewport": "^0.0.15",
     "solid-element": "^1.8.0",
     "solid-js": "^1.8.18",
     "stickybits": "^3.7.11"
