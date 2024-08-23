@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.6.0
+
+### Minor Changes
+
+- New web component: "element-portal" allows you to portal an element to somewhere else
+
 ## 0.5.9
 
 ### Patch Changes

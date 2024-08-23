@@ -16,9 +16,16 @@ export default defineConfig({
       entry: {
         "accordion-block/index": resolve(
           rootDir,
-          "src/accordion-block/index.ts"
+          "src/components/accordion-block/index.ts"
         ),
-        "gnav-header/index": resolve(rootDir, "src/gnav-header/index.ts"),
+        "gnav-header/index": resolve(
+          rootDir,
+          "src/components/gnav-header/index.ts"
+        ),
+        "element-portal/index": resolve(
+          rootDir,
+          "src/components/element-portal/index.ts"
+        ),
       },
       formats: ["es", "cjs"],
     },

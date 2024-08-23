@@ -15,8 +15,8 @@ import {
 } from "component-register";
 import { animate } from "motion";
 
-import { customShadowlessElement } from "../utils/solid-element";
-import isCustomElement from "../utils/isCustomElement";
+import { customShadowlessElement } from "../../utils/solid-element";
+import isCustomElement from "../../utils/isCustomElement";
 // Context
 const AccordionContext = createContext(
   (state = { activeIndex: -1, isAnimating: false, items: [] }) => {
