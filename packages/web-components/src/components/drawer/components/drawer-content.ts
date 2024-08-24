@@ -1,5 +1,5 @@
-import { createSignal, createRenderEffect, on, onCleanup } from "solid-js";
 import type { CorrectComponentType } from "../../../utils/solid-element";
+import { createRenderEffect, on, onCleanup } from "solid-js";
 import { useDrawer } from "../hooks/useDrawer";
 import { getSpringConfig, convertPositionToTranslate } from "../utils";
 import { animate, spring } from "motion";
