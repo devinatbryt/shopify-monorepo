@@ -12,13 +12,12 @@ const DrawerBackdrop: CorrectComponentType<DrawerBackdropProps> = (
   { element }
 ) => {
   const [state, { updateAnimationQueue, close }] = useDrawer(element);
-  const [firstRender, setFirstRender] = createSignal(true);
 
   createRenderEffect(
     on(
       () => state.isOpen,
       (isOpen) => {
-        if (!isOpen || firstRender()) return;
+        if (!isOpen) return;
         const cleanup = enter(element);
         updateAnimationQueue(cleanup.finished);
         return onCleanup(cleanup.finish);
@@ -30,7 +29,7 @@ const DrawerBackdrop: CorrectComponentType<DrawerBackdropProps> = (
     on(
       () => state.isOpen,
       (isOpen) => {
-        if (isOpen || firstRender()) return;
+        if (isOpen) return;
         const cleanup = exit(element);
         updateAnimationQueue(cleanup.finished);
         return onCleanup(cleanup.finish);
@@ -61,8 +60,6 @@ const DrawerBackdrop: CorrectComponentType<DrawerBackdropProps> = (
   }
 
   createEventListener(element, "click", close);
-
-  setFirstRender(false);
 };
 
 export default DrawerBackdrop;

@@ -1,10 +1,5 @@
 import type { Easing } from "motion";
-import {
-  type Action,
-  type Position,
-  EVENT_NAMESPACE,
-  POSITION,
-} from "./consts";
+import { type Position, POSITION } from "./consts";
 
 export function hideElement<T extends HTMLElement>(element: T) {
   element.style.display = "none";
@@ -45,19 +40,6 @@ export function getSpringConfig<T extends HTMLElement>(element: T) {
     },
   };
 }
-
-export type EventName = `${typeof EVENT_NAMESPACE}:${string}`;
-
-export type EventMap = {
-  [eventName in EventName]: CustomEvent<{
-    action: Action;
-    currentTarget: HTMLElement;
-    relatedTarget: HTMLElement;
-  }>;
-};
-
-export const eventNameFromId = (props: { id: string }): EventName =>
-  `${EVENT_NAMESPACE}:${props.id}` as const;
 
 export function convertPositionToTranslate(position: Position) {
   if (position === POSITION.TOP || position === POSITION.BOTTOM)

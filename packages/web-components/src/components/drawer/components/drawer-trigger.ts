@@ -4,8 +4,8 @@ import type { Action } from "../consts";
 import { createEffect, on, onCleanup } from "solid-js";
 
 import { observeElementInViewport } from "observe-element-in-viewport";
-import { eventNameFromId } from "../utils";
 import { makeEventListener } from "@solid-primitives/event-listener";
+import { getDrawerContext } from "../hooks/useDrawer";
 
 type DrawerTriggerProps = {
   target?: string;
@@ -32,19 +32,29 @@ const DrawerTrigger: CorrectComponentType<DrawerTriggerProps> = (
     );
   if (!props.on) return console.warn("DrawerTrigger: on prop is required!");
 
-  const dispatchAction = (action: Action) => {
-    const customEvent = new CustomEvent(
-      eventNameFromId({ id: props.target!.replace("#", "") }),
-      {
-        detail: {
-          action,
-          currentTarget: element.target,
-          relatedTarget: document.getElementById(props.target!),
-        },
-      }
-    );
-    dispatchEvent(customEvent);
-  };
+  const target = document.querySelector(props.target!);
+  if (!target) return console.warn("DrawerTrigger: target element not found!");
+
+  const [state, { open, close, toggle }] = getDrawerContext(target);
+
+  function dispatchAction(action: Action) {
+    switch (action) {
+      case "close":
+        close();
+        break;
+      case "open":
+        open();
+        break;
+      case "toggle":
+        toggle();
+        break;
+    }
+  }
+
+  createEffect(() => {
+    element.setAttribute("is-open", `${state.isOpen}`);
+    element.setAttribute("is-animating", `${state.isAnimating}`);
+  });
 
   createEffect(
     on(
@@ -64,7 +74,7 @@ const DrawerTrigger: CorrectComponentType<DrawerTriggerProps> = (
           default: {
             const clear = makeEventListener(element, on, (event) => {
               if (preventDefault) event.preventDefault();
-              return dispatchAction(action);
+              dispatchAction(action);
             });
 
             return onCleanup(clear);
@@ -78,39 +88,21 @@ const DrawerTrigger: CorrectComponentType<DrawerTriggerProps> = (
   function handleOnEnter(action: Action) {
     let unsubscribe = null;
     if (action === "toggle") {
-      unsubscribe = observeElementInViewport(
-        element,
-        () => dispatchAction("open"),
-        () => dispatchAction("close")
-      );
-    } else {
-      unsubscribe = observeElementInViewport(element, dispatch, dispatch);
+      unsubscribe = observeElementInViewport(element, open, close);
     }
 
-    function dispatch() {
-      return dispatchAction(action);
-    }
-
-    return onCleanup(unsubscribe);
+    if (unsubscribe) onCleanup(unsubscribe);
+    return;
   }
 
   function handleOnExit(action: Action) {
     let unsubscribe = null;
     if (action === "toggle") {
-      unsubscribe = observeElementInViewport(
-        element,
-        () => dispatchAction("close"),
-        () => dispatchAction("open")
-      );
-    } else {
-      unsubscribe = observeElementInViewport(element, dispatch, dispatch);
+      unsubscribe = observeElementInViewport(element, close, open);
     }
 
-    function dispatch() {
-      return dispatchAction(action);
-    }
-
-    return onCleanup(unsubscribe);
+    if (unsubscribe) onCleanup(unsubscribe);
+    return;
   }
 };
 

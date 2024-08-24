@@ -7,13 +7,12 @@ import { POSITION } from "../consts";
 
 const DrawerContent: CorrectComponentType<{}> = (_, { element }) => {
   const [state, { updateAnimationQueue }] = useDrawer(element);
-  const [firstRender, setFirstRender] = createSignal(true);
 
   createRenderEffect(
     on(
       () => state.isOpen,
       (isOpen) => {
-        if (!isOpen || firstRender()) return;
+        if (!isOpen) return;
 
         const cleanup = enter(element);
         updateAnimationQueue(cleanup.finished);
@@ -26,7 +25,7 @@ const DrawerContent: CorrectComponentType<{}> = (_, { element }) => {
     on(
       () => state.isOpen,
       (isOpen) => {
-        if (isOpen || firstRender()) return;
+        if (isOpen) return;
 
         const cleanup = exit(element);
         updateAnimationQueue(cleanup.finished);
@@ -59,8 +58,6 @@ const DrawerContent: CorrectComponentType<{}> = (_, { element }) => {
       { ...rest, easing: spring(easing) }
     );
   }
-
-  setFirstRender(false);
 };
 
 export default DrawerContent;

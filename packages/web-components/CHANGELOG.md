@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.8.0
+
+### Minor Changes
+
+- Huge update to drawer web component api. No longer uses event system to trigger modal opening. Added: "actions" object to drawer context element to allow the ability to trigger the drawer to open either via the "is-open" attribute or through the actions object. Associated drawer triggers now have the same properties: "is-open" & "is-animating" which is tied directly to it's target drawer's state
+
 ## 0.7.0
 
 ### Minor Changes

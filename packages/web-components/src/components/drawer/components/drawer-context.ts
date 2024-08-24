@@ -1,6 +1,5 @@
 import type { CorrectComponentType } from "../../../utils/solid-element";
 
-import { createEventListener } from "@solid-primitives/event-listener";
 import { createMemo, createEffect, on, onCleanup, splitProps } from "solid-js";
 import {
   enableBodyScroll,
@@ -9,14 +8,8 @@ import {
 } from "body-scroll-lock-upgrade";
 import { createFocusTrap } from "focus-trap";
 
-import { provideDrawerContext } from "../hooks/useDrawer";
-import {
-  type EventName,
-  type EventMap,
-  hideElement,
-  showElement,
-  eventNameFromId,
-} from "../utils";
+import { provideDrawerContext, useDrawerContext } from "../hooks/useDrawer";
+import { hideElement, showElement } from "../utils";
 
 type DrawerContextProps = {
   isOpen: boolean;
@@ -35,10 +28,13 @@ const DrawerContext: CorrectComponentType<DrawerContextProps> = (
     "isAnimating",
   ]);
 
-  const [state, { setElementState }] = provideDrawerContext(
-    contextProps,
-    element
-  );
+  const context = provideDrawerContext(contextProps, element);
+
+  const [state, { setElementState }] = context;
+
+  const [_, { updateAnimationQueue, ...events }] = useDrawerContext(context);
+
+  element.actions = events;
 
   const focusTrap = createMemo(() => {
     return createFocusTrap(element, {
@@ -128,21 +124,6 @@ const DrawerContext: CorrectComponentType<DrawerContextProps> = (
         return Promise.all(animationQueue).then(() => hideElement(element));
       }
     )
-  );
-
-  createEventListener<EventMap, EventName>(
-    window,
-    () => eventNameFromId(restProps),
-    (event) => {
-      switch (event.detail.action) {
-        case "open":
-          return setElementState("isOpen", true);
-        case "close":
-          return setElementState("isOpen", false);
-        default:
-          return setElementState("isOpen", (v) => !v);
-      }
-    }
   );
 
   onCleanup(() => {
