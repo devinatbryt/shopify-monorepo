@@ -6,7 +6,7 @@ import type {
 import uniq from "lodash.uniq";
 import Cookies from "js-cookie";
 import { createEffect, createSignal, observable, on } from "solid-js";
-import { unwrap } from "solid-js/store";
+import { reconcile, unwrap } from "solid-js/store";
 import { makePersisted } from "@solid-primitives/storage";
 
 import client from "./lib/client";
@@ -74,6 +74,9 @@ const StorefrontCart = (function () {
     initialData: undefined,
     enabled: !!cartId(),
     throwOnError: false,
+    reconcile(oldData, newData) {
+      return reconcile(newData)(oldData);
+    },
   }));
 
   function defaultUnwrap<T>(cart: CartData): T {
@@ -384,7 +387,6 @@ const StorefrontCart = (function () {
 
   return {
     cart() {
-      cartQuery.isLoading;
       return cartQuery.data;
     },
     get error() {

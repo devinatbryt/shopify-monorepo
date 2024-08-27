@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 1.1.0
+
+### Minor Changes
+
+- Properly reconciles cart, so that only hat's changed is updated
+
 ## 1.0.10
 
 ### Patch Changes
