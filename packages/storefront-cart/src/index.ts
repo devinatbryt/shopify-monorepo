@@ -89,7 +89,7 @@ const StorefrontCart = (function () {
   ): () => void {
     // Assuming cartQuery and observable are defined and set correctly.
     const observer = observable(() => unwrapValue(cartQuery?.data));
-    return () => observer.subscribe(cb).unsubscribe;
+    return observer.subscribe(cb).unsubscribe;
   }
 
   const getCartData = () =>

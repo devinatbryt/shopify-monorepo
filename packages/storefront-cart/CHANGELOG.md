@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 1.1.1
+
+### Patch Changes
+
+- Minor "subscribe" bug fix"
+
 ## 1.1.0
 
 ### Minor Changes
