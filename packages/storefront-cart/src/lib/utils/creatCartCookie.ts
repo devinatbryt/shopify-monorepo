@@ -1,11 +1,12 @@
+import type { StorageWithOptions } from "@solid-primitives/storage";
+
 import Cookie from "js-cookie";
 import { createEffect, createSignal } from "solid-js";
 import {
   makePersisted,
-  StorageWithOptions,
   addClearMethod,
   addWithOptionsMethod,
-} from "@solid-primitives/storage";
+} from "../storage";
 
 import parseId from "./parseId";
 

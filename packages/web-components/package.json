@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -35,6 +35,7 @@
   "dependencies": {
     "@bryt-designs/predictive-search": "workspace:*",
     "@bryt-designs/storefront-client": "workspace:*",
+    "@bryt-designs/storefront-cart": "workspace:*",
     "@solid-primitives/event-listener": "^2.3.3",
     "body-scroll-lock-upgrade": "^1.1.0",
     "component-register": "^0.8.3",
