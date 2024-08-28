@@ -7,10 +7,10 @@ import {
   createQueries,
   type QueryKey,
   type DefaultError,
-} from "@tanstack/solid-query";
+} from "./lib/tanstack/solid-query";
 import lz from "lz-string";
 
-import { persistQueryClient } from "@tanstack/solid-query-persist-client";
+import { persistQueryClient } from "@tanstack/query-persist-client-core";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { processJSONResponse } from "./lib/utilities";
 

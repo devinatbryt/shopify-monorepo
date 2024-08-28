@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.6.0
+
+### Minor Changes
+
+- Ported over tanstack library to make changes to it's reactivity
+
 ## 0.5.5
 
 ### Patch Changes
