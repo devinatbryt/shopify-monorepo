@@ -1,5 +1,13 @@
 # @bryt-designs/web-components
 
+## 0.8.2
+
+### Patch Changes
+
+- Removed any solid-primitives package as dependency
+- Updated dependencies
+  - @bryt-designs/storefront-cart@1.1.3
+
 ## 0.8.1
 
 ### Patch Changes

@@ -4,7 +4,6 @@ import { createRenderEffect, on, onCleanup } from "solid-js";
 import { useDrawer } from "../hooks/useDrawer";
 import { getTransitionConfig } from "../utils";
 import { animate } from "motion";
-import { createEventListener } from "@solid-primitives/event-listener";
 
 type DrawerBackdropProps = {};
 
@@ -60,7 +59,11 @@ const DrawerBackdrop: CorrectComponentType<DrawerBackdropProps> = (
     );
   }
 
-  createEventListener(element, "click", close);
+  element.addEventListener("click", close);
+
+  onCleanup(() => {
+    element.removeEventListener("click", close);
+  });
 };
 
 export default DrawerBackdrop;

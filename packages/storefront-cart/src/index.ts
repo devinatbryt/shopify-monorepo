@@ -7,7 +7,7 @@ import uniq from "lodash.uniq";
 import Cookies from "js-cookie";
 import { createEffect, createSignal, observable, on } from "solid-js";
 import { reconcile, unwrap } from "solid-js/store";
-import { makePersisted } from "@solid-primitives/storage";
+import { makePersisted } from "./lib/storage";
 
 import client from "./lib/client";
 import convertCartStructToREST from "./lib/utils/convertCartStructToREST";

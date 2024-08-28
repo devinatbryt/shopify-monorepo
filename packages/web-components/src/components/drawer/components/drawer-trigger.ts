@@ -4,7 +4,6 @@ import type { Action } from "../consts";
 import { createEffect, on, onCleanup } from "solid-js";
 
 import { observeElementInViewport } from "observe-element-in-viewport";
-import { makeEventListener } from "@solid-primitives/event-listener";
 import { getDrawerContext } from "../hooks/useDrawer";
 
 type DrawerTriggerProps = {
@@ -72,12 +71,16 @@ const DrawerTrigger: CorrectComponentType<DrawerTriggerProps> = (
           case "exit":
             return handleOnExit(action);
           default: {
-            const clear = makeEventListener(element, on, (event) => {
+            function handleEvent(event: Event) {
               if (preventDefault) event.preventDefault();
               dispatchAction(action);
-            });
+            }
 
-            return onCleanup(clear);
+            element.addEventListener(on, handleEvent);
+
+            return onCleanup(() =>
+              element.removeEventListener(on, handleEvent)
+            );
           }
         }
       }

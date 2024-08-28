@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 1.1.3
+
+### Patch Changes
+
+- Removed any solid-primitives package as dependency
+
 ## 1.1.2
 
 ### Patch Changes
