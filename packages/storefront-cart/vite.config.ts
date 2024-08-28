@@ -17,7 +17,11 @@ export default defineConfig({
       formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: [...Object.keys(pkg.dependencies), "solid-js/store"],
+      external: [
+        ...Object.keys(pkg.dependencies),
+        "solid-js/store",
+        "solid-js/web",
+      ],
     },
     target: "esnext", // transpile as little as possible
   },
