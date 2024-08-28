@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.5.5
+
+### Patch Changes
+
+- Attempt at fixing non synced tanstack
+
 ## 0.5.4
 
 ### Patch Changes

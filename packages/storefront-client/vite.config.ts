@@ -15,7 +15,12 @@ export default defineConfig({
       formats: ["es", "cjs"],
     },
     rollupOptions: {
-      external: [...Object.keys(pkg.dependencies), "@shopify/graphql-client"],
+      external: [
+        ...Object.keys(pkg.dependencies).filter(
+          (key) => !key.startsWith("@tanstack")
+        ),
+        "@shopify/graphql-client",
+      ],
       output: {
         name: "Shopify.StorefrontClient",
         // paths: (id) => {

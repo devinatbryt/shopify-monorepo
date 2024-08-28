@@ -1,5 +1,13 @@
 # @bryt-designs/predictive-search
 
+## 1.1.5
+
+### Patch Changes
+
+- Attempt at fixing non synced tanstack
+- Updated dependencies
+  - @bryt-designs/storefront-client@0.5.5
+
 ## 1.1.4
 
 ### Patch Changes
