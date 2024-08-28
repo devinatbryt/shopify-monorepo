@@ -7,10 +7,10 @@ import {
   createQueries,
   type QueryKey,
   type DefaultError,
-} from "./lib/tanstack/solid-query";
+} from "@tanstack/solid-query";
 import lz from "lz-string";
 
-import { persistQueryClient } from "@tanstack/query-persist-client-core";
+import { persistQueryClient } from "@tanstack/solid-query-persist-client";
 import { createSyncStoragePersister } from "@tanstack/query-sync-storage-persister";
 import { processJSONResponse } from "./lib/utilities";
 
@@ -77,6 +77,7 @@ export default function StorefrontClient(
 
   if (shouldPersist) {
     persistQueryClient({
+      // @ts-ignore
       queryClient,
       persister: createSyncStoragePersister({
         key: key,

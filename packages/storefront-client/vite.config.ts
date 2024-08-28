@@ -17,7 +17,7 @@ export default defineConfig({
     rollupOptions: {
       external: [
         ...Object.keys(pkg.dependencies).filter(
-          (key) => !key.startsWith("@tanstack")
+          (key) => !key.startsWith("@tanstack/solid")
         ),
         "@shopify/graphql-client",
       ],

@@ -134,15 +134,18 @@ importers:
 
   packages/storefront-client:
     dependencies:
-      '@tanstack/query-core':
-        specifier: ^5.52.2
-        version: 5.52.2
       '@tanstack/query-persist-client-core':
         specifier: ^5.52.2
         version: 5.52.2
       '@tanstack/query-sync-storage-persister':
         specifier: ^5.45.0
         version: 5.45.0
+      '@tanstack/solid-query':
+        specifier: ^5.45.0
+        version: 5.45.0(solid-js@1.8.18)
+      '@tanstack/solid-query-persist-client':
+        specifier: ^5.52.2
+        version: 5.52.2(@tanstack/solid-query@5.45.0(solid-js@1.8.18))(solid-js@1.8.18)
       lz-string:
         specifier: ^1.5.0
         version: 1.5.0
@@ -1438,6 +1441,12 @@ packages:
 
   '@tanstack/query-sync-storage-persister@5.45.0':
     resolution: {integrity: sha512-RSfPzp7Fb9C+gkak+26Gswpru0w8FEuVG9WxpPLEmE+B5Krx+gTNfLlcyxreHILaR2w7jzhKfqDd8S6lmYY8WA==}
+
+  '@tanstack/solid-query-persist-client@5.52.2':
+    resolution: {integrity: sha512-7BFx9b225sN9D6wwZrbOF5n8RKmLk8XTXFvQ7xvUrcEzPz4FAS0PPdrRSgJX+/jcKrPLUfIGzsvarC+SbaO3/A==}
+    peerDependencies:
+      '@tanstack/solid-query': ^5.52.2
+      solid-js: ^1.6.0
 
   '@tanstack/solid-query@5.45.0':
     resolution: {integrity: sha512-bvgTVmW3GSUxUv6LwbeYxDaF/6Bjsks7JlGHzNEoZXB0kjsoxqavRYmLgAIrwn1vqyR53dkxvH+rDTwGfQv6CQ==}
@@ -6285,6 +6294,12 @@ snapshots:
     dependencies:
       '@tanstack/query-core': 5.45.0
       '@tanstack/query-persist-client-core': 5.45.0
+
+  '@tanstack/solid-query-persist-client@5.52.2(@tanstack/solid-query@5.45.0(solid-js@1.8.18))(solid-js@1.8.18)':
+    dependencies:
+      '@tanstack/query-persist-client-core': 5.52.2
+      '@tanstack/solid-query': 5.45.0(solid-js@1.8.18)
+      solid-js: 1.8.18
 
   '@tanstack/solid-query@5.45.0(solid-js@1.8.18)':
     dependencies:
