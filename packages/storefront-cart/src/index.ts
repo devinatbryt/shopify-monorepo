@@ -6,7 +6,7 @@ import type {
 import uniq from "lodash.uniq";
 import Cookies from "js-cookie";
 import { createEffect, createSignal, observable, on } from "solid-js";
-import { unwrap, reconcile as solidReconcile } from "solid-js/store";
+import { unwrap } from "solid-js/store";
 import { makePersisted } from "./lib/storage";
 
 import client from "./lib/client";
