@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.8.7",
+  "version": "0.9.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -30,12 +30,18 @@
       "import": "./dist/drawer/index.js",
       "module": "./dist/drawer/index.cjs",
       "types": "./src/drawer/index.d.ts"
+    },
+    "./hash-router": {
+      "import": "./dist/hash-router/index.js",
+      "module": "./dist/hash-router/index.cjs",
+      "types": "./src/hash-router/index.d.ts"
     }
   },
   "dependencies": {
     "@bryt-designs/predictive-search": "workspace:*",
     "@bryt-designs/storefront-cart": "workspace:*",
     "@bryt-designs/storefront-client": "workspace:*",
+    "@solidjs/router": "^0.14.3",
     "body-scroll-lock-upgrade": "^1.1.0",
     "component-register": "^0.8.3",
     "focus-trap": "^7.5.4",

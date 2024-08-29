@@ -24,21 +24,6 @@ export default defineConfig({
         },
         {} as Record<string, string>
       ),
-      // entry: {
-      //   "accordion-block/index": resolve(
-      //     rootDir,
-      //     "src/components/accordion-block/index.ts"
-      //   ),
-      //   "gnav-header/index": resolve(
-      //     rootDir,
-      //     "src/components/gnav-header/index.ts"
-      //   ),
-      //   "element-portal/index": resolve(
-      //     rootDir,
-      //     "src/components/element-portal/index.ts"
-      //   ),
-      //   "drawer/index": resolve(rootDir, "src/components/drawer/index.ts"),
-      // },
       formats: ["es", "cjs"],
     },
     rollupOptions: {
@@ -46,6 +31,7 @@ export default defineConfig({
         ...Object.keys(pkg.dependencies),
         "solid-js/store",
         "solid-js/web",
+        "solid-js/html",
       ],
       // output: {
       //   globals: {

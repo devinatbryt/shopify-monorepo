@@ -173,6 +173,9 @@ importers:
       '@bryt-designs/storefront-client':
         specifier: workspace:*
         version: link:../storefront-client
+      '@solidjs/router':
+        specifier: ^0.14.3
+        version: 0.14.3(solid-js@1.8.18)
       body-scroll-lock-upgrade:
         specifier: ^1.1.0
         version: 1.1.0
@@ -1426,6 +1429,11 @@ packages:
     resolution: {integrity: sha512-CqAwKb2T5Vi72+rhebSsqNZ9o67buYRdEJrIFzRXz3U59QqezuuxPsyzTSVCacwS5Pf109VRsgCJQoxKRoECZQ==}
     peerDependencies:
       solid-js: ^1.6.12
+
+  '@solidjs/router@0.14.3':
+    resolution: {integrity: sha512-9p4k4zL2baK/1XRQALbFcaQ4IikjkWmxqYQtFqLzjONUejhL1uqJHtzxB4tZjmNqtRANVRnTDbJfzjvaD9k+pQ==}
+    peerDependencies:
+      solid-js: ^1.8.6
 
   '@tanstack/query-core@5.45.0':
     resolution: {integrity: sha512-RVfIZQmFUTdjhSAAblvueimfngYyfN6HlwaJUPK71PKd7yi43Vs1S/rdimmZedPWX/WGppcq/U1HOj7O7FwYxw==}
@@ -6275,6 +6283,10 @@ snapshots:
       solid-js: 1.8.18
 
   '@solid-primitives/utils@6.2.3(solid-js@1.8.18)':
+    dependencies:
+      solid-js: 1.8.18
+
+  '@solidjs/router@0.14.3(solid-js@1.8.18)':
     dependencies:
       solid-js: 1.8.18
 

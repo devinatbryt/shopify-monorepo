@@ -77,7 +77,7 @@
     }
   </style>
   <body>
-    <gnav-header>
+    <!-- <gnav-header>
       <gnav-header-section style="background: beige"
         >Banner!</gnav-header-section
       >
@@ -96,7 +96,49 @@
     <script type="module" src="./src/components/drawer/index.ts"></script>
     <script
       type="module"
-      src="./src/components//storefront-cart/index.ts"
-    ></script>
+      src="./src/components/storefront-cart/index.ts"
+    ></script> -->
+    <hash-router>
+      <template data-path="/">
+        <template data-path="/">
+          <template data-component>
+            <h1>Home</h1>
+          </template>
+        </template>
+        <template data-path="/step-2">
+          <template data-component>
+            <h1>Step 2</h1>
+            <hash-router-link href="/step-3">
+              <a>Visit step 3</a>
+            </hash-router-link>
+          </template>
+        </template>
+        <template data-path="/step-3">
+          <template data-component>
+            <h1>Step 3</h1>
+          </template>
+        </template>
+        <template data-component>
+          <nav>
+            <ul>
+              <li>
+                <hash-router-link
+                  active-class="active"
+                  inactive-class="inactive"
+                  href="/"
+                >
+                  <a>Home</a>
+                </hash-router-link>
+                <hash-router-link href="/step-2">
+                  <a>Next step</a>
+                </hash-router-link>
+              </li>
+            </ul>
+          </nav>
+          <slot name="children"></slot>
+        </template>
+      </template>
+    </hash-router>
+    <script type="module" src="./src/components/hash-router/index.ts"></script>
   </body>
 </html>

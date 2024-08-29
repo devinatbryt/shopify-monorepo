@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.9.0
+
+### Minor Changes
+
+- Created new web component to handle client side hash based routing.
+
 ## 0.8.7
 
 ### Patch Changes
