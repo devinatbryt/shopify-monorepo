@@ -14,7 +14,7 @@ import convertCartStructToREST from "./lib/utils/convertCartStructToREST";
 import formatId from "./lib/utils/formatId";
 import makeObservablePromise from "./lib/utils/makeObservablePromise";
 import createCartCookie from "./lib/utils/creatCartCookie";
-import { handleNoRESTCart } from "./lib/fetchers";
+import { handleHasRESTCart, handleNoRESTCart } from "./lib/fetchers";
 import {
   getCartQuery,
   addItemsToCartMutation as addItemsToCartMutationGQL,
@@ -103,7 +103,7 @@ const StorefrontCart = (function () {
     if (cartId()) return;
     if (!Cookies.get("cart"))
       return handleNoRESTCart().then((id) => setCartId(id));
-    return handleNoRESTCart().then((id) => setCartId(id));
+    return handleHasRESTCart().then((id) => setCartId(id));
   });
 
   createEffect(

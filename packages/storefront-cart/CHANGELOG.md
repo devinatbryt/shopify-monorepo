@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.0.2
+
+### Patch Changes
+
+- Minor bug fix, when we have a cart id we need to use the "handleHasRESTCart function"
+
 ## 2.0.1
 
 ### Patch Changes
