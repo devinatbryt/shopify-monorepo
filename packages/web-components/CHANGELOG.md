@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.9.1
+
+### Patch Changes
+
+- Attach routerContextId to element so it's easy to get context from hash-route element
+
 ## 0.9.0
 
 ### Minor Changes

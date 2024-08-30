@@ -3,7 +3,7 @@ import type { CorrectComponentType } from "../../../utils/solid-element";
 import html from "solid-js/html";
 import { createMemo, children } from "solid-js";
 import { HashRouter as SolidHashRouter, Route } from "@solidjs/router";
-import { provideRouteContext } from "../RouteContext";
+import { provideRouteContext, RouterContext } from "../RouteContext";
 import { cloneElement, getRouteTemplates } from "../utils";
 
 const generateRoutes = (templates: HTMLTemplateElement[]): any => {
@@ -30,7 +30,12 @@ const generateRoutes = (templates: HTMLTemplateElement[]): any => {
         });
 
         return html`
-          <hash-route ref=${(el: any) => provideRouteContext(el)}>
+          <hash-route
+            ref=${(el: any) => {
+              provideRouteContext(el);
+              el.routerContextId = RouterContext.id;
+            }}
+          >
             ${clonedChildren}
           <//>
         `;

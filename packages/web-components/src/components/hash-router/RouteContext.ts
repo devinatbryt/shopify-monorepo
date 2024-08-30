@@ -45,7 +45,7 @@ function initializeRouteContext() {
   } as const;
 }
 
-const RouterContext = createContext(initializeRouteContext);
+export const RouterContext = createContext(initializeRouteContext);
 
 export const provideRouteContext = (element: ICustomElement & HTMLElement) => {
   return provide(RouterContext, {}, element);
