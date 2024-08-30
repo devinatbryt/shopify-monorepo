@@ -45,7 +45,7 @@ class CartNotFoundError extends CartError {
 export type CartData = ReturnType<typeof convertCartStructToREST> | undefined;
 
 const StorefrontCart = (function () {
-  const [{ cartId }, setCartId] = createCartCookie();
+  const [{ cartId, restCartId }, setCartId] = createCartCookie();
   const [discounts, setDiscounts] = makePersisted(createSignal<string[]>([]), {
     name: "discounts",
     serialize: (value) => JSON.stringify(value),
@@ -100,8 +100,8 @@ const StorefrontCart = (function () {
     queryClient.invalidateQueries({ queryKey: getCartQueryKey() });
 
   createEffect(() => {
-    console.log(cartId());
-    if (cartId()) return;
+    console.log(restCartId());
+    if (restCartId()) return;
     if (!Cookies.get("cart"))
       return handleNoRESTCart().then((id) => setCartId(id));
     return handleHasRESTCart().then((id) => setCartId(id));

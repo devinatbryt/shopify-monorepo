@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.0.4
+
+### Patch Changes
+
+- Attempt at bug fixing rest cart
+
 ## 2.0.3
 
 ### Patch Changes
