@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.9.2
+
+### Patch Changes
+
+- Attempt at assigning router context id
+
 ## 0.9.1
 
 ### Patch Changes

@@ -33,7 +33,7 @@ const generateRoutes = (templates: HTMLTemplateElement[]): any => {
           <hash-route
             ref=${(el: any) => {
               provideRouteContext(el);
-              el.routerContextId = RouterContext.id;
+              Object.assign(el, { routerContextId: RouterContext.id });
             }}
           >
             ${clonedChildren}
