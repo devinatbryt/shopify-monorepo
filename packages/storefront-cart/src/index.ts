@@ -45,14 +45,15 @@ class CartNotFoundError extends CartError {
 export type CartData = ReturnType<typeof convertCartStructToREST> | undefined;
 
 const StorefrontCart = (function () {
-  const [{ cartId, restCartId }, setCartId] = createCartCookie();
+  const cartCookie = createCartCookie();
   const [discounts, setDiscounts] = makePersisted(createSignal<string[]>([]), {
     name: "discounts",
     serialize: (value) => JSON.stringify(value),
     deserialize: (value) => JSON.parse(value),
   });
   const queryClient = client.useQueryClient();
-  const getCartQueryKey = () => [CART_QUERY_KEY, { id: cartId() }] as const;
+  const getCartQueryKey = () =>
+    [CART_QUERY_KEY, { id: cartCookie.token! }] as const;
 
   const cartQuery = client.createQuery(() => ({
     queryKey: getCartQueryKey(),
@@ -72,7 +73,7 @@ const StorefrontCart = (function () {
       return convertCartStructToREST(res.data.cart);
     },
     initialData: undefined,
-    enabled: !!cartId(),
+    enabled: !!cartCookie.token,
     throwOnError: false,
     reconcile: "cartQuery",
   }));
@@ -100,11 +101,10 @@ const StorefrontCart = (function () {
     queryClient.invalidateQueries({ queryKey: getCartQueryKey() });
 
   createEffect(() => {
-    console.log(restCartId());
-    if (restCartId()) return;
+    if (cartCookie.token) return;
     if (!Cookies.get("cart"))
-      return handleNoRESTCart().then((id) => setCartId(id));
-    return handleHasRESTCart().then((id) => setCartId(id));
+      return handleNoRESTCart().then((id) => (cartCookie.token = id));
+    return handleHasRESTCart().then((id) => (cartCookie.token = id));
   });
 
   createEffect(
@@ -112,7 +112,7 @@ const StorefrontCart = (function () {
       () => cartQuery.error,
       (error) => {
         if (error instanceof CartNotFoundError === false) return;
-        return handleNoRESTCart().then((id) => setCartId(id));
+        return handleNoRESTCart().then((id) => (cartCookie.token = id));
       }
     )
   );
@@ -127,20 +127,23 @@ const StorefrontCart = (function () {
           ? formatId(line.sellingPlanId, "SellingPlan")
           : undefined,
       }));
-      return makeObservablePromise(cartId, async (cartId) => {
-        const req = await client.query({
-          query: addItemsToCartMutationGQL,
-          variables: {
-            id: cartId,
-            lines,
-          },
-        });
-        if ((req?.data?.cartLinesAdd?.userErrors || []).length > 0)
-          throw req.data?.cartLinesAdd?.userErrors;
-        if (!req?.data?.cartLinesAdd?.cart)
-          throw new Error("Could not add items to cart");
-        return req.data.cartLinesAdd.cart;
-      });
+      return makeObservablePromise(
+        () => cartCookie.token,
+        async (cartId) => {
+          const req = await client.query({
+            query: addItemsToCartMutationGQL,
+            variables: {
+              id: cartId!,
+              lines,
+            },
+          });
+          if ((req?.data?.cartLinesAdd?.userErrors || []).length > 0)
+            throw req.data?.cartLinesAdd?.userErrors;
+          if (!req?.data?.cartLinesAdd?.cart)
+            throw new Error("Could not add items to cart");
+          return req.data.cartLinesAdd.cart;
+        }
+      );
     },
     onSettled: () => {
       invalidateCartQuery();
@@ -150,20 +153,23 @@ const StorefrontCart = (function () {
   const removeItemsFromCartMutation = client.createMutation(() => ({
     mutationFn: async (lineIds: string[]) => {
       lineIds = lineIds.map((id) => formatId(id, "CartLine"));
-      return makeObservablePromise(cartId, async (cartId) => {
-        const req = await client.query({
-          query: removeItemsFromCartMutationGQL,
-          variables: {
-            id: cartId,
-            lineIds,
-          },
-        });
-        if ((req?.data?.cartLinesRemove?.userErrors || []).length > 0)
-          throw req.data?.cartLinesRemove?.userErrors;
-        if (!req?.data?.cartLinesRemove?.cart)
-          throw new Error("Could not remove line items from cart");
-        return req.data.cartLinesRemove.cart;
-      });
+      return makeObservablePromise(
+        () => cartCookie.token,
+        async (cartId) => {
+          const req = await client.query({
+            query: removeItemsFromCartMutationGQL,
+            variables: {
+              id: cartId!,
+              lineIds,
+            },
+          });
+          if ((req?.data?.cartLinesRemove?.userErrors || []).length > 0)
+            throw req.data?.cartLinesRemove?.userErrors;
+          if (!req?.data?.cartLinesRemove?.cart)
+            throw new Error("Could not remove line items from cart");
+          return req.data.cartLinesRemove.cart;
+        }
+      );
     },
     onMutate: async (lineIds) => {
       await cancelCartQuery();
@@ -207,20 +213,23 @@ const StorefrontCart = (function () {
           ? formatId(line.sellingPlanId, "SellingPlan")
           : undefined,
       }));
-      return makeObservablePromise(cartId, async (cartId) => {
-        const req = await client.query({
-          query: updateItemsInCartMutationGQL,
-          variables: {
-            id: cartId,
-            lines: newLines,
-          },
-        });
-        if ((req?.data?.cartLinesUpdate?.userErrors || []).length > 0)
-          throw req.data?.cartLinesUpdate?.userErrors;
-        if (!req?.data?.cartLinesUpdate?.cart)
-          throw new Error("Could not update items in cart");
-        return req.data.cartLinesUpdate.cart;
-      });
+      return makeObservablePromise(
+        () => cartCookie.token,
+        async (cartId) => {
+          const req = await client.query({
+            query: updateItemsInCartMutationGQL,
+            variables: {
+              id: cartId!,
+              lines: newLines,
+            },
+          });
+          if ((req?.data?.cartLinesUpdate?.userErrors || []).length > 0)
+            throw req.data?.cartLinesUpdate?.userErrors;
+          if (!req?.data?.cartLinesUpdate?.cart)
+            throw new Error("Could not update items in cart");
+          return req.data.cartLinesUpdate.cart;
+        }
+      );
     },
     onMutate: async (lines) => {
       await cancelCartQuery();
@@ -262,20 +271,23 @@ const StorefrontCart = (function () {
 
   const updateCartNoteMutation = client.createMutation(() => ({
     mutationFn: async (note: string) => {
-      return makeObservablePromise(cartId, async (cartId) => {
-        const req = await client.query({
-          query: updateCartNoteMutationGQL,
-          variables: {
-            id: cartId,
-            note,
-          },
-        });
-        if ((req?.data?.cartNoteUpdate?.userErrors || []).length > 0)
-          throw req.data?.cartNoteUpdate?.userErrors;
-        if (!req?.data?.cartNoteUpdate?.cart)
-          throw new Error("Could not update cart note");
-        return req.data.cartNoteUpdate.cart;
-      });
+      return makeObservablePromise(
+        () => cartCookie.token,
+        async (cartId) => {
+          const req = await client.query({
+            query: updateCartNoteMutationGQL,
+            variables: {
+              id: cartId!,
+              note,
+            },
+          });
+          if ((req?.data?.cartNoteUpdate?.userErrors || []).length > 0)
+            throw req.data?.cartNoteUpdate?.userErrors;
+          if (!req?.data?.cartNoteUpdate?.cart)
+            throw new Error("Could not update cart note");
+          return req.data.cartNoteUpdate.cart;
+        }
+      );
     },
     onMutate: async (note) => {
       await cancelCartQuery();
@@ -303,20 +315,23 @@ const StorefrontCart = (function () {
   const addCartDiscountCodeMutation = client.createMutation(() => ({
     mutationFn: async (discountCode: string) => {
       const codes = uniq([...discounts(), discountCode]);
-      const cart = await makeObservablePromise(cartId, async (cartId) => {
-        const req = await client.query({
-          query: updateCartDiscountCodesMutationGQL,
-          variables: {
-            id: cartId,
-            discountCodes: codes,
-          },
-        });
-        if ((req?.data?.cartDiscountCodesUpdate?.userErrors || []).length > 0)
-          throw req.data?.cartDiscountCodesUpdate?.userErrors;
-        if (!req?.data?.cartDiscountCodesUpdate?.cart)
-          throw new Error("Could not add discount code to cart");
-        return req.data.cartDiscountCodesUpdate.cart;
-      });
+      const cart = await makeObservablePromise(
+        () => cartCookie.token,
+        async (cartId) => {
+          const req = await client.query({
+            query: updateCartDiscountCodesMutationGQL,
+            variables: {
+              id: cartId!,
+              discountCodes: codes,
+            },
+          });
+          if ((req?.data?.cartDiscountCodesUpdate?.userErrors || []).length > 0)
+            throw req.data?.cartDiscountCodesUpdate?.userErrors;
+          if (!req?.data?.cartDiscountCodesUpdate?.cart)
+            throw new Error("Could not add discount code to cart");
+          return req.data.cartDiscountCodesUpdate.cart;
+        }
+      );
 
       const newCodes = cart?.discountCodes || [];
 
@@ -338,20 +353,23 @@ const StorefrontCart = (function () {
   const removeCartDiscountCodeMutation = client.createMutation(() => ({
     mutationFn: async (discountCode: string) => {
       const codes = discounts().filter((code) => code !== discountCode);
-      return makeObservablePromise(cartId, async (cartId) => {
-        const req = await client.query({
-          query: updateCartDiscountCodesMutationGQL,
-          variables: {
-            id: cartId,
-            discountCodes: codes,
-          },
-        });
-        if ((req?.data?.cartDiscountCodesUpdate?.userErrors || []).length > 0)
-          throw req.data?.cartDiscountCodesUpdate?.userErrors;
-        if (!req?.data?.cartDiscountCodesUpdate?.cart)
-          throw new Error("Could not remove discount code");
-        return req.data.cartDiscountCodesUpdate.cart;
-      });
+      return makeObservablePromise(
+        () => cartCookie.token,
+        async (cartId) => {
+          const req = await client.query({
+            query: updateCartDiscountCodesMutationGQL,
+            variables: {
+              id: cartId!,
+              discountCodes: codes,
+            },
+          });
+          if ((req?.data?.cartDiscountCodesUpdate?.userErrors || []).length > 0)
+            throw req.data?.cartDiscountCodesUpdate?.userErrors;
+          if (!req?.data?.cartDiscountCodesUpdate?.cart)
+            throw new Error("Could not remove discount code");
+          return req.data.cartDiscountCodesUpdate.cart;
+        }
+      );
     },
     onMutate: async (discountCode) => {
       await cancelCartQuery();

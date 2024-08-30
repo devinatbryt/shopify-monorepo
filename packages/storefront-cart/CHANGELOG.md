@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.0.5
+
+### Patch Changes
+
+- Revert how cart cookie is handled as it causes a desync between storefront and ajax api.
+
 ## 2.0.4
 
 ### Patch Changes
