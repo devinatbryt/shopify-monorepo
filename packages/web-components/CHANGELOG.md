@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.9.3
+
+### Patch Changes
+
+- Register hash-route as web component
+
 ## 0.9.2
 
 ### Patch Changes

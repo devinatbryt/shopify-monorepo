@@ -5,6 +5,7 @@ import {
 import { HashRouter, HashRouterLink } from "./components";
 
 customShadowlessElement("hash-router", {}, correctElementType(HashRouter));
+customShadowlessElement("hash-route", {}, () => {});
 
 customShadowlessElement(
   "hash-router-link",
