@@ -100,6 +100,7 @@ const StorefrontCart = (function () {
     queryClient.invalidateQueries({ queryKey: getCartQueryKey() });
 
   createEffect(() => {
+    console.log(cartId());
     if (cartId()) return;
     if (!Cookies.get("cart"))
       return handleNoRESTCart().then((id) => setCartId(id));
