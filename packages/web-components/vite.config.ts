@@ -16,6 +16,7 @@ export default defineConfig({
       entry: Object.keys(pkg.exports).reduce(
         (entries, key) => {
           const name = key.replace("./", "");
+          if (name.endsWith(".css")) return entries;
           entries[`${name}/index`] = resolve(
             rootDir,
             `src/components/${name}/index.ts`
