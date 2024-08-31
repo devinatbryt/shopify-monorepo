@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -36,6 +36,11 @@
       "import": "./dist/hash-router/index.js",
       "module": "./dist/hash-router/index.cjs",
       "types": "./src/hash-router/index.d.ts"
+    },
+    "./hash-router.css": {
+      "import": "./css/hash-router.css",
+      "module": "./css/hash-router.css",
+      "require": "./css/hash-router.css"
     }
   },
   "dependencies": {

@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.10.2
+
+### Patch Changes
+
+- Fixed exports in package.json
+
 ## 0.10.1
 
 ### Patch Changes
