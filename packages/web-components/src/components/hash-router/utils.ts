@@ -1,3 +1,5 @@
+import { SetParams } from "@solidjs/router";
+
 export type MatchFilter = readonly string[] | RegExp | ((s: string) => boolean);
 
 export type MatchFilters<P extends string | readonly string[] = any> =
@@ -132,4 +134,17 @@ export function cloneElement(
   if (element instanceof HTMLTemplateElement && element.tagName === "TEMPLATE")
     return element.content.cloneNode(true) as HTMLElement;
   return element.cloneNode(true) as HTMLElement;
+}
+
+export function mergeSearchString(search: string, params: SetParams) {
+  const merged = new URLSearchParams(search);
+  Object.entries(params).forEach(([key, value]) => {
+    if (value == null || value === "") {
+      merged.delete(key);
+    } else {
+      merged.set(key, String(value));
+    }
+  });
+  const s = merged.toString();
+  return s ? `?${s}` : "";
 }

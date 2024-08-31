@@ -2,10 +2,15 @@ import {
   customShadowlessElement,
   correctElementType,
 } from "../../utils/solid-element";
-import { HashRouter, HashRouterLink } from "./components";
+import { HashRoute, HashRouter, HashRouterLink } from "./components";
 
 customShadowlessElement("hash-router", {}, correctElementType(HashRouter));
-customShadowlessElement("hash-route", {}, () => {});
+
+customShadowlessElement(
+  "hash-route",
+  { path: "/", activeClass: "", inactiveClass: "", isActive: false },
+  correctElementType(HashRoute)
+);
 
 customShadowlessElement(
   "hash-router-link",
@@ -13,7 +18,6 @@ customShadowlessElement(
     href: "",
     activeClass: "",
     inactiveClass: "",
-    class: "",
   },
   correctElementType(HashRouterLink)
 );

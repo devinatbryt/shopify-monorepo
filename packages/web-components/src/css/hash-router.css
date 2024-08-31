@@ -1,0 +1,3 @@
+hash-route:not([is-active="true"]) {
+  display: none;
+}

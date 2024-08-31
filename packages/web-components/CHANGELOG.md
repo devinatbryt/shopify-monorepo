@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.10.0
+
+### Minor Changes
+
+- Updated hash-router functionality to work without using templates
+
 ## 0.9.7
 
 ### Patch Changes

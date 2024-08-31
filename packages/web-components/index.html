@@ -48,6 +48,11 @@
         accessToken: "c5e7d6954b84975963e596e273405c8b",
       };
     </script>
+    <link
+      href="./src/components/hash-router/index.css"
+      rel="stylesheet"
+      type="text/css"
+    />
   </head>
   <style>
     gnav-header {
@@ -98,46 +103,46 @@
       type="module"
       src="./src/components/storefront-cart/index.ts"
     ></script> -->
+    <!-- 
+      <hash-router>
+        <hash-route path="/" id="layout">
+          <div>
+            <nav>
+              <ul>
+                <li>asdfas</li>
+              </ul>
+            </nav>
+            <slot name="children"></slot>
+          </div>
+        </hash-route>
+        <hash-route path="/" id="">
+          <hash-router-link href="/step-2">
+            <a>Visit step 2</a>
+          </hash-router-link>
+        </hash-route>
+      </hash-router>
+    -->
     <hash-router>
-      <template data-path="/">
-        <template data-path="/">
-          <template data-component>
-            <h1>Home</h1>
-          </template>
-        </template>
-        <template data-path="/step-2">
-          <template data-component>
-            <h1>Step 2</h1>
-            <hash-router-link href="/step-3">
-              <a>Visit step 3</a>
-            </hash-router-link>
-          </template>
-        </template>
-        <template data-path="/step-3">
-          <template data-component>
-            <h1>Step 3</h1>
-          </template>
-        </template>
-        <template data-component>
-          <nav>
-            <ul>
-              <li>
-                <hash-router-link
-                  active-class="active"
-                  inactive-class="inactive"
-                  href="/"
-                >
-                  <a>Home</a>
-                </hash-router-link>
-                <hash-router-link href="/step-2">
-                  <a>Next step</a>
-                </hash-router-link>
-              </li>
-            </ul>
-          </nav>
-          <slot name="children"></slot>
-        </template>
-      </template>
+      <nav>
+        <ul>
+          <li>
+            <hash-router-link href="/"><a>Home</a></hash-router-link>
+          </li>
+          <li>
+            <hash-router-link href="/step-2"><a>Step 2</a></hash-router-link>
+          </li>
+          <li>
+            <hash-router-link href="/test"><a>Test</a></hash-router-link>
+          </li>
+        </ul>
+      </nav>
+      <hash-route path="/">
+        <div>This is some random markup!</div>
+      </hash-route>
+      <hash-route path="/step-2">
+        <p>You've reached your final destination!</p>
+      </hash-route>
+      <hash-route path="/test">Hello</hash-route>
     </hash-router>
     <script type="module" src="./src/components/hash-router/index.ts"></script>
   </body>
