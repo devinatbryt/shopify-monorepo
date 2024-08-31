@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
   },
   "files": [
     "dist",
-    "css"
+    "src/css"
   ],
   "exports": {
     "./accordion-block": {
@@ -38,9 +38,9 @@
       "types": "./src/hash-router/index.d.ts"
     },
     "./css/hash-router.css": {
-      "import": "./css/hash-router.css",
-      "module": "./css/hash-router.css",
-      "require": "./css/hash-router.css"
+      "import": "./src/css/hash-router.css",
+      "module": "./src/css/hash-router.css",
+      "require": "./src/css/hash-router.css"
     }
   },
   "dependencies": {
