@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.10.6
+
+### Patch Changes
+
+- Fixed scrollToHash function
+
 ## 0.10.5
 
 ### Patch Changes
