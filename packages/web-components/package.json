@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.10.6",
+  "version": "0.10.7",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -51,7 +51,6 @@
     "body-scroll-lock-upgrade": "^1.1.0",
     "component-register": "^0.8.3",
     "focus-trap": "^7.5.4",
-    "lodash-es": "^4.17.21",
     "motion": "^10.18.0",
     "observe-element-in-viewport": "^0.0.15",
     "solid-element": "^1.8.0",
@@ -60,7 +59,6 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.14.8",
     "vite": "^5.3.1"
   }

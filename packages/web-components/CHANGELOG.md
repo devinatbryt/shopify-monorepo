@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.10.7
+
+### Patch Changes
+
+- Minor router bug fix
+
 ## 0.10.6
 
 ### Patch Changes

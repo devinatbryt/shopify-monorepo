@@ -1,6 +1,6 @@
 import type { CorrectComponentType } from "../../../utils/solid-element";
-import { createEffect, createMemo, mergeProps } from "solid-js";
-import { useCurrentMatches } from "../hooks/useRouter";
+import { createEffect, createMemo, mergeProps, createUniqueId } from "solid-js";
+import { useCurrentMatches, useMatch } from "../hooks/useRouter";
 import {
   type ICustomElement,
   createContext,
@@ -9,7 +9,6 @@ import {
 } from "component-register";
 import { useRoutes } from "../hooks/useRoutes";
 import { RouteProps } from "@solidjs/router";
-import { isEqual } from "lodash-es";
 
 type HashRouteProps = {
   path: string;
@@ -26,6 +25,7 @@ type HashRouteContextType = {
   positions: Array<number>;
   children: RouteProps<string>[];
   isChildRoute: boolean;
+  id: string;
 } | null;
 
 const HashRouteContext = createContext(createHashRouteContext);
@@ -44,6 +44,7 @@ const getRoutePositions = (
 function createHashRouteContext(props: HashContextProps) {
   const parentCtx = useRouteContext(props.element);
   const [routes, setRoutes] = useRoutes(props.element);
+  const id = createUniqueId();
 
   const positions = getRoutePositions(parentCtx, routes.length);
   const routeUpdatePath = getRoutePath(positions);
@@ -52,6 +53,7 @@ function createHashRouteContext(props: HashContextProps) {
     positions,
     path: props.path,
     children: [],
+    id,
   };
 
   // @ts-ignore
@@ -65,6 +67,7 @@ function createHashRouteContext(props: HashContextProps) {
         return route[key];
       }, routes) as RouteProps<string>
     )["children"],
+    id,
   };
 }
 
@@ -87,13 +90,20 @@ const HashRoute: CorrectComponentType<HashRouteProps> = (
 ) => {
   const route = provideHashRouteContext(element, props);
   const currentMatches = useCurrentMatches(element);
+  const isPathMatch = useMatch(element, () => props.path);
   const isMatch = createMemo(() => {
-    return currentMatches().some((match) => isEqual(match.route.key, route));
+    return (
+      currentMatches()
+        .map(
+          (match) => (match.route.key as NonNullable<HashRouteContextType>).id
+        )
+        .includes(route?.id || "") || isPathMatch()
+    );
   });
 
   createEffect(() => {
     if (isMatch()) element.setAttribute("is-active", "true");
-    else element.removeAttribute("is-active");
+    else if (!isMatch()) element.removeAttribute("is-active");
   });
 
   createEffect(() => {
