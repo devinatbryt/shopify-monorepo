@@ -75,6 +75,18 @@ export default function convertCartStructToREST(cart: CartFragmentFragment) {
           {} as Record<string, string>
         );
 
+        const url = new URL(
+          `https://example.com/products/${line.variant.product.handle}`
+        );
+
+        if (line.variant.id) {
+          url.searchParams.set("variant", parseId(line.variant.id));
+        }
+
+        if (sellingPlan) {
+          url.searchParams.set("selling_plan", parseId(sellingPlan.id));
+        }
+
         return {
           available: line.variant.availableForSale,
           isInStock: !line.variant.currentlyNotInStock,
@@ -113,7 +125,7 @@ export default function convertCartStructToREST(cart: CartFragmentFragment) {
             step: 1,
           },
           sku: line.variant.sku,
-          url: `/products/${line.variant.product.handle}?variantId=${parseId(line.variant.id)}`,
+          url: url.pathname + url.search,
           variants: line.variant.product.variants.nodes.map((variant) => ({
             id: parseId(variant.id),
             title: variant.title,

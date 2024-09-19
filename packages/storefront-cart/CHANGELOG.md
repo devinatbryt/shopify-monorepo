@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.0.6
+
+### Patch Changes
+
+- Fixed variant search param for item url and updated to add selling plan to url
+
 ## 2.0.5
 
 ### Patch Changes
