@@ -44,6 +44,14 @@ class CartNotFoundError extends CartError {
 
 export type CartData = ReturnType<typeof convertCartStructToREST> | undefined;
 
+function publishShopifyAnalaytics<T extends object>(
+  eventName: string,
+  data: T
+) {
+  if (!Shopify.analytics) return false;
+  return Shopify.analytics.publish(`storefront_cart:${eventName}`, data);
+}
+
 const StorefrontCart = (function () {
   const cartCookie = createCartCookie();
   const [discounts, setDiscounts] = makePersisted(createSignal<string[]>([]), {
@@ -145,7 +153,36 @@ const StorefrontCart = (function () {
         }
       );
     },
-    onSettled: () => {
+    onSuccess(cart, lines) {
+      const restCart = convertCartStructToREST(cart);
+      const addedItems = restCart?.items.reduce(
+        (addedItems, line) => {
+          const item = lines.find((item) => {
+            let result =
+              item.merchandiseId.toString() === line.variant_id.toString();
+            if (!result) return false;
+            if (item.sellingPlanId && line.selling_plan)
+              result = item.sellingPlanId === line.selling_plan.id;
+            if (!result) return false;
+            if (item.attributes && line.attributes) {
+              result = item.attributes.every((attr) =>
+                line.attributes.some(
+                  (a) => a.key === attr.key && a.value === attr.value
+                )
+              );
+            }
+
+            return result;
+          });
+          if (item) return [...addedItems, line];
+          return addedItems;
+        },
+        [] as typeof restCart.items
+      );
+
+      publishShopifyAnalaytics("items_added", { items: addedItems });
+    },
+    onSettled() {
       invalidateCartQuery();
     },
   }));
@@ -195,7 +232,20 @@ const StorefrontCart = (function () {
       if (!context?.previousCart) return;
       setCartData(() => context.previousCart);
     },
-    onSettled: () => {
+    onSuccess(_, lines) {
+      const cart = getCartData();
+      const removedLines = cart?.items?.reduce(
+        (removedItems, line) => {
+          const item = lines.find((item) => line.key === item);
+          if (item) return [...removedItems, line];
+          return removedItems;
+        },
+        [] as typeof cart.items
+      );
+
+      publishShopifyAnalaytics("items_removed", { items: removedLines });
+    },
+    onSettled() {
       invalidateCartQuery();
     },
   }));
@@ -263,6 +313,19 @@ const StorefrontCart = (function () {
     onError: (_, __, context) => {
       if (!context?.previousCart) return;
       setCartData(() => context.previousCart);
+    },
+    onSuccess(cart, lines) {
+      const restCart = convertCartStructToREST(cart);
+      const updatedItems = restCart?.items.reduce(
+        (updatedItems, line) => {
+          const item = lines.find((item) => item.id === line.key);
+          if (item) return [...updatedItems, line];
+          return updatedItems;
+        },
+        [] as typeof restCart.items
+      );
+
+      publishShopifyAnalaytics("items_updated", { items: updatedItems });
     },
     onSettled: () => {
       invalidateCartQuery();
@@ -507,5 +570,8 @@ if (!window.Shopify.StorefrontCart)
 declare global {
   export interface Shopify {
     StorefrontCart: typeof StorefrontCart;
+    analytics?: {
+      publish: <T extends object>(eventName: string, eventData: T) => boolean;
+    };
   }
 }

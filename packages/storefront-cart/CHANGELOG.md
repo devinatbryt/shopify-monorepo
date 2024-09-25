@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.1.0
+
+### Minor Changes
+
+- Added Shopify analytics support for cart item operations (add, remove, update)
+
 ## 2.0.6
 
 ### Patch Changes

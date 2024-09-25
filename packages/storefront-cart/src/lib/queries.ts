@@ -162,7 +162,7 @@ export const addItemsToCartMutation = `#graphql
     mutation addItemsToCart($id: ID!, $lines: [CartLineInput!]!) {
       cartLinesAdd(cartId: $id, lines: $lines) {
         cart {
-          id
+          ...CartFragment
         }
         userErrors {
           field
@@ -170,13 +170,14 @@ export const addItemsToCartMutation = `#graphql
         }
       }
     }
+    ${cartFragment}
 `;
 
 export const removeItemsFromCartMutation = `#graphql
     mutation removeFromCart($id: ID!, $lineIds: [ID!]!) {
       cartLinesRemove(cartId: $id, lineIds: $lineIds) {
         cart {
-          id
+          ...CartFragment
         }
         userErrors {
           field
@@ -184,13 +185,14 @@ export const removeItemsFromCartMutation = `#graphql
         }
       }
     }
+    ${cartFragment}
 `;
 
 export const updateItemsInCartMutation = `#graphql
     mutation updateCartLines($id: ID!, $lines: [CartLineUpdateInput!]!) {
       cartLinesUpdate(cartId: $id, lines: $lines) {
         cart {
-          id
+          ...CartFragment
         }
         userErrors {
           field
@@ -198,6 +200,7 @@ export const updateItemsInCartMutation = `#graphql
         }
       }
     }
+    ${cartFragment}
 `;
 
 export const updateCartNoteMutation = `#graphql
