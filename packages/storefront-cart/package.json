@@ -1,34 +1,33 @@
 {
   "name": "@bryt-designs/storefront-cart",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "type": "module",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "module": "./dist/index.cjs"
+      "types": "./dist/main/index.d.ts",
+      "import": "./dist/main/index.js",
+      "module": "./dist/main/index.cjs"
     }
   },
-  "types": "./dist/index.d.ts",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "types": "./dist/main/index.d.ts",
+  "main": "./dist/main/index.cjs",
+  "module": "./dist/main/index.js",
+  "jsdelivr": "./dist/jsdelivr/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && vite --config vite.jsdelivr-config.ts build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@bryt-designs/storefront-client": "workspace:*",
+    "@shopify/hydrogen-react": "^2024.7.6",
     "js-cookie": "^3.0.5",
     "lodash.uniq": "^4.5.0",
     "solid-js": "^1.8.18",
     "zod": "^3.23.8"
-  },
-  "peerDependencies": {
-    "@bryt-designs/storefront-client": "workspace:*"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",
@@ -39,6 +38,7 @@
     "@tanstack/solid-query": "^5.45.0",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash.uniq": "^4.5.9",
+    "defu": "^6.1.4",
     "graphql-config": "^5.0.3",
     "vite": "^5.3.1",
     "vite-plugin-graphql-codegen": "^3.3.8",

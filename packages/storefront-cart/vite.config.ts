@@ -1,33 +1,22 @@
-import { defineConfig } from "vite";
+import defineConfig from "./vite.base-config";
 import dts from "vite-plugin-dts";
 import codegen from "vite-plugin-graphql-codegen";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import pkg from "./package.json" assert { type: "json" };
+//
 
 export default defineConfig({
-  server: {
-    cors: false,
-  },
   build: {
     lib: {
-      name: "Shopify.StorefrontPredictiveSearch",
       entry: {
         index: "./src/index.ts",
       },
       formats: ["es", "cjs"],
     },
-    rollupOptions: {
-      external: [
-        ...Object.keys(pkg.dependencies),
-        "solid-js/store",
-        "solid-js/web",
-      ],
-    },
-    target: "esnext", // transpile as little as possible
+    outDir: "./dist/main",
   },
   plugins: [
+    dts({ insertTypesEntry: false }),
     codegen(),
-    dts(),
     viteStaticCopy({
       targets: [
         {
@@ -40,5 +29,5 @@ export default defineConfig({
         },
       ],
     }),
-  ], // emit TS declaration files
+  ],
 });

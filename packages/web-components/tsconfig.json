@@ -3,10 +3,5 @@
   "compilerOptions": {
     "allowJs": true
   },
-  "include": [
-    "src",
-    "*.config.ts",
-    "src/components/accordion-block",
-    "src/utils"
-  ]
+  "include": ["src"]
 }

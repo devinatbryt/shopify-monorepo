@@ -1,5 +1,16 @@
 # @bryt-designs/predictive-search
 
+## 2.2.0
+
+### Minor Changes
+
+- js delivr package version to ensure same version
+
+### Patch Changes
+
+- Updated dependencies
+  - @bryt-designs/storefront-client@0.7.0
+
 ## 2.1.0
 
 ### Minor Changes

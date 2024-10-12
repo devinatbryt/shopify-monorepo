@@ -17,13 +17,14 @@ import createCartCookie from "./lib/utils/creatCartCookie";
 import { handleHasRESTCart, handleNoRESTCart } from "./lib/fetchers";
 import {
   getCartQuery,
-  addItemsToCartMutation as addItemsToCartMutationGQL,
+  // addItemsToCartMutation as addItemsToCartMutationGQL,
   removeItemsFromCartMutation as removeItemsFromCartMutationGQL,
   updateItemsInCartMutation as updateItemsInCartMutationGQL,
   updateCartNoteMutation as updateCartNoteMutationGQL,
   updateCartDiscountCodesMutation as updateCartDiscountCodesMutationGQL,
 } from "./lib/queries";
 import { CART_QUERY_KEY } from "./lib/const";
+import { AJAX } from "./lib/ajax";
 
 // @ts-ignore
 if (!window.Shopify) window.Shopify = {};
@@ -127,61 +128,74 @@ const StorefrontCart = (function () {
 
   const addItemsToCartMutation = client.createMutation(() => ({
     mutationFn: async (lines: CartLineInput[]) => {
-      lines = lines.map((line) => ({
-        quantity: line.quantity,
-        attributes: line.attributes || [],
-        merchandiseId: formatId(line.merchandiseId, "ProductVariant"),
-        sellingPlanId: line.sellingPlanId
-          ? formatId(line.sellingPlanId, "SellingPlan")
-          : undefined,
+      // lines = lines.map((line) => ({
+      //   quantity: line.quantity,
+      //   attributes: line.attributes || [],
+      //   merchandiseId: formatId(line.merchandiseId, "ProductVariant"),
+      //   sellingPlanId: line.sellingPlanId
+      //     ? formatId(line.sellingPlanId, "SellingPlan")
+      //     : undefined,
+      // }));
+      const ajaxLines = lines.map((line) => ({
+        id: line.merchandiseId,
+        quantity: line.quantity!,
+        selling_plan: line.sellingPlanId || undefined,
+        properties: (line.attributes || []).reduce(
+          (props, attr) => ({
+            ...props,
+            [attr.key]: attr.value,
+          }),
+          {}
+        ),
       }));
       return makeObservablePromise(
         () => cartCookie.token,
-        async (cartId) => {
-          const req = await client.query({
-            query: addItemsToCartMutationGQL,
-            variables: {
-              id: cartId!,
-              lines,
-            },
-          });
-          if ((req?.data?.cartLinesAdd?.userErrors || []).length > 0)
-            throw req.data?.cartLinesAdd?.userErrors;
-          if (!req?.data?.cartLinesAdd?.cart)
-            throw new Error("Could not add items to cart");
-          return req.data.cartLinesAdd.cart;
+        async (_) => {
+          const req = await AJAX.add.items(ajaxLines);
+          // const req = await client.query({
+          //   query: addItemsToCartMutationGQL,
+          //   variables: {
+          //     id: cartId!,
+          //     lines,
+          //   },
+          // });
+          // if ((req?.data?.cartLinesAdd?.userErrors || []).length > 0)
+          //   throw req.data?.cartLinesAdd?.userErrors;
+          // if (!req?.data?.cartLinesAdd?.cart)
+          //   throw new Error("Could not add items to cart");
+          return req;
         }
       );
     },
-    onSuccess(cart, lines) {
-      const restCart = convertCartStructToREST(cart);
-      const addedItems = restCart?.items.reduce(
-        (addedItems, line) => {
-          const item = lines.find((item) => {
-            let result =
-              item.merchandiseId.toString() === line.variant_id.toString();
-            if (!result) return false;
-            if (item.sellingPlanId && line.selling_plan)
-              result = item.sellingPlanId === line.selling_plan.id;
-            if (!result) return false;
-            if (item.attributes && line.attributes) {
-              result = item.attributes.every((attr) =>
-                line.attributes.some(
-                  (a) => a.key === attr.key && a.value === attr.value
-                )
-              );
-            }
+    // onSuccess(cart, lines) {
+    //   const restCart = convertCartStructToREST(cart);
+    //   const addedItems = restCart?.items.reduce(
+    //     (addedItems, line) => {
+    //       const item = lines.find((item) => {
+    //         let result =
+    //           item.merchandiseId.toString() === line.variant_id.toString();
+    //         if (!result) return false;
+    //         if (item.sellingPlanId && line.selling_plan)
+    //           result = item.sellingPlanId === line.selling_plan.id;
+    //         if (!result) return false;
+    //         if (item.attributes && line.attributes) {
+    //           result = item.attributes.every((attr) =>
+    //             line.attributes.some(
+    //               (a) => a.key === attr.key && a.value === attr.value
+    //             )
+    //           );
+    //         }
 
-            return result;
-          });
-          if (item) return [...addedItems, line];
-          return addedItems;
-        },
-        [] as typeof restCart.items
-      );
+    //         return result;
+    //       });
+    //       if (item) return [...addedItems, line];
+    //       return addedItems;
+    //     },
+    //     [] as typeof restCart.items
+    //   );
 
-      publishShopifyAnalaytics("items_added", { items: addedItems });
-    },
+    //   publishShopifyAnalaytics("items_added", { items: addedItems });
+    // },
     onSettled() {
       invalidateCartQuery();
     },

@@ -10,6 +10,7 @@
     "release": "turbo build && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.5",
     "dotenv-cli": "github:motdotla/dotenv-cli",
     "prettier": "^3.2.5",
     "syncpack": "^12.3.2",
@@ -22,8 +23,5 @@
   "packageManager": "pnpm@9.1.2",
   "engines": {
     "node": ">=18"
-  },
-  "dependencies": {
-    "@changesets/cli": "^2.27.5"
   }
 }

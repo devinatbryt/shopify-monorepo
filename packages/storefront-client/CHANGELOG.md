@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.7.0
+
+### Minor Changes
+
+- js delivr package version to ensure same version
+
 ## 0.6.1
 
 ### Patch Changes

@@ -7,11 +7,10 @@ settings:
 importers:
 
   .:
-    dependencies:
+    devDependencies:
       '@changesets/cli':
         specifier: ^2.27.5
         version: 2.27.5
-    devDependencies:
       dotenv-cli:
         specifier: github:motdotla/dotenv-cli
         version: https://codeload.github.com/motdotla/dotenv-cli/tar.gz/1480f6b162841926affb626910ba86138294f5ef
@@ -82,6 +81,9 @@ importers:
       '@bryt-designs/storefront-client':
         specifier: workspace:*
         version: link:../storefront-client
+      '@shopify/hydrogen-react':
+        specifier: ^2024.7.6
+        version: 2024.7.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -119,6 +121,9 @@ importers:
       '@types/lodash.uniq':
         specifier: ^4.5.9
         version: 4.5.9
+      defu:
+        specifier: ^6.1.4
+        version: 6.1.4
       graphql-config:
         specifier: ^5.0.3
         version: 5.0.3(@types/node@20.14.8)(encoding@0.1.13)(graphql@16.9.0)(typescript@5.4.5)
@@ -141,11 +146,11 @@ importers:
         specifier: ^5.45.0
         version: 5.45.0
       '@tanstack/solid-query':
-        specifier: ^5.45.0
-        version: 5.45.0(solid-js@1.8.18)
+        specifier: ^5.59.10
+        version: 5.59.10(solid-js@1.8.18)
       '@tanstack/solid-query-persist-client':
         specifier: ^5.52.2
-        version: 5.52.2(@tanstack/solid-query@5.45.0(solid-js@1.8.18))(solid-js@1.8.18)
+        version: 5.52.2(@tanstack/solid-query@5.59.10(solid-js@1.8.18))(solid-js@1.8.18)
       lz-string:
         specifier: ^1.5.0
         version: 1.5.0
@@ -156,6 +161,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      defu:
+        specifier: ^6.1.4
+        version: 6.1.4
       vite:
         specifier: ^5.3.1
         version: 5.3.1(@types/node@20.14.8)(terser@5.31.1)
@@ -207,6 +215,9 @@ importers:
       '@types/node':
         specifier: ^20.14.8
         version: 20.14.8
+      defu:
+        specifier: ^6.1.4
+        version: 6.1.4
       vite:
         specifier: ^5.3.1
         version: 5.3.1(@types/node@20.14.8)(terser@5.31.1)
@@ -1398,6 +1409,13 @@ packages:
       react: ^18.0.0
       react-dom: ^18.0.0
 
+  '@shopify/hydrogen-react@2024.7.6':
+    resolution: {integrity: sha512-uwn9t0C3MFaRF+pU8zniFXYv8yLMMqC7NypcOf08rDrJAxdlMc0nHIbYb1Y2CKPolhQpBNXK3sYRyFiSKEMmvQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+
   '@shopify/hydrogen@2024.4.7':
     resolution: {integrity: sha512-xIQsLhiwI2ae9JzgrHJ0gbNREhh4cr7MW0n2xKimrYIYEEu+ZAm5upI6/IOVPmMra6huG2zC8grEjEzIfkisrQ==}
     peerDependencies:
@@ -1441,6 +1459,9 @@ packages:
   '@tanstack/query-core@5.52.2':
     resolution: {integrity: sha512-9vvbFecK4A0nDnrc/ks41e3UHONF1DAnGz8Tgbxkl59QcvKWmc0ewhYuIKRh8NC4ja5LTHT9EH16KHbn2AIYWA==}
 
+  '@tanstack/query-core@5.59.10':
+    resolution: {integrity: sha512-XxvnKeBWqDTHstyjA1qmSD5VS/FZ2g/qYvPMhFM7IZF0JnMqMxtzbiUkiTFaZ4YZo/Q84LS0hZi0UncKJ3vIhg==}
+
   '@tanstack/query-persist-client-core@5.45.0':
     resolution: {integrity: sha512-iAETglkRB6FR1//185TcWGnMxkisJPnCrlvIhLpHzT4eKLmh4n4vq1Cys42YIJzM2il4YWf8P4refzdq4D5Vdw==}
 
@@ -1458,6 +1479,11 @@ packages:
 
   '@tanstack/solid-query@5.45.0':
     resolution: {integrity: sha512-bvgTVmW3GSUxUv6LwbeYxDaF/6Bjsks7JlGHzNEoZXB0kjsoxqavRYmLgAIrwn1vqyR53dkxvH+rDTwGfQv6CQ==}
+    peerDependencies:
+      solid-js: ^1.6.0
+
+  '@tanstack/solid-query@5.59.10':
+    resolution: {integrity: sha512-cz+3PZLrTo6+5X/Go21j8b77QVvyKS0JRQBxg4peEPD4glU6FDMmmYAsI+C+upYJj3QW3TnX+BYvsTPaYP1lwA==}
     peerDependencies:
       solid-js: ^1.6.0
 
@@ -1735,8 +1761,23 @@ packages:
     resolution: {integrity: sha512-LS8tSomZa3YHnntpWt3PP43iFEEl6YeIsvDakczHBKlay5LdkXFr8w7v8H6akpG5nRrzydyB0k1iE2eoL6aKIQ==}
     engines: {node: '>=16.0.0'}
 
+  '@xstate/fsm@2.0.0':
+    resolution: {integrity: sha512-p/zcvBMoU2ap5byMefLkR+AM+Eh99CU/SDEQeccgKlmFNOMDwphaRGqdk+emvel/SaGZ7Rf9sDvzAplLzLdEVQ==}
+
   '@xstate/fsm@2.1.0':
     resolution: {integrity: sha512-oJlc0iD0qZvAM7If/KlyJyqUt7wVI8ocpsnlWzAPl97evguPbd+oJbRM9R4A1vYJffYH96+Bx44nLDE6qS8jQg==}
+
+  '@xstate/react@3.2.1':
+    resolution: {integrity: sha512-L/mqYRxyBWVdIdSaXBHacfvS8NKn3sTKbPb31aRADbE9spsJ1p+tXil0GVQHPlzrmjGeozquLrxuYGiXsFNU7g==}
+    peerDependencies:
+      '@xstate/fsm': ^2.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      xstate: ^4.36.0
+    peerDependenciesMeta:
+      '@xstate/fsm':
+        optional: true
+      xstate:
+        optional: true
 
   '@xstate/react@3.2.2':
     resolution: {integrity: sha512-feghXWLedyq8JeL13yda3XnHPZKwYDN5HPBLykpLeuNpr9178tQd2/3d0NrH6gSd0sG5mLuLeuD+ck830fgzLQ==}
@@ -2227,6 +2268,9 @@ packages:
   define-properties@1.2.1:
     resolution: {integrity: sha512-8QmQKqEASLd5nx0U1B1okLElbUuuttJ/AnYmRXbbbGDWh6uS208EjD4Xqq/I9wK7u0v6O08XhTWnt5XtEbR6Dg==}
     engines: {node: '>= 0.4'}
+
+  defu@6.1.4:
+    resolution: {integrity: sha512-mEQCMmwJu317oSz8CwdIOdwf3xMif1ttiM8LTufzc3g6kR+9Pe236twL8j3IYT1F7GfRgGcW6MWxzZjLIkuHIg==}
 
   dependency-graph@0.11.0:
     resolution: {integrity: sha512-JeMq7fEshyepOWDfcfHK06N3MhyPhz++vtqWhMT5O9A3K42rdsEDpfdVqjaqaAhsw6a+ZqeDvQVtD0hFHQWrzg==}
@@ -6257,6 +6301,20 @@ snapshots:
       - '@types/react'
       - xstate
 
+  '@shopify/hydrogen-react@2024.7.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@google/model-viewer': 1.12.1
+      '@xstate/fsm': 2.0.0
+      '@xstate/react': 3.2.1(@xstate/fsm@2.0.0)(react@18.3.1)
+      graphql: 16.9.0
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      type-fest: 4.20.1
+      worktop: 0.7.3
+    transitivePeerDependencies:
+      - '@types/react'
+      - xstate
+
   '@shopify/hydrogen@2024.4.7(@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@remix-run/server-runtime@2.9.2(typescript@5.4.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@5.3.1(@types/node@20.14.8)(terser@5.31.1))':
     dependencies:
       '@remix-run/react': 2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)
@@ -6294,6 +6352,8 @@ snapshots:
 
   '@tanstack/query-core@5.52.2': {}
 
+  '@tanstack/query-core@5.59.10': {}
+
   '@tanstack/query-persist-client-core@5.45.0':
     dependencies:
       '@tanstack/query-core': 5.45.0
@@ -6307,15 +6367,20 @@ snapshots:
       '@tanstack/query-core': 5.45.0
       '@tanstack/query-persist-client-core': 5.45.0
 
-  '@tanstack/solid-query-persist-client@5.52.2(@tanstack/solid-query@5.45.0(solid-js@1.8.18))(solid-js@1.8.18)':
+  '@tanstack/solid-query-persist-client@5.52.2(@tanstack/solid-query@5.59.10(solid-js@1.8.18))(solid-js@1.8.18)':
     dependencies:
       '@tanstack/query-persist-client-core': 5.52.2
-      '@tanstack/solid-query': 5.45.0(solid-js@1.8.18)
+      '@tanstack/solid-query': 5.59.10(solid-js@1.8.18)
       solid-js: 1.8.18
 
   '@tanstack/solid-query@5.45.0(solid-js@1.8.18)':
     dependencies:
       '@tanstack/query-core': 5.45.0
+      solid-js: 1.8.18
+
+  '@tanstack/solid-query@5.59.10(solid-js@1.8.18)':
+    dependencies:
+      '@tanstack/query-core': 5.59.10
       solid-js: 1.8.18
 
   '@types/argparse@1.0.38': {}
@@ -6495,7 +6560,7 @@ snapshots:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.5.4
+      semver: 7.6.0
       tsutils: 3.21.0(typescript@5.4.5)
     optionalDependencies:
       typescript: 5.4.5
@@ -6510,7 +6575,7 @@ snapshots:
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3
-      semver: 7.5.4
+      semver: 7.6.0
       ts-api-utils: 1.0.2(typescript@5.4.5)
     optionalDependencies:
       typescript: 5.4.5
@@ -6542,7 +6607,7 @@ snapshots:
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.4.5)
       eslint: 8.57.0
       eslint-scope: 5.1.1
-      semver: 7.5.4
+      semver: 7.6.0
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -6556,7 +6621,7 @@ snapshots:
       '@typescript-eslint/types': 6.17.0
       '@typescript-eslint/typescript-estree': 6.17.0(typescript@5.4.5)
       eslint: 8.57.0
-      semver: 7.5.4
+      semver: 7.6.0
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -6700,7 +6765,19 @@ snapshots:
       fast-querystring: 1.1.2
       tslib: 2.6.2
 
+  '@xstate/fsm@2.0.0': {}
+
   '@xstate/fsm@2.1.0': {}
+
+  '@xstate/react@3.2.1(@xstate/fsm@2.0.0)(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+      use-isomorphic-layout-effect: 1.1.2(react@18.3.1)
+      use-sync-external-store: 1.2.2(react@18.3.1)
+    optionalDependencies:
+      '@xstate/fsm': 2.0.0
+    transitivePeerDependencies:
+      - '@types/react'
 
   '@xstate/react@3.2.2(@xstate/fsm@2.1.0)(react@18.3.1)':
     dependencies:
@@ -7257,6 +7334,8 @@ snapshots:
       define-data-property: 1.1.1
       has-property-descriptors: 1.0.1
       object-keys: 1.1.1
+
+  defu@6.1.4: {}
 
   dependency-graph@0.11.0: {}
 

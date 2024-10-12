@@ -1,5 +1,18 @@
 # @bryt-designs/web-components
 
+## 0.11.0
+
+### Minor Changes
+
+- js delivr package version to ensure same version
+
+### Patch Changes
+
+- Updated dependencies
+  - @bryt-designs/predictive-search@3.0.0
+  - @bryt-designs/storefront-client@0.7.0
+  - @bryt-designs/storefront-cart@2.2.0
+
 ## 0.10.9
 
 ### Patch Changes

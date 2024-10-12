@@ -1,10 +1,10 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.10.9",
+  "version": "0.11.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && vite --config vite.jsdelivr-config.ts build",
     "preview": "vite preview"
   },
   "files": [
@@ -13,29 +13,29 @@
   ],
   "exports": {
     "./accordion-block": {
-      "import": "./dist/accordion-block/index.js",
-      "module": "./dist/accordion-block/index.cjs",
-      "types": "./src/accordion-block/index.d.ts"
+      "import": "./dist/main/accordion-block/index.js",
+      "module": "./dist/main/accordion-block/index.cjs",
+      "jsdelivr": "./dist/jsdelivr/accordion-block/index.js"
     },
     "./gnav-header": {
-      "import": "./dist/gnav-header/index.js",
-      "module": "./dist/gnav-header/index.cjs",
-      "types": "./src/gnav-header/index.d.ts"
+      "import": "./dist/main/gnav-header/index.js",
+      "module": "./dist/main/gnav-header/index.cjs",
+      "jsdelivr": "./dist/jsdelivr/gnav-header/index.js"
     },
     "./element-portal": {
-      "import": "./dist/element-portal/index.js",
-      "module": "./dist/element-portal/index.cjs",
-      "types": "./src/element-portal/index.d.ts"
+      "import": "./dist/main/element-portal/index.js",
+      "module": "./dist/main/element-portal/index.cjs",
+      "jsdelivr": "./dist/jsdelivr/element-portal/index.js"
     },
     "./drawer": {
-      "import": "./dist/drawer/index.js",
-      "module": "./dist/drawer/index.cjs",
-      "types": "./src/drawer/index.d.ts"
+      "import": "./dist/main/drawer/index.js",
+      "module": "./dist/main/drawer/index.cjs",
+      "jsdelivr": "./dist/jsdelivr/drawer/index.js"
     },
     "./hash-router": {
-      "import": "./dist/hash-router/index.js",
-      "module": "./dist/hash-router/index.cjs",
-      "types": "./src/hash-router/index.d.ts"
+      "import": "./dist/main/hash-router/index.js",
+      "module": "./dist/main/hash-router/index.cjs",
+      "jsdelivr": "./dist/jsdelivr/hash-router/index.js"
     },
     "./css/hash-router.css": {
       "import": "./src/css/hash-router.css",
@@ -60,6 +60,7 @@
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
     "@types/node": "^20.14.8",
+    "defu": "^6.1.4",
     "vite": "^5.3.1"
   }
 }
