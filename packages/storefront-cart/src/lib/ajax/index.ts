@@ -19,7 +19,7 @@ async function addItems(items: ItemAddInput[], options: ItemAddOptions = {}) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(items),
+      body: JSON.stringify({ items }),
     };
   }
 
