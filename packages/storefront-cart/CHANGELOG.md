@@ -1,5 +1,13 @@
 # @bryt-designs/predictive-search
 
+## 2.2.2
+
+### Patch Changes
+
+- Attempt at fixing jsdelivr bug
+- Updated dependencies
+  - @bryt-designs/storefront-client@0.7.2
+
 ## 2.2.1
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @bryt-designs/web-components
 
+## 0.11.2
+
+### Patch Changes
+
+- Attempt at fixing jsdelivr bug
+- Updated dependencies
+  - @bryt-designs/storefront-client@0.7.2
+  - @bryt-designs/storefront-cart@2.2.2
+  - @bryt-designs/predictive-search@3.0.2
+
 ## 0.11.1
 
 ### Patch Changes

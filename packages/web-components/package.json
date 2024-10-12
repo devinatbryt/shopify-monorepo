@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,29 +13,29 @@
   ],
   "exports": {
     "./accordion-block": {
+      "jsdelivr": "./dist/jsdelivr/accordion-block/index.js",
       "import": "./dist/main/accordion-block/index.js",
-      "module": "./dist/main/accordion-block/index.cjs",
-      "jsdelivr": "./dist/jsdelivr/accordion-block/index.js"
+      "module": "./dist/main/accordion-block/index.cjs"
     },
     "./gnav-header": {
+      "jsdelivr": "./dist/jsdelivr/gnav-header/index.js",
       "import": "./dist/main/gnav-header/index.js",
-      "module": "./dist/main/gnav-header/index.cjs",
-      "jsdelivr": "./dist/jsdelivr/gnav-header/index.js"
+      "module": "./dist/main/gnav-header/index.cjs"
     },
     "./element-portal": {
+      "jsdelivr": "./dist/jsdelivr/element-portal/index.js",
       "import": "./dist/main/element-portal/index.js",
-      "module": "./dist/main/element-portal/index.cjs",
-      "jsdelivr": "./dist/jsdelivr/element-portal/index.js"
+      "module": "./dist/main/element-portal/index.cjs"
     },
     "./drawer": {
+      "jsdelivr": "./dist/jsdelivr/drawer/index.js",
       "import": "./dist/main/drawer/index.js",
-      "module": "./dist/main/drawer/index.cjs",
-      "jsdelivr": "./dist/jsdelivr/drawer/index.js"
+      "module": "./dist/main/drawer/index.cjs"
     },
     "./hash-router": {
+      "jsdelivr": "./dist/jsdelivr/hash-router/index.js",
       "import": "./dist/main/hash-router/index.js",
-      "module": "./dist/main/hash-router/index.cjs",
-      "jsdelivr": "./dist/jsdelivr/hash-router/index.js"
+      "module": "./dist/main/hash-router/index.cjs"
     },
     "./css/hash-router.css": {
       "import": "./src/css/hash-router.css",

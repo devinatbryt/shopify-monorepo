@@ -1,21 +1,22 @@
 {
   "name": "@bryt-designs/storefront-cart",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "type": "module",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
+      "jsdelivr": "./dist/jsdelivr/index.js",
       "types": "./dist/main/index.d.ts",
       "import": "./dist/main/index.js",
       "module": "./dist/main/index.cjs"
     }
   },
+  "jsdelivr": "./dist/jsdelivr/index.js",
   "types": "./dist/main/index.d.ts",
   "main": "./dist/main/index.cjs",
   "module": "./dist/main/index.js",
-  "jsdelivr": "./dist/jsdelivr/index.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && vite --config vite.jsdelivr-config.ts build",

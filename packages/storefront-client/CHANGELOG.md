@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.7.2
+
+### Patch Changes
+
+- Attempt at fixing jsdelivr bug
+
 ## 0.7.1
 
 ### Patch Changes
