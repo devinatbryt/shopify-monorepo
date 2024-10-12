@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/storefront-cart",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "type": "module",
   "files": [
     "dist"
@@ -27,7 +27,7 @@
     "@shopify/hydrogen-react": "^2024.7.6",
     "js-cookie": "^3.0.5",
     "lodash.uniq": "^4.5.0",
-    "solid-js": "^1.8.18",
+    "solid-js": "^1.8.22",
     "zod": "^3.23.8"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.11.5",
+  "version": "0.11.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -54,7 +54,7 @@
     "motion": "^10.18.0",
     "observe-element-in-viewport": "^0.0.15",
     "solid-element": "^1.8.0",
-    "solid-js": "^1.8.18",
+    "solid-js": "^1.8.22",
     "stickybits": "^3.7.11"
   },
   "devDependencies": {
