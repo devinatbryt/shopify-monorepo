@@ -31,7 +31,7 @@ async function addItems(items: ItemAddInput[], options: ItemAddOptions = {}) {
 
   const data = (await response.json()) as FetchResponse;
 
-  if (data?.status !== 200) {
+  if (data?.status && data?.status !== 200) {
     throw new Error(`${data.message} - Reason: ${data.description}`);
   }
 
