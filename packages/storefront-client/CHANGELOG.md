@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.7.1
+
+### Patch Changes
+
+- Minor jsdelivr bug fix
+
 ## 0.7.0
 
 ### Minor Changes

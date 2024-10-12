@@ -1,6 +1,6 @@
 import defineConfig, { dependencies } from "./vite.base-config";
 
-const JS_DELIVR_URL_BASE = "https://cdn.jsdelivr.net/npm/";
+const JS_DELIVR_URL_BASE = "/npm/";
 
 export default defineConfig({
   build: {
