@@ -26,7 +26,10 @@ export default defineConfig({
 
           const version = dependencies[id]?.replace("^", "@");
           if (!version) return id;
-          return `${JS_DELIVR_URL_BASE}${id}${version}/+esm`;
+          if (id.startsWith("@") || !id.includes("/"))
+            return `${JS_DELIVR_URL_BASE}${id}${version}/+esm`;
+          const split_id = id.split("/");
+          return `${JS_DELIVR_URL_BASE}${split_id.at(0)}${version}/${split_id.slice(1).join("/")}/+esm`;
         },
       },
     },

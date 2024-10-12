@@ -15,8 +15,10 @@ export default defineConfig({
         paths: (id) => {
           const version = dependencies[id]?.replace("^", "@");
           if (!version) return id;
-          const url = `${JS_DELIVR_URL_BASE}${id}${version}/+esm`;
-          return url;
+          if (id.startsWith("@") || !id.includes("/"))
+            return `${JS_DELIVR_URL_BASE}${id}${version}/+esm`;
+          const split_id = id.split("/");
+          return `${JS_DELIVR_URL_BASE}${split_id.at(0)}${version}/${split_id.slice(1).join("/")}/+esm`;
         },
       },
     },
