@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.2.3
+
+### Patch Changes
+
+- Minor bug fix for relative package imports
+
 ## 2.2.2
 
 ### Patch Changes

@@ -1,5 +1,7 @@
 import defineConfig, { dependencies } from "./vite.base-config";
 
+import clientPkg from "../storefront-client/package.json" assert { type: "json" };
+
 const JS_DELIVR_URL_BASE = "/npm/";
 
 export default defineConfig({
@@ -13,11 +15,18 @@ export default defineConfig({
     rollupOptions: {
       output: {
         paths: (id) => {
-          if (dependencies[id] === "workspace:*") return id;
+          if (dependencies[id] === "workspace:*") {
+            const version = dependencies[id]?.replace(
+              "workspace:*",
+              clientPkg.name === id ? clientPkg.version : ""
+            );
+            if (!version) return id;
+            return `${JS_DELIVR_URL_BASE}${id}@${version}`;
+          }
+
           const version = dependencies[id]?.replace("^", "@");
           if (!version) return id;
-          const url = `${JS_DELIVR_URL_BASE}${id}${version}/+esm`;
-          return url;
+          return `${JS_DELIVR_URL_BASE}${id}${version}/+esm`;
         },
       },
     },
