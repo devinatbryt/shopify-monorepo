@@ -1,5 +1,14 @@
 # @bryt-designs/web-components
 
+## 0.11.8
+
+### Patch Changes
+
+- Updated dependencies
+  - @bryt-designs/storefront-client@0.7.5
+  - @bryt-designs/storefront-cart@2.2.8
+  - @bryt-designs/predictive-search@3.0.5
+
 ## 0.11.7
 
 ### Patch Changes

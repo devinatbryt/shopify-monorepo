@@ -13,7 +13,7 @@ import client from "./lib/client";
 import convertCartStructToREST from "./lib/utils/convertCartStructToREST";
 import formatId from "./lib/utils/formatId";
 import makeObservablePromise from "./lib/utils/makeObservablePromise";
-import createCartCookie from "./lib/utils/creatCartCookie";
+import createCartCookie from "./lib/utils/createCartCookie";
 import { handleHasRESTCart, handleNoRESTCart } from "./lib/fetchers";
 import {
   getCartQuery,
@@ -45,12 +45,11 @@ class CartNotFoundError extends CartError {
 
 export type CartData = ReturnType<typeof convertCartStructToREST> | undefined;
 
-function publishShopifyAnalaytics<T extends object>(
-  eventName: string,
-  data: T
-) {
+function publishEvent<T extends object>(eventName: string, data: T) {
+  const actualEventName = `storefront_cart:${eventName}`;
+  window.dispatchEvent(new CustomEvent(actualEventName, { detail: data }));
   if (!Shopify.analytics) return false;
-  return Shopify.analytics.publish(`storefront_cart:${eventName}`, data);
+  return Shopify.analytics.publish(actualEventName, data);
 }
 
 const StorefrontCart = (function () {
@@ -167,36 +166,37 @@ const StorefrontCart = (function () {
         }
       );
     },
-    // onSuccess(cart, lines) {
-    //   const restCart = convertCartStructToREST(cart);
-    //   const addedItems = restCart?.items.reduce(
-    //     (addedItems, line) => {
-    //       const item = lines.find((item) => {
-    //         let result =
-    //           item.merchandiseId.toString() === line.variant_id.toString();
-    //         if (!result) return false;
-    //         if (item.sellingPlanId && line.selling_plan)
-    //           result = item.sellingPlanId === line.selling_plan.id;
-    //         if (!result) return false;
-    //         if (item.attributes && line.attributes) {
-    //           result = item.attributes.every((attr) =>
-    //             line.attributes.some(
-    //               (a) => a.key === attr.key && a.value === attr.value
-    //             )
-    //           );
-    //         }
+    async onSuccess(_, lines) {
+      await invalidateCartQuery();
+      const restCart = getCartData();
+      const addedItems = restCart?.items.reduce(
+        (addedItems, line) => {
+          const item = lines.find((item) => {
+            let result =
+              item.merchandiseId.toString() === line.variant_id.toString();
+            if (!result) return false;
+            if (item.sellingPlanId && line.selling_plan)
+              result = item.sellingPlanId === line.selling_plan.id;
+            if (!result) return false;
+            if (item.attributes && line.attributes) {
+              result = item.attributes.every((attr) =>
+                line.attributes.some(
+                  (a) => a.key === attr.key && a.value === attr.value
+                )
+              );
+            }
 
-    //         return result;
-    //       });
-    //       if (item) return [...addedItems, line];
-    //       return addedItems;
-    //     },
-    //     [] as typeof restCart.items
-    //   );
+            return result;
+          });
+          if (item) return [...addedItems, line];
+          return addedItems;
+        },
+        [] as typeof restCart.items
+      );
 
-    //   publishShopifyAnalaytics("items_added", { items: addedItems });
-    // },
-    onSettled() {
+      publishEvent("items_added", { items: addedItems });
+    },
+    onError() {
       invalidateCartQuery();
     },
   }));
@@ -257,7 +257,7 @@ const StorefrontCart = (function () {
         [] as typeof cart.items
       );
 
-      publishShopifyAnalaytics("items_removed", { items: removedLines });
+      publishEvent("items_removed", { items: removedLines });
     },
     onSettled() {
       invalidateCartQuery();
@@ -339,7 +339,7 @@ const StorefrontCart = (function () {
         [] as typeof restCart.items
       );
 
-      publishShopifyAnalaytics("items_updated", { items: updatedItems });
+      publishEvent("items_updated", { items: updatedItems });
     },
     onSettled: () => {
       invalidateCartQuery();
@@ -384,6 +384,9 @@ const StorefrontCart = (function () {
       if (!context?.previousCart) return;
       setCartData(() => context.previousCart);
     },
+    onSuccess(_, note) {
+      publishEvent("cart_note_updated", { note });
+    },
     onSettled: () => {
       invalidateCartQuery();
     },
@@ -416,11 +419,11 @@ const StorefrontCart = (function () {
         (code) => code.applicable && code.code === discountCode
       );
 
-      if (applied) {
-        setDiscounts(uniq(newCodes.map((c) => c.code)));
-      }
-
       if (!applied) throw new Error("Discount code is invalid!");
+
+      publishEvent("discount_applied", { discountCode });
+      setDiscounts(uniq(newCodes.map((c) => c.code)));
+      return;
     },
     onSettled: () => {
       invalidateCartQuery();
@@ -444,6 +447,7 @@ const StorefrontCart = (function () {
             throw req.data?.cartDiscountCodesUpdate?.userErrors;
           if (!req?.data?.cartDiscountCodesUpdate?.cart)
             throw new Error("Could not remove discount code");
+          publishEvent("discount_removed", { discountCode });
           return req.data.cartDiscountCodesUpdate.cart;
         }
       );
@@ -472,6 +476,7 @@ const StorefrontCart = (function () {
     },
     onSuccess: (cart) => {
       const codes = cart?.discountCodes || [];
+
       setDiscounts(codes.map((c) => c.code));
     },
     onSettled: () => {

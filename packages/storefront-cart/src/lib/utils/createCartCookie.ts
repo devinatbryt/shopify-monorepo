@@ -60,19 +60,13 @@ export default function createCartCookie() {
   //   setCartId(parseId(id));
   // });
 
-  const [id, setId] = createSignal(Cookie.get("storefront_cart"));
+  const [id, setId] = createSignal(Cookie.get("cart"));
 
   createEffect(
     on(id, (id) => {
-      if (!id) {
-        Cookie.remove("storefront_cart");
-        Cookie.remove("cart");
-        return;
-      }
-      Cookie.set("storefront_cart", id, { expires: 10 });
+      if (!id) return Cookie.remove("cart");
       Cookie.set("cart", id, { expires: 10 });
       return onCleanup(() => {
-        Cookie.remove("storefront_cart");
         Cookie.remove("cart");
       });
     })

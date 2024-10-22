@@ -1,5 +1,13 @@
 # @bryt-designs/predictive-search
 
+## 2.2.8
+
+### Patch Changes
+
+- Events now publish a custom event to the window.
+- Updated dependencies
+  - @bryt-designs/storefront-client@0.7.5
+
 ## 2.2.7
 
 ### Patch Changes

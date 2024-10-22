@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.7.5
+
+### Patch Changes
+
+- Events now publish a custom event to the window.
+
 ## 0.7.4
 
 ### Patch Changes
