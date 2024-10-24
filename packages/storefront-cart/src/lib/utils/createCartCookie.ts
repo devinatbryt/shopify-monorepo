@@ -16,15 +16,15 @@ function watchCookieChange(
   callback: (newValue: string | undefined) => void,
   interval: number = 1000
 ): () => void {
-  let lastValue = cookieStorage.get(cookieName);
+  let lastValue = cookieStorage.getItem(cookieName);
 
   // Check for changes immediately
   const checkCookie = () => {
-    const newValue = cookieStorage.get(cookieName);
+    const newValue = cookieStorage.getItem(cookieName);
     if (newValue !== lastValue) {
       lastValue = newValue;
       console.log(`Cart cookie changed: ${newValue}`);
-      callback(newValue);
+      callback(newValue || undefined);
     }
   };
 
