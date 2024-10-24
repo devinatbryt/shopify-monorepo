@@ -64,32 +64,37 @@ export default function createCartCookie() {
     })
   );
 
-  const [cartId, setCartId] = makePersisted(createSignal<string>(), {
-    name: NAME,
-    storage: cookieStorage,
-    storageOptions: {
-      expires: getExpireTime,
-    },
-    sync: [
-      (subscriber) => {
-        const unsub = watchCookieChange(
-          NAME,
-          (newValue) => {
-            subscriber({
-              key: NAME,
-              newValue,
-              timeStamp: Date.now(),
-            });
-          },
-          100
-        );
-        onCleanup(() => {
-          unsub();
-        });
+  const [cartId, setCartId] = makePersisted(
+    createSignal<string | undefined>(),
+    {
+      name: NAME,
+      storage: cookieStorage,
+      storageOptions: {
+        expires: getExpireTime,
       },
-      () => {},
-    ],
-  });
+      serialize: (value) => value as any,
+      deserialize: (data) => data,
+      sync: [
+        (subscriber) => {
+          const unsub = watchCookieChange(
+            NAME,
+            (newValue) => {
+              subscriber({
+                key: NAME,
+                newValue,
+                timeStamp: Date.now(),
+              });
+            },
+            100
+          );
+          onCleanup(() => {
+            unsub();
+          });
+        },
+        () => {},
+      ],
+    }
+  );
 
   return [cartId, setCartId] as const;
 

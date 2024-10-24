@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.2.11
+
+### Patch Changes
+
+- Hot fix cookie serialization
+
 ## 2.2.10
 
 ### Patch Changes
