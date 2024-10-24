@@ -87,7 +87,8 @@ export default function createCartCookie() {
         },
       }),
       serialize: (value) => (value ? parseId(value) : (undefined as any)),
-      deserialize: (data) => (data ? formatId(data, "Cart") : undefined),
+      deserialize: (data) =>
+        data ? formatId(decodeURIComponent(data), "Cart") : undefined,
       sync: [
         (subscriber) => {
           const unsub = watchCookieChange(
