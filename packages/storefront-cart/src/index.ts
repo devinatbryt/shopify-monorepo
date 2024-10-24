@@ -86,6 +86,7 @@ const StorefrontCart = (function () {
     throwOnError: false,
     reconcile: "cartQuery",
     staleTime: 60,
+    retry: false,
   }));
 
   function defaultUnwrap<T>(cart: CartData | undefined): T {
@@ -122,7 +123,6 @@ const StorefrontCart = (function () {
       () => cartQuery.error,
       (error) => {
         if (error instanceof CartNotFoundError === false) return;
-        if (error instanceof Error && error.name === "AbortError") return;
         return handleNoRESTCart().then(setCartId);
       }
     )
