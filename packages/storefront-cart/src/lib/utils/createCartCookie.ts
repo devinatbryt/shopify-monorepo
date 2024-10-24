@@ -1,48 +1,98 @@
-// import type { StorageWithOptions } from "@solid-primitives/storage";
-
-// import {
-//   makePersisted,
-//   addClearMethod,
-//   addWithOptionsMethod,
-// } from "../storage";
+import type { StorageWithOptions } from "@solid-primitives/storage";
+import {
+  makePersisted,
+  addClearMethod,
+  addWithOptionsMethod,
+} from "@solid-primitives/storage";
 
 import Cookie from "js-cookie";
-import { createEffect, createSignal, on, onCleanup } from "solid-js";
+import { createSignal, onCleanup } from "solid-js";
 
 import parseId from "./parseId";
 import formatId from "./formatId";
 
+function watchCookieChange(
+  cookieName: string,
+  callback: (newValue: string | undefined) => void,
+  interval: number = 1000
+): () => void {
+  let lastValue = Cookie.get(cookieName);
+
+  // Check for changes immediately
+  const checkCookie = () => {
+    const newValue = Cookie.get(cookieName);
+    if (newValue !== lastValue) {
+      lastValue = newValue;
+      callback(newValue);
+    }
+  };
+
+  // Start the polling
+  const timer = setInterval(checkCookie, interval);
+
+  // Return the unsubscribe function
+  return () => {
+    clearInterval(timer);
+  };
+}
+
+const NAME = "cart";
+
 export default function createCartCookie() {
-  // const getExpireTime = () =>
-  //   new Date(new Date().getTime() + 10 * 24 * 60 * 60 * 1000);
+  const getExpireTime = () =>
+    new Date(new Date().getTime() + 10 * 24 * 60 * 60 * 1000);
 
-  // type CookieOptions = Omit<typeof Cookie.attributes, "expires"> & {
-  //   expires?:
-  //     | (() => (typeof Cookie.attributes)["expires"])
-  //     | (typeof Cookie.attributes)["expires"];
-  // };
+  type CookieOptions = Omit<typeof Cookie.attributes, "expires"> & {
+    expires?:
+      | (() => (typeof Cookie.attributes)["expires"])
+      | (typeof Cookie.attributes)["expires"];
+  };
 
-  // const cookieStorage: StorageWithOptions<CookieOptions> = addWithOptionsMethod(
-  //   addClearMethod({
-  //     getItem: (key: string) => Cookie.get(key) || null,
-  //     setItem: (key: string, value: string, options?: CookieOptions) =>
-  //       Cookie.set(key, value, {
-  //         ...options,
-  //         expires:
-  //           typeof options?.expires === "function"
-  //             ? options.expires()
-  //             : options?.expires,
-  //       }),
-  //     removeItem: (key: string) => Cookie.remove(key),
-  //   })
-  // );
-  // const [cartId, setCartId] = makePersisted(createSignal<string>(""), {
-  //   name: "cart",
-  //   storage: cookieStorage,
-  //   storageOptions: {
-  //     expires: getExpireTime,
-  //   },
-  // });
+  const cookieStorage: StorageWithOptions<CookieOptions> = addWithOptionsMethod(
+    addClearMethod({
+      getItem: (key: string) =>
+        Cookie.get(key) ? formatId(Cookie.get(key), "Cart") : undefined,
+      setItem: (key: string, value: string, options?: CookieOptions) =>
+        Cookie.set(key, parseId(value), {
+          ...options,
+          expires:
+            typeof options?.expires === "function"
+              ? options.expires()
+              : options?.expires,
+        }),
+      removeItem: (key: string) => Cookie.remove(key),
+    })
+  );
+
+  const [cartId, setCartId] = makePersisted(createSignal<string>(), {
+    name: NAME,
+    storage: cookieStorage,
+    storageOptions: {
+      expires: getExpireTime,
+    },
+    sync: [
+      (subscriber) => {
+        const unsub = watchCookieChange(
+          NAME,
+          (newValue) => {
+            subscriber({
+              key: NAME,
+              newValue,
+              timeStamp: Date.now(),
+            });
+          },
+          100
+        );
+        onCleanup(() => {
+          unsub();
+        });
+      },
+      () => {},
+    ],
+  });
+
+  return [cartId, setCartId] as const;
+
   // const [storefrontCartId, setStorefrontCartId] = makePersisted(
   //   createSignal<string>(""),
   //   {
@@ -60,29 +110,29 @@ export default function createCartCookie() {
   //   setCartId(parseId(id));
   // });
 
-  const [id, setId] = createSignal(Cookie.get("cart"));
+  // const [id, setId] = createSignal(Cookie.get("cart"));
 
-  createEffect(
-    on(id, (id) => {
-      if (!id) return Cookie.remove("cart");
-      Cookie.set("cart", id, { expires: 10 });
-      return onCleanup(() => {
-        Cookie.remove("cart");
-      });
-    })
-  );
+  // createEffect(
+  //   on(id, (id) => {
+  //     if (!id) return Cookie.remove("cart");
+  //     Cookie.set("cart", id, { expires: 10 });
+  //     return onCleanup(() => {
+  //       Cookie.remove("cart");
+  //     });
+  //   })
+  // );
 
-  return {
-    get token() {
-      const i = id();
-      if (i) return formatId(i, "Cart");
-      return i;
-    },
+  // return {
+  //   get token() {
+  //     const i = id();
+  //     if (i) return formatId(i, "Cart");
+  //     return i;
+  //   },
 
-    set token(id) {
-      if (!id) return;
-      const value = parseId(id);
-      setId(value);
-    },
-  } as const;
+  //   set token(id) {
+  //     if (!id) return;
+  //     const value = parseId(id);
+  //     setId(value);
+  //   },
+  // } as const;
 }

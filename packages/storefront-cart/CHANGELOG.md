@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.2.9
+
+### Patch Changes
+
+- Update how cart token is handled
+
 ## 2.2.8
 
 ### Patch Changes
