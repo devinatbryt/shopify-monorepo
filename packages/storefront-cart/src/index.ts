@@ -86,6 +86,7 @@ const StorefrontCart = (function () {
     throwOnError: false,
     reconcile: "cartQuery",
     staleTime: 60,
+    enabled: !!cartId(),
   }));
 
   function defaultUnwrap<T>(cart: CartData | undefined): T {
