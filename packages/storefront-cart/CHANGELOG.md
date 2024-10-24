@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.2.30
+
+### Patch Changes
+
+- allow all path's
+
 ## 2.2.29
 
 ### Patch Changes

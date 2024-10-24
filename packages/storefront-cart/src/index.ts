@@ -76,9 +76,11 @@ const StorefrontCart = (function () {
         signal,
       });
 
-      if (!res?.data?.cart) {
+      if (!res?.data?.cart && res?.data?.cart !== null) {
         throw new CartNotFoundError();
       }
+
+      if (!res.data.cart) return undefined;
 
       return convertCartStructToREST(res.data.cart);
     },

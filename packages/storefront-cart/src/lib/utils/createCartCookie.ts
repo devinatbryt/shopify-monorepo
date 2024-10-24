@@ -81,6 +81,7 @@ export default function createCartCookie() {
         setItem(key, value) {
           cookieStorage.setItem(key, value, {
             expires: getExpireTime(),
+            path: "/",
           });
         },
       },
