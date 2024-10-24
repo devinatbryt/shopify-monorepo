@@ -52,8 +52,8 @@ export default function createCartCookie() {
   const cookieStorage: StorageWithOptions<CookieOptions> = addWithOptionsMethod(
     addClearMethod({
       getItem: (key: string) => {
-        console.log(`Cart cookie get: ${key}`);
-        Cookie.get(key) ? formatId(Cookie.get(key), "Cart") : undefined;
+        console.log(`Cart cookie get: ${key} - ${Cookie.get(key)}`);
+        return Cookie.get(key) ? formatId(Cookie.get(key), "Cart") : undefined;
       },
       setItem: (key: string, value: string, options?: CookieOptions) => {
         console.log(`Cart cookie set: ${value}`);
