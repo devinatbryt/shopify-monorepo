@@ -23,7 +23,9 @@ const baseConfig: Partial<UserConfig> = {
       formats: ["es"],
     },
     rollupOptions: {
-      external: Object.keys(dependencies),
+      external: Object.keys(dependencies).filter(
+        (dep) => !dep.startsWith("@solid-primitives")
+      ),
     },
     target: "esnext", // transpile as little as possible
   },

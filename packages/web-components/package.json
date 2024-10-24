@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.11.9",
+  "version": "0.11.10",
   "type": "module",
   "scripts": {
     "dev": "vite",

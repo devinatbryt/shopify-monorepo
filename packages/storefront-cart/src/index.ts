@@ -13,7 +13,7 @@ import convertCartStructToREST from "./lib/utils/convertCartStructToREST";
 import formatId from "./lib/utils/formatId";
 import makeObservablePromise from "./lib/utils/makeObservablePromise";
 import createCartCookie from "./lib/utils/createCartCookie";
-import { handleHasRESTCart, handleNoRESTCart } from "./lib/fetchers";
+import { handleNoRESTCart } from "./lib/fetchers";
 import {
   getCartQuery,
   // addItemsToCartMutation as addItemsToCartMutationGQL,

@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.2.10
+
+### Patch Changes
+
+- Minor build bug fix
+
 ## 2.2.9
 
 ### Patch Changes

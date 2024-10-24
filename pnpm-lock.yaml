@@ -84,6 +84,9 @@ importers:
       '@shopify/hydrogen-react':
         specifier: ^2024.7.6
         version: 2024.7.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@solid-primitives/storage':
+        specifier: ^3.7.1
+        version: 3.7.1(solid-js@1.8.22)
       js-cookie:
         specifier: ^3.0.5
         version: 3.0.5
@@ -109,9 +112,6 @@ importers:
       '@shopify/hydrogen':
         specifier: ^2024.4.7
         version: 2024.4.7(@remix-run/react@2.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5))(@remix-run/server-runtime@2.9.2(typescript@5.4.5))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@5.3.1(@types/node@20.14.8)(terser@5.31.1))
-      '@solid-primitives/storage':
-        specifier: ^3.7.1
-        version: 3.7.1(solid-js@1.8.22)
       '@tanstack/solid-query':
         specifier: ^5.45.0
         version: 5.45.0(solid-js@1.8.22)
