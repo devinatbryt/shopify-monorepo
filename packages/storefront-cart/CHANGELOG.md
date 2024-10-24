@@ -1,5 +1,17 @@
 # @bryt-designs/predictive-search
 
+## 2.2.13
+
+### Patch Changes
+
+- Attempt at fixing bug
+
+## 2.2.12
+
+### Patch Changes
+
+- Attempt at bug fixing
+
 ## 2.2.11
 
 ### Patch Changes

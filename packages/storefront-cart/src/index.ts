@@ -59,17 +59,20 @@ const StorefrontCart = (function () {
     deserialize: (value) => JSON.parse(value),
   });
   const queryClient = client.useQueryClient();
-  const getCartQueryKey = () =>
-    [CART_QUERY_KEY, { id: cartId() || "" }] as const;
+  const getCartQueryKey = () => [CART_QUERY_KEY, { id: cartId() }] as const;
 
   const cartQuery = client.createQuery(() => ({
     queryKey: getCartQueryKey(),
     queryFn: async ({ queryKey, signal }) => {
       const [_, variables] = queryKey;
+      const id = variables.id;
+      if (!id) return undefined;
 
       let res = await client.query({
         query: getCartQuery,
-        variables,
+        variables: {
+          id,
+        },
         signal,
       });
 
@@ -80,18 +83,22 @@ const StorefrontCart = (function () {
       return convertCartStructToREST(res.data.cart);
     },
     initialData: undefined,
-    enabled: !!cartId(),
     throwOnError: false,
     reconcile: "cartQuery",
+    staleTime: 60,
+    retry(failureCount, error) {
+      if (failureCount > 2) return false;
+      return true;
+    },
   }));
 
-  function defaultUnwrap<T>(cart: CartData): T {
+  function defaultUnwrap<T>(cart: CartData | undefined): T {
     return cart as unknown as T; // Use unknown as intermediary to satisfy TypeScript
   }
 
   function subscribe<T>(
     cb: (data: T) => void,
-    unwrapValue: (cart: CartData) => T = defaultUnwrap
+    unwrapValue: (cart: CartData | undefined) => T = defaultUnwrap
   ): () => void {
     // Assuming cartQuery and observable are defined and set correctly.
     const observer = observable(() => unwrapValue(cartQuery?.data));
@@ -126,14 +133,6 @@ const StorefrontCart = (function () {
 
   const addItemsToCartMutation = client.createMutation(() => ({
     mutationFn: async (lines: CartLineInput[]) => {
-      // lines = lines.map((line) => ({
-      //   quantity: line.quantity,
-      //   attributes: line.attributes || [],
-      //   merchandiseId: formatId(line.merchandiseId, "ProductVariant"),
-      //   sellingPlanId: line.sellingPlanId
-      //     ? formatId(line.sellingPlanId, "SellingPlan")
-      //     : undefined,
-      // }));
       const ajaxLines = lines.map((line) => ({
         id: line.merchandiseId,
         quantity: line.quantity!,
@@ -147,6 +146,14 @@ const StorefrontCart = (function () {
         ),
       }));
       return await AJAX.add.items(ajaxLines);
+      // lines = lines.map((line) => ({
+      //   quantity: line.quantity,
+      //   attributes: line.attributes || [],
+      //   merchandiseId: formatId(line.merchandiseId, "ProductVariant"),
+      //   sellingPlanId: line.sellingPlanId
+      //     ? formatId(line.sellingPlanId, "SellingPlan")
+      //     : undefined,
+      // }));
       // return makeObservablePromise(cartId, async (_) => {
       //   const req = await AJAX.add.items(ajaxLines);
       //   // const req = await client.query({
