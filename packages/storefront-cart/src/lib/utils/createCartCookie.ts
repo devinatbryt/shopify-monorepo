@@ -78,15 +78,14 @@ export default function createCartCookie() {
     createSignal<string | undefined>(),
     {
       name: NAME,
-      storage: {
-        ...cookieStorage,
-        setItem(key, value) {
+      storage: Object.assign(cookieStorage, {
+        setItem: (key: string, value: string) => {
           cookieStorage.setItem(key, value, {
             expires: getExpireTime(),
             path: "/",
           });
         },
-      },
+      }),
       serialize: (value) => (value ? parseId(value) : (undefined as any)),
       deserialize: (data) => (data ? formatId(data, "Cart") : undefined),
       sync: [
@@ -100,7 +99,7 @@ export default function createCartCookie() {
                 timeStamp: Date.now(),
               });
             },
-            500
+            100
           );
           onCleanup(() => {
             unsub();
