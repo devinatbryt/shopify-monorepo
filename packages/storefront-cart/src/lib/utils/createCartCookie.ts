@@ -1,11 +1,11 @@
-import type { StorageWithOptions } from "@solid-primitives/storage";
+// import type { StorageWithOptions } from "@solid-primitives/storage";
 import {
   makePersisted,
-  addClearMethod,
-  addWithOptionsMethod,
+  cookieStorage,
+  // addClearMethod,
+  // addWithOptionsMethod,
 } from "@solid-primitives/storage";
 
-import Cookie from "js-cookie";
 import { createSignal, onCleanup } from "solid-js";
 
 import parseId from "./parseId";
@@ -16,11 +16,11 @@ function watchCookieChange(
   callback: (newValue: string | undefined) => void,
   interval: number = 1000
 ): () => void {
-  let lastValue = Cookie.get(cookieName);
+  let lastValue = cookieStorage.get(cookieName);
 
   // Check for changes immediately
   const checkCookie = () => {
-    const newValue = Cookie.get(cookieName);
+    const newValue = cookieStorage.get(cookieName);
     if (newValue !== lastValue) {
       lastValue = newValue;
       console.log(`Cart cookie changed: ${newValue}`);
@@ -43,42 +43,49 @@ export default function createCartCookie() {
   const getExpireTime = () =>
     new Date(new Date().getTime() + 10 * 24 * 60 * 60 * 1000);
 
-  type CookieOptions = Omit<typeof Cookie.attributes, "expires"> & {
-    expires?:
-      | (() => (typeof Cookie.attributes)["expires"])
-      | (typeof Cookie.attributes)["expires"];
-  };
+  // type CookieOptions = Omit<typeof Cookie.attributes, "expires"> & {
+  //   expires?:
+  //     | (() => (typeof Cookie.attributes)["expires"])
+  //     | (typeof Cookie.attributes)["expires"];
+  // };
 
-  const cookieStorage: StorageWithOptions<CookieOptions> = addWithOptionsMethod(
-    addClearMethod({
-      getItem: (key: string) => {
-        console.log(`Cart cookie get: ${key} - ${Cookie.get(key)}`);
-        return Cookie.get(key) ? formatId(Cookie.get(key), "Cart") : undefined;
-      },
-      setItem: (key: string, value: string, options?: CookieOptions) => {
-        console.log(`Cart cookie set: ${value}`);
-        Cookie.set(key, parseId(value), {
-          ...options,
-          expires:
-            typeof options?.expires === "function"
-              ? options.expires()
-              : options?.expires,
-        });
-      },
-      removeItem: (key: string) => Cookie.remove(key),
-    })
-  );
+  // const cookieStorage: StorageWithOptions<CookieOptions> = addWithOptionsMethod(
+  //   addClearMethod({
+  //     getItem: (key: string) => {
+  //       console.log(`Cart cookie get: ${key} - ${Cookie.get(key)}`);
+  //       return Cookie.get(key) ? formatId(Cookie.get(key), "Cart") : undefined;
+  //     },
+  //     key() {
+  //       return Cookie.get(NAME);
+  //     },
+  //     setItem: (key: string, value: string, options?: CookieOptions) => {
+  //       console.log(`Cart cookie set: ${value}`);
+  //       Cookie.set(key, parseId(value), {
+  //         ...options,
+  //         expires:
+  //           typeof options?.expires === "function"
+  //             ? options.expires()
+  //             : options?.expires,
+  //       });
+  //     },
+  //     removeItem: (key: string) => Cookie.remove(key),
+  //   })
+  // );
 
   const [cartId, setCartId] = makePersisted(
     createSignal<string | undefined>(),
     {
       name: NAME,
-      storage: cookieStorage,
-      storageOptions: {
-        expires: getExpireTime,
+      storage: {
+        ...cookieStorage,
+        setItem(key, value) {
+          cookieStorage.setItem(key, value, {
+            expires: getExpireTime(),
+          });
+        },
       },
-      serialize: (value) => value as any,
-      deserialize: (data) => data,
+      serialize: (value) => (value ? parseId(value) : (undefined as any)),
+      deserialize: (data) => (data ? formatId(data, "Cart") : undefined),
       sync: [
         (subscriber) => {
           const unsub = watchCookieChange(

@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.2.28
+
+### Patch Changes
+
+- Use provided cookie storage
+
 ## 2.2.27
 
 ### Patch Changes
