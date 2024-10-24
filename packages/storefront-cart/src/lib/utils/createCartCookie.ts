@@ -79,10 +79,20 @@ export default function createCartCookie() {
         (subscriber) => {
           const unsub = watchCookieChange(
             NAME,
-            (newValue) => {
+            (value) => {
+              let newValue: string | undefined = value;
+
+              if (value) {
+                try {
+                  newValue = parseId(value);
+                } catch (error) {
+                  newValue = value;
+                }
+              }
+
               subscriber({
                 key: NAME,
-                newValue: newValue ? parseId(newValue) : undefined,
+                newValue,
                 timeStamp: Date.now(),
               });
             },
