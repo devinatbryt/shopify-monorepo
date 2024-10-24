@@ -50,10 +50,9 @@ export default function createCartCookie() {
 
   const cookieStorage: StorageWithOptions<CookieOptions> = addWithOptionsMethod(
     addClearMethod({
-      getItem: (key: string) =>
-        Cookie.get(key) ? formatId(Cookie.get(key), "Cart") : undefined,
+      getItem: (key: string) => Cookie.get(key),
       setItem: (key: string, value: string, options?: CookieOptions) =>
-        Cookie.set(key, parseId(value), {
+        Cookie.set(key, value, {
           ...options,
           expires:
             typeof options?.expires === "function"
@@ -72,8 +71,9 @@ export default function createCartCookie() {
       storageOptions: {
         expires: getExpireTime,
       },
-      serialize: (value) => value as any,
-      deserialize: (data) => data,
+      serialize: (value) =>
+        value ? formatId(value, "Cart") : (undefined as any),
+      deserialize: (data) => (data !== "undefined" ? parseId(data) : undefined),
       sync: [
         (subscriber) => {
           const unsub = watchCookieChange(

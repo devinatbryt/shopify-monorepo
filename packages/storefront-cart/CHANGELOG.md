@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.2.15
+
+### Patch Changes
+
+- Attempt at fixing cookie bug
+
 ## 2.2.14
 
 ### Patch Changes

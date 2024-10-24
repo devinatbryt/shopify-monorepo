@@ -86,10 +86,6 @@ const StorefrontCart = (function () {
     throwOnError: false,
     reconcile: "cartQuery",
     staleTime: 60,
-    retry(failureCount, _) {
-      if (failureCount > 2) return false;
-      return true;
-    },
   }));
 
   function defaultUnwrap<T>(cart: CartData | undefined): T {
