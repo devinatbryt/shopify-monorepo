@@ -122,6 +122,7 @@ const StorefrontCart = (function () {
       () => cartQuery.error,
       (error) => {
         if (error instanceof CartNotFoundError === false) return;
+        if (error instanceof Error && error.name === "AbortError") return;
         return handleNoRESTCart().then(setCartId);
       }
     )
