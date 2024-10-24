@@ -108,47 +108,4 @@ export default function createCartCookie() {
   );
 
   return [cartId, setCartId] as const;
-
-  // const [storefrontCartId, setStorefrontCartId] = makePersisted(
-  //   createSignal<string>(""),
-  //   {
-  //     name: "storefront_cart",
-  //     storage: cookieStorage,
-  //     storageOptions: {
-  //       expires: getExpireTime,
-  //     },
-  //   }
-  // );
-
-  // createEffect(() => {
-  //   const id = storefrontCartId();
-  //   if (!id) return;
-  //   setCartId(parseId(id));
-  // });
-
-  // const [id, setId] = createSignal(Cookie.get("cart"));
-
-  // createEffect(
-  //   on(id, (id) => {
-  //     if (!id) return Cookie.remove("cart");
-  //     Cookie.set("cart", id, { expires: 10 });
-  //     return onCleanup(() => {
-  //       Cookie.remove("cart");
-  //     });
-  //   })
-  // );
-
-  // return {
-  //   get token() {
-  //     const i = id();
-  //     if (i) return formatId(i, "Cart");
-  //     return i;
-  //   },
-
-  //   set token(id) {
-  //     if (!id) return;
-  //     const value = parseId(id);
-  //     setId(value);
-  //   },
-  // } as const;
 }

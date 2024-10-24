@@ -86,7 +86,7 @@ const StorefrontCart = (function () {
     throwOnError: false,
     reconcile: "cartQuery",
     staleTime: 60,
-    retry: false,
+    enabled: !!cartId(),
   }));
 
   function defaultUnwrap<T>(cart: CartData | undefined): T {
@@ -110,13 +110,6 @@ const StorefrontCart = (function () {
     queryClient.cancelQueries({ queryKey: getCartQueryKey() });
   const invalidateCartQuery = () =>
     queryClient.invalidateQueries({ queryKey: getCartQueryKey() });
-
-  // createEffect(() => {
-  //   if (cartCookie.token) return;
-  //   if (!Cookies.get("cart"))
-  //     return handleNoRESTCart().then((id) => (cartCookie.token = id));
-  //   return handleHasRESTCart().then((id) => (cartCookie.token = id));
-  // });
 
   createEffect(
     on(
@@ -143,29 +136,6 @@ const StorefrontCart = (function () {
         ),
       }));
       return await AJAX.add.items(ajaxLines);
-      // lines = lines.map((line) => ({
-      //   quantity: line.quantity,
-      //   attributes: line.attributes || [],
-      //   merchandiseId: formatId(line.merchandiseId, "ProductVariant"),
-      //   sellingPlanId: line.sellingPlanId
-      //     ? formatId(line.sellingPlanId, "SellingPlan")
-      //     : undefined,
-      // }));
-      // return makeObservablePromise(cartId, async (_) => {
-      //   const req = await AJAX.add.items(ajaxLines);
-      //   // const req = await client.query({
-      //   //   query: addItemsToCartMutationGQL,
-      //   //   variables: {
-      //   //     id: cartId!,
-      //   //     lines,
-      //   //   },
-      //   // });
-      //   // if ((req?.data?.cartLinesAdd?.userErrors || []).length > 0)
-      //   //   throw req.data?.cartLinesAdd?.userErrors;
-      //   // if (!req?.data?.cartLinesAdd?.cart)
-      //   //   throw new Error("Could not add items to cart");
-      //   return req;
-      // });
     },
     async onSuccess(_, lines) {
       await invalidateCartQuery();
