@@ -86,7 +86,7 @@ const StorefrontCart = (function () {
     throwOnError: false,
     reconcile: "cartQuery",
     staleTime: 60,
-    retry(failureCount, error) {
+    retry(failureCount, _) {
       if (failureCount > 2) return false;
       return true;
     },
