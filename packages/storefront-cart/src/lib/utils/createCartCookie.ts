@@ -51,16 +51,20 @@ export default function createCartCookie() {
 
   const cookieStorage: StorageWithOptions<CookieOptions> = addWithOptionsMethod(
     addClearMethod({
-      getItem: (key: string) =>
-        Cookie.get(key) ? formatId(Cookie.get(key), "Cart") : undefined,
-      setItem: (key: string, value: string, options?: CookieOptions) =>
+      getItem: (key: string) => {
+        console.log(`Cart cookie get: ${key}`);
+        Cookie.get(key) ? formatId(Cookie.get(key), "Cart") : undefined;
+      },
+      setItem: (key: string, value: string, options?: CookieOptions) => {
+        console.log(`Cart cookie set: ${value}`);
         Cookie.set(key, parseId(value), {
           ...options,
           expires:
             typeof options?.expires === "function"
               ? options.expires()
               : options?.expires,
-        }),
+        });
+      },
       removeItem: (key: string) => Cookie.remove(key),
     })
   );
@@ -79,17 +83,7 @@ export default function createCartCookie() {
         (subscriber) => {
           const unsub = watchCookieChange(
             NAME,
-            (value) => {
-              let newValue: string | undefined = value;
-
-              if (value) {
-                try {
-                  newValue = parseId(value);
-                } catch (error) {
-                  newValue = value;
-                }
-              }
-
+            (newValue) => {
               subscriber({
                 key: NAME,
                 newValue,
