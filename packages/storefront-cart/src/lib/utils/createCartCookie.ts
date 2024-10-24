@@ -23,6 +23,7 @@ function watchCookieChange(
     const newValue = Cookie.get(cookieName);
     if (newValue !== lastValue) {
       lastValue = newValue;
+      console.log(`Cart cookie changed: ${newValue}`);
       callback(newValue);
     }
   };

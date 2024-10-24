@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.2.18
+
+### Patch Changes
+
+- Added logging
+
 ## 2.2.17
 
 ### Patch Changes
