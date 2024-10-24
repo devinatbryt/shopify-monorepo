@@ -66,7 +66,6 @@ const StorefrontCart = (function () {
     queryFn: async ({ queryKey, signal }) => {
       const [_, variables] = queryKey;
       const id = variables.id;
-      console.log(`Fetching cart with ID: ${id}`);
       if (!id) return undefined;
 
       let res = await client.query({
@@ -87,6 +86,11 @@ const StorefrontCart = (function () {
     throwOnError: false,
     reconcile: "cartQuery",
     staleTime: 60,
+    enabled({ queryKey }) {
+      const [_, variables] = queryKey;
+      if (!variables.id) return false;
+      return true;
+    },
   }));
 
   function defaultUnwrap<T>(cart: CartData | undefined): T {
