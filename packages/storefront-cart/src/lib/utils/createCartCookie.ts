@@ -90,7 +90,7 @@ export default function createCartCookie() {
                 timeStamp: Date.now(),
               });
             },
-            100
+            500
           );
           onCleanup(() => {
             unsub();
