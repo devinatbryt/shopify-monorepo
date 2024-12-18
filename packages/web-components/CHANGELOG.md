@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.11.35
+
+### Patch Changes
+
+- Include "@solidjs/router" within package
+
 ## 0.11.34
 
 ### Patch Changes

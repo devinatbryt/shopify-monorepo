@@ -36,7 +36,9 @@ const baseConfig: Partial<UserConfig> = {
       formats: ["es"],
     },
     rollupOptions: {
-      external: Object.keys(dependencies),
+      external: Object.keys(dependencies).filter(
+        (key) => !key.startsWith("@solidjs/router")
+      ),
     },
     target: "esnext", // transpile as little as possible
   },
