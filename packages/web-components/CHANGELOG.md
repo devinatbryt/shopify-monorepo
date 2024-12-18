@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.11.34
+
+### Patch Changes
+
+- Fixed build issue
+
 ## 0.11.33
 
 ### Patch Changes

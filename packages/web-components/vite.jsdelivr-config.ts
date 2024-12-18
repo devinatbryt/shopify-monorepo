@@ -9,6 +9,14 @@ import searchPkg from "../predictive-search/package.json" assert { type: "json" 
 
 const JS_DELIVR_URL_BASE = "/npm/";
 
+function transformId(id: string, version: string): string {
+  if (!version) return id;
+  if (id.startsWith("@") || !id.includes("/"))
+    return `${JS_DELIVR_URL_BASE}${id}${version}/+esm`;
+  const split_id = id.split("/");
+  return `${JS_DELIVR_URL_BASE}${split_id.at(0)}${version}/${split_id.slice(1).join("/")}/+esm`;
+}
+
 export default defineConfig({
   build: {
     // @ts-ignore
@@ -19,8 +27,10 @@ export default defineConfig({
     rollupOptions: {
       output: {
         paths: (id) => {
+          let version: string = "";
+
           if (dependencies[id] === "workspace:*") {
-            const version = dependencies[id]?.replace(
+            version = dependencies[id]?.replace(
               "workspace:*",
               clientPkg.name === id
                 ? clientPkg.version
@@ -30,16 +40,11 @@ export default defineConfig({
                     ? searchPkg.version
                     : ""
             );
-            if (!version) return id;
-            if (id.startsWith("@") || !id.includes("/"))
-              return `${JS_DELIVR_URL_BASE}${id}${version}/+esm`;
-            const split_id = id.split("/");
-            return `${JS_DELIVR_URL_BASE}${split_id.at(0)}${version}/${split_id.slice(1).join("/")}/+esm`;
+          } else {
+            version = dependencies[id]?.replace("^", "@");
           }
 
-          const version = dependencies[id]?.replace("^", "@");
-          if (!version) return id;
-          return `${JS_DELIVR_URL_BASE}${id}${version}/+esm`;
+          return transformId(id, version);
         },
       },
     },
