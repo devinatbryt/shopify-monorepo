@@ -6,7 +6,7 @@ import {
 } from "component-register";
 import { createEffect, mergeProps, on, batch, splitProps } from "solid-js";
 import { createStore } from "solid-js/store";
-import { toHyphenated } from "../utils";
+import toHyphenated from "../../../utils/toHyphenated";
 import getContextFromProvider from "../../../utils/getContextFromProvider";
 
 type StoreContext = {
@@ -40,13 +40,13 @@ function initializeDrawerContext(props: CreateContextOptions) {
             setStore("animationQueue", []);
           });
         });
-      }
-    )
+      },
+    ),
   );
 
   function setElementState(
     key: keyof Omit<CreateContextOptions, "root">,
-    value: boolean | ((v: boolean) => boolean)
+    value: boolean | ((v: boolean) => boolean),
   ) {
     if (typeof value === "function") {
       const currentValue = props[key];
@@ -67,7 +67,7 @@ const DrawerContextState = createContext(initializeDrawerContext);
 
 export const provideDrawerContext = (
   initialState: Omit<CreateContextOptions, "root">,
-  element: WalkableNode
+  element: WalkableNode,
 ): DrawerContext => {
   const props = mergeProps(initialState, { root: element });
   return provide(DrawerContextState, props, element);
@@ -100,7 +100,7 @@ export const useDrawer = (element: HTMLElement & ICustomElement) => {
 
   if (!context) {
     throw console.error(
-      "DrawerContext not found! Please ensure to wrap your custom element with drawer-context element."
+      "DrawerContext not found! Please ensure to wrap your custom element with drawer-context element.",
     );
   }
 
@@ -110,7 +110,7 @@ export const useDrawer = (element: HTMLElement & ICustomElement) => {
 export const getDrawerContext = (element: Element) => {
   const context = getContextFromProvider<DrawerContext>(
     DrawerContextState,
-    element
+    element,
   );
   return useDrawerContext(context);
 };

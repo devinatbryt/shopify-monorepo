@@ -1,0 +1,15 @@
+tab-panel {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+tab-panel[is-active]:not([is-active="false"]) {
+  position: relative;
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}

@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.12.0
+
+### Minor Changes
+
+- Added tabs web component
+
 ## 0.11.35
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/web-components",
-  "version": "0.11.35",
+  "version": "0.12.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -41,6 +41,16 @@
       "import": "./src/css/hash-router.css",
       "module": "./src/css/hash-router.css",
       "require": "./src/css/hash-router.css"
+    },
+    "./tabs": {
+      "jsdelivr": "./dist/jsdelivr/tabs/index.js",
+      "import": "./dist/main/tabs/index.js",
+      "module": "./dist/main/tabs/index.cjs"
+    },
+    "./css/tabs.css": {
+      "import": "./src/css/tabs.css",
+      "module": "./src/css/tabs.css",
+      "require": "./src/css/tabs.css"
     }
   },
   "dependencies": {

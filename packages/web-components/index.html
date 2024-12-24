@@ -1,86 +1,116 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite + TS</title>
-  <script type="text/javascript">
-    window.loadScript = (function () {
-      var loadedScripts = new Map();
-      return function (url, type, callback) {
-        if (
-          loadedScripts.has(url) &&
-          loadedScripts.get(url) &&
-          typeof callback !== "undefined"
-        )
-          return callback();
-        loadedScripts.set(url, false);
-        var script = document.querySelector(`script[src="${url}"]`);
-        if (!script) {
-          script = document.createElement("script");
-          script.type = type || "text/javascript";
-          script.src = url;
-          addLoadFunctions();
-          document.getElementsByTagName("head")[0].appendChild(script);
-          return;
-        }
-
-        return addLoadFunctions();
-
-        function addLoadFunctions() {
-          function handleLoad() {
-            loadedScripts.set(url, true);
-            script.removeEventListener("load", handleLoad);
-            if (typeof callback === "undefined") return;
-            callback();
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+    <script type="text/javascript">
+      window.loadScript = (function () {
+        var loadedScripts = new Map();
+        return function (url, type, callback) {
+          if (
+            loadedScripts.has(url) &&
+            loadedScripts.get(url) &&
+            typeof callback !== "undefined"
+          )
+            return callback();
+          loadedScripts.set(url, false);
+          var script = document.querySelector(`script[src="${url}"]`);
+          if (!script) {
+            script = document.createElement("script");
+            script.type = type || "text/javascript";
+            script.src = url;
+            addLoadFunctions();
+            document.getElementsByTagName("head")[0].appendChild(script);
+            return;
           }
-          script.addEventListener("load", handleLoad);
-        }
+
+          return addLoadFunctions();
+
+          function addLoadFunctions() {
+            function handleLoad() {
+              loadedScripts.set(url, true);
+              script.removeEventListener("load", handleLoad);
+              if (typeof callback === "undefined") return;
+              callback();
+            }
+            script.addEventListener("load", handleLoad);
+          }
+        };
+      })();
+    </script>
+    <script type="text/javascript">
+      if (!window.Shopify) window.Shopify = {};
+      window.Shopify.storefrontConfig = {
+        shopDomain: "awesome-bryt-apps.myshopify.com",
+        apiVersion: "2024-04",
+        accessToken: "c5e7d6954b84975963e596e273405c8b",
       };
-    })();
-  </script>
-  <script type="text/javascript">
-    if (!window.Shopify) window.Shopify = {};
-    window.Shopify.storefrontConfig = {
-      shopDomain: "awesome-bryt-apps.myshopify.com",
-      apiVersion: "2024-04",
-      accessToken: "c5e7d6954b84975963e596e273405c8b",
-    };
-  </script>
-  <link href="./src/components/hash-router/index.css" rel="stylesheet" type="text/css" />
-</head>
-<style>
-  gnav-header {
-    position: sticky;
-    display: block;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    pointer-events: none;
-  }
+    </script>
+    <link
+      href="./src/components/hash-router/index.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link href="./src/css/tabs.css" rel="stylesheet" type="text/css" />
+    <script src="./src/components/tabs/index.ts" type="module"></script>
+  </head>
+  <style>
+    gnav-header {
+      position: sticky;
+      display: block;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      pointer-events: none;
+    }
 
-  gnav-header gnav-header-section {
-    pointer-events: all;
-  }
+    gnav-header gnav-header-section {
+      pointer-events: all;
+    }
 
-  gnav-header-section {
-    padding: 1rem;
-    display: block;
-    border-bottom: 1px solid lightgray;
-  }
+    gnav-header-section {
+      padding: 1rem;
+      display: block;
+      border-bottom: 1px solid lightgray;
+    }
 
-  body {
-    height: 500vh;
-    margin: 0;
-    box-sizing: border-box;
-  }
-</style>
+    body {
+      height: 500vh;
+      margin: 0;
+      box-sizing: border-box;
+    }
+  </style>
 
-<body>
-  <!-- <gnav-header>
+  <body>
+    <tab-items active-tab="hello">
+      <div>
+        <tab-trigger target-id="hello">
+          <button>Hello</button>
+        </tab-trigger>
+        <tab-trigger target-id="world">
+          <button>World</button>
+        </tab-trigger>
+      </div>
+
+      <div>
+        <tab-panel is-active="true" id="hello">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
+          consectetur accusamus sit quae, dicta aspernatur eum. Sint rerum eos
+          quis repudiandae ipsam, temporibus deleniti reiciendis odio quaerat,
+          praesentium voluptate vel.
+        </tab-panel>
+        <tab-panel id="world">
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+          ab illo inventore veritatis et quasi architecto beatae vitae dicta
+          sunt explicabo.
+        </tab-panel>
+      </div>
+    </tab-items>
+    <!-- <gnav-header>
       <gnav-header-section style="background: beige"
         >Banner!</gnav-header-section
       >
@@ -101,7 +131,7 @@
       type="module"
       src="./src/components/storefront-cart/index.ts"
     ></script> -->
-  <!-- 
+    <!-- 
       <hash-router>
         <hash-route path="/" id="layout">
           <div>
@@ -120,7 +150,7 @@
         </hash-route>
       </hash-router>
     -->
-  <!-- <hash-router>
+    <!-- <hash-router>
     <hash-route path="/">
       <nav>
         <ul>
@@ -147,7 +177,10 @@
       <hash-route path="/test">Hello</hash-route>
     </hash-route>
   </hash-router> -->
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@bryt-designs/storefront-cart@2.2.4"></script>
-</body>
-
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@bryt-designs/storefront-cart@2.2.4"
+    ></script>
+  </body>
 </html>
+
