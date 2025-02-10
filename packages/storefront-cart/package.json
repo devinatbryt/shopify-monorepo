@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/storefront-cart",
-  "version": "2.2.33",
+  "version": "2.2.34",
   "type": "module",
   "files": [
     "dist"
@@ -28,7 +28,7 @@
     "@solid-primitives/storage": "^3.7.1",
     "js-cookie": "^3.0.5",
     "lodash.uniq": "^4.5.0",
-    "solid-js": "^1.8.22",
+    "solid-js": "^1.9.4",
     "zod": "^3.23.8"
   },
   "devDependencies": {

@@ -49,7 +49,7 @@ export default function StorefrontClient(
     apiVersion = window.Shopify?.storefrontConfig?.apiVersion,
     shouldPersist = window.Shopify?.storefrontConfig?.shouldPersist || false,
     key = window?.Shopify?.storefrontConfig?.key || "storefront-client",
-  }: Config = window?.Shopify?.storefrontConfig
+  }: Config = window?.Shopify?.storefrontConfig,
 ) {
   const createQueryFn = async <QueryString extends string>({
     query,
@@ -68,7 +68,7 @@ export default function StorefrontClient(
         },
         signal: signal,
         body: JSON.stringify({ query, variables }),
-      }
+      },
     );
     return processJSONResponse<ReturnData>(res);
   };
@@ -98,11 +98,11 @@ export default function StorefrontClient(
     >(
       options: Parameters<
         typeof createQuery<TQueryFnData, TError, TData, TQueryKey>
-      >[0]
+      >[0],
     ) =>
       createQuery<TQueryFnData, TError, TData, TQueryKey>(
         options,
-        () => queryClient
+        () => queryClient,
       ),
     createMutation: <
       TData = unknown,
@@ -112,11 +112,11 @@ export default function StorefrontClient(
     >(
       options: Parameters<
         typeof createMutation<TData, TError, TVariables, TContext>
-      >[0]
+      >[0],
     ) =>
       createMutation<TData, TError, TVariables, TContext>(
         options,
-        () => queryClient
+        () => queryClient,
       ),
     createQueries: (options: Parameters<typeof createQueries>[0]) =>
       createQueries(options, () => queryClient),

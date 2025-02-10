@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/predictive-search",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "type": "module",
   "files": [
     "dist"
