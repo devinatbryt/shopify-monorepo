@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/storefront-cart",
-  "version": "2.2.37",
+  "version": "2.2.38",
   "type": "module",
   "files": [
     "dist"
@@ -27,6 +27,7 @@
     "@shopify/hydrogen-react": "^2024.7.6",
     "@solid-primitives/storage": "^3.7.1",
     "js-cookie": "^3.0.5",
+    "lodash.merge": "^4.6.2",
     "lodash.uniq": "^4.5.0",
     "solid-js": "^1.9.4",
     "zod": "^3.23.8"
@@ -38,6 +39,7 @@
     "@shopify/hydrogen": "^2024.4.7",
     "@tanstack/solid-query": "^5.45.0",
     "@types/js-cookie": "^3.0.6",
+    "@types/lodash.merge": "^4.6.9",
     "@types/lodash.uniq": "^4.5.9",
     "defu": "^6.1.4",
     "graphql-config": "^5.0.3",

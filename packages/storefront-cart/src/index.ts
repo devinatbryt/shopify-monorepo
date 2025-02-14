@@ -5,6 +5,7 @@ import type {
 } from "./types/storefront.types";
 
 import uniq from "lodash.uniq";
+import merge from "lodash.merge";
 import { createEffect, createSignal, observable, on } from "solid-js";
 import { unwrap } from "solid-js/store";
 import { makePersisted } from "@solid-primitives/storage";
@@ -391,7 +392,7 @@ const StorefrontCart = (function () {
         if (!oldCart) return undefined;
         return {
           ...oldCart,
-          attributes: [...oldCart.attributes, ...attributes],
+          attributes: merge(oldCart.attributes, attributes),
         };
       });
       return { previousCart };
