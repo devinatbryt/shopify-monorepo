@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.2.35
+
+### Patch Changes
+
+- Minor updateItems mutation bug fix
+
 ## 2.2.34
 
 ### Patch Changes

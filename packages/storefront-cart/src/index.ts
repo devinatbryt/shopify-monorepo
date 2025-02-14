@@ -101,7 +101,7 @@ const StorefrontCart = (function () {
 
   function subscribe<T>(
     cb: (data: T) => void,
-    unwrapValue: (cart: CartData | undefined) => T = defaultUnwrap
+    unwrapValue: (cart: CartData | undefined) => T = defaultUnwrap,
   ): () => void {
     // Assuming cartQuery and observable are defined and set correctly.
     const observer = observable(() => unwrapValue(cartQuery?.data));
@@ -123,8 +123,8 @@ const StorefrontCart = (function () {
       (error) => {
         if (error instanceof CartNotFoundError === false) return;
         return handleNoRESTCart().then(setCartId);
-      }
-    )
+      },
+    ),
   );
 
   const addItemsToCartMutation = client.createMutation(() => ({
@@ -138,7 +138,7 @@ const StorefrontCart = (function () {
             ...props,
             [attr.key]: attr.value,
           }),
-          {}
+          {},
         ),
       }));
       return await AJAX.add.items(ajaxLines);
@@ -158,8 +158,8 @@ const StorefrontCart = (function () {
             if (item.attributes && line.attributes) {
               result = item.attributes.every((attr) =>
                 line.attributes.some(
-                  (a) => a.key === attr.key && a.value === attr.value
-                )
+                  (a) => a.key === attr.key && a.value === attr.value,
+                ),
               );
             }
 
@@ -168,7 +168,7 @@ const StorefrontCart = (function () {
           if (item) return [...addedItems, line];
           return addedItems;
         },
-        [] as typeof restCart.items
+        [] as typeof restCart.items,
       );
 
       publishEvent("items_added", { items: addedItems });
@@ -228,7 +228,7 @@ const StorefrontCart = (function () {
           if (item) return [...removedItems, line];
           return removedItems;
         },
-        [] as typeof cart.items
+        [] as typeof cart.items,
       );
 
       publishEvent("items_removed", { items: removedLines });
@@ -247,9 +247,12 @@ const StorefrontCart = (function () {
         merchandiseId: line.merchandiseId
           ? formatId(line.merchandiseId, "ProductVariant")
           : undefined,
-        sellingPlanId: line.sellingPlanId
-          ? formatId(line.sellingPlanId, "SellingPlan")
-          : undefined,
+        sellingPlanId:
+          line.sellingPlanId === null
+            ? null
+            : line.sellingPlanId
+              ? formatId(line.sellingPlanId, "SellingPlan")
+              : undefined,
       }));
       return makeObservablePromise(cartId, async (cartId) => {
         const req = await client.query({
@@ -307,7 +310,7 @@ const StorefrontCart = (function () {
           if (item) return [...updatedItems, line];
           return updatedItems;
         },
-        [] as typeof restCart.items
+        [] as typeof restCart.items,
       );
 
       publishEvent("items_updated", { items: updatedItems });
@@ -381,7 +384,7 @@ const StorefrontCart = (function () {
       const newCodes = cart?.discountCodes || [];
 
       const applied = newCodes.some(
-        (code) => code.applicable && code.code === discountCode
+        (code) => code.applicable && code.code === discountCode,
       );
 
       if (!applied) throw new Error("Discount code is invalid!");
@@ -424,7 +427,7 @@ const StorefrontCart = (function () {
         return {
           ...oldCart,
           discountCodes: oldCart.discountCodes.filter(
-            (code) => code.code !== discountCode
+            (code) => code.code !== discountCode,
           ),
         };
       });
@@ -502,39 +505,39 @@ const StorefrontCart = (function () {
     refetchCart: cartQuery.refetch,
     addItem: (
       item: CartLineInput,
-      options: Parameters<typeof addItemsToCartMutation.mutateAsync>[1]
+      options: Parameters<typeof addItemsToCartMutation.mutateAsync>[1],
     ) => addItemsToCartMutation.mutateAsync([item], options),
     addItems: (
       items: CartLineInput[],
-      options: Parameters<typeof addItemsToCartMutation.mutateAsync>[1]
+      options: Parameters<typeof addItemsToCartMutation.mutateAsync>[1],
     ) => addItemsToCartMutation.mutateAsync(items, options),
     removeItems: (
       ids: string[],
-      options: Parameters<typeof removeItemsFromCartMutation.mutateAsync>[1]
+      options: Parameters<typeof removeItemsFromCartMutation.mutateAsync>[1],
     ) => removeItemsFromCartMutation.mutateAsync(ids, options),
     removeItem: (
       id: string,
-      options: Parameters<typeof removeItemsFromCartMutation.mutateAsync>[1]
+      options: Parameters<typeof removeItemsFromCartMutation.mutateAsync>[1],
     ) => removeItemsFromCartMutation.mutateAsync([id], options),
     updateItems: (
       items: CartLineUpdateInput[],
-      options: Parameters<typeof updateItemsInCartMutation.mutateAsync>[1]
+      options: Parameters<typeof updateItemsInCartMutation.mutateAsync>[1],
     ) => updateItemsInCartMutation.mutateAsync(items, options),
     updateItem: (
       item: CartLineUpdateInput,
-      options: Parameters<typeof updateItemsInCartMutation.mutateAsync>[1]
+      options: Parameters<typeof updateItemsInCartMutation.mutateAsync>[1],
     ) => updateItemsInCartMutation.mutateAsync([item], options),
     updateNote: (
       note: string,
-      options: Parameters<typeof updateCartNoteMutation.mutateAsync>[1]
+      options: Parameters<typeof updateCartNoteMutation.mutateAsync>[1],
     ) => updateCartNoteMutation.mutateAsync(note, options),
     addDiscountCode: (
       discountCode: string,
-      options: Parameters<typeof addCartDiscountCodeMutation.mutateAsync>[1]
+      options: Parameters<typeof addCartDiscountCodeMutation.mutateAsync>[1],
     ) => addCartDiscountCodeMutation.mutateAsync(discountCode, options),
     removeDiscountCode: (
       discountCode: string,
-      options: Parameters<typeof removeCartDiscountCodeMutation.mutateAsync>[1]
+      options: Parameters<typeof removeCartDiscountCodeMutation.mutateAsync>[1],
     ) => removeCartDiscountCodeMutation.mutateAsync(discountCode, options),
   };
 })();
