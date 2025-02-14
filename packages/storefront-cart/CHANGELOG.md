@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.2.36
+
+### Patch Changes
+
+- Added the ability to update cart attributes
+
 ## 2.2.35
 
 ### Patch Changes

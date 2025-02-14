@@ -1,4 +1,5 @@
 import type {
+  AttributeInput,
   CartLineInput,
   CartLineUpdateInput,
 } from "./types/storefront.types";
@@ -21,6 +22,7 @@ import {
   updateItemsInCartMutation as updateItemsInCartMutationGQL,
   updateCartNoteMutation as updateCartNoteMutationGQL,
   updateCartDiscountCodesMutation as updateCartDiscountCodesMutationGQL,
+  updateCartAttributesMutation as updateCartAttributesMutationGQL,
 } from "./lib/queries";
 import { CART_QUERY_KEY } from "./lib/const";
 import { AJAX } from "./lib/ajax";
@@ -363,6 +365,49 @@ const StorefrontCart = (function () {
     },
   }));
 
+  const updateCartAttributes = client.createMutation(() => ({
+    mutationFn: async (attributes: AttributeInput[]) => {
+      return makeObservablePromise(cartId, async (cartId) => {
+        const req = await client.query({
+          query: updateCartAttributesMutationGQL,
+          variables: {
+            id: cartId,
+            attributes,
+          },
+        });
+        if ((req?.data?.cartNoteUpdate?.userErrors || []).length > 0)
+          throw req.data?.cartNoteUpdate?.userErrors;
+        if (!req?.data?.cartNoteUpdate?.cart)
+          throw new Error("Could not update cart note");
+        return req.data.cartNoteUpdate.cart;
+      });
+    },
+    onMutate: async (attributes) => {
+      await cancelCartQuery();
+
+      const previousCart = getCartData();
+
+      setCartData((oldCart) => {
+        if (!oldCart) return undefined;
+        return {
+          ...oldCart,
+          attributes: [...oldCart.attributes, ...attributes],
+        };
+      });
+      return { previousCart };
+    },
+    onError: (_, __, context) => {
+      if (!context?.previousCart) return;
+      setCartData(() => context.previousCart);
+    },
+    onSuccess(_, attributes) {
+      publishEvent("cart_attributes_updated", { attributes: [...attributes] });
+    },
+    onSettled: () => {
+      invalidateCartQuery();
+    },
+  }));
+
   const addCartDiscountCodeMutation = client.createMutation(() => ({
     mutationFn: async (discountCode: string) => {
       const codes = uniq([...discounts(), discountCode]);
@@ -531,6 +576,14 @@ const StorefrontCart = (function () {
       note: string,
       options: Parameters<typeof updateCartNoteMutation.mutateAsync>[1],
     ) => updateCartNoteMutation.mutateAsync(note, options),
+    updateAttributes: (
+      attributes: AttributeInput[],
+      options: Parameters<typeof updateCartAttributes.mutateAsync>[1],
+    ) => updateCartAttributes.mutateAsync(attributes, options),
+    updateAttribute: (
+      attribute: AttributeInput,
+      options: Parameters<typeof updateCartAttributes.mutateAsync>[1],
+    ) => updateCartAttributes.mutateAsync([attribute], options),
     addDiscountCode: (
       discountCode: string,
       options: Parameters<typeof addCartDiscountCodeMutation.mutateAsync>[1],

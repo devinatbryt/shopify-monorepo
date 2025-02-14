@@ -244,3 +244,18 @@ export const getCartQuery = `#graphql
     }
     ${cartFragment}
 `;
+
+export const updateCartAttributesMutation = `#graphql
+  mutation cartAttributesUpdate($id: ID!, $attributes: [AttributeInput!]!) {
+    cartAttributesUpdate(cartId: $id, attributes: $attributes) {
+    cart {
+      ...CartFragment
+    }
+    userErrors {
+      code
+      field
+    }
+  }
+  ${cartFragment}
+}
+`;
