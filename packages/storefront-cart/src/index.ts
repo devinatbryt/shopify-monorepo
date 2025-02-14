@@ -371,15 +371,15 @@ const StorefrontCart = (function () {
         const req = await client.query({
           query: updateCartAttributesMutationGQL,
           variables: {
-            id: cartId,
+            id: cartId!,
             attributes,
           },
         });
-        if ((req?.data?.cartNoteUpdate?.userErrors || []).length > 0)
-          throw req.data?.cartNoteUpdate?.userErrors;
-        if (!req?.data?.cartNoteUpdate?.cart)
-          throw new Error("Could not update cart note");
-        return req.data.cartNoteUpdate.cart;
+        if ((req?.data?.cartAttributesUpdate?.userErrors || []).length > 0)
+          throw req.data?.cartAttributesUpdate?.userErrors;
+        if (!req?.data?.cartAttributesUpdate?.cart)
+          throw new Error("Could not update cart attributes");
+        return req.data.cartAttributesUpdate.cart;
       });
     },
     onMutate: async (attributes) => {
