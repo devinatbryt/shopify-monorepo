@@ -8,8 +8,8 @@ import {
 } from "body-scroll-lock-upgrade";
 import { createFocusTrap } from "focus-trap";
 
-import { provideDrawerContext, useDrawerContext } from "../hooks/useDrawer";
-import { hideElement, showElement } from "../utils";
+import { provideDrawerContext, useDrawerContext } from "../hooks/useDrawer.js";
+import { hideElement, showElement } from "../utils.js";
 
 type DrawerContextProps = {
   isOpen: boolean;
@@ -21,7 +21,7 @@ type DrawerContextProps = {
 
 const DrawerContext: CorrectComponentType<DrawerContextProps> = (
   props,
-  { element }
+  { element },
 ) => {
   const [contextProps, restProps] = splitProps(props, [
     "isOpen",
@@ -55,16 +55,16 @@ const DrawerContext: CorrectComponentType<DrawerContextProps> = (
           new CustomEvent(eventName, {
             bubbles: true,
             detail: { isOpen, relatedTarget: element },
-          })
+          }),
         );
         element.dispatchEvent(
           new CustomEvent("drawer:toggle", {
             bubbles: true,
             detail: { isOpen, relatedTarget: element },
-          })
+          }),
         );
-      }
-    )
+      },
+    ),
   );
 
   createEffect(
@@ -80,8 +80,8 @@ const DrawerContext: CorrectComponentType<DrawerContextProps> = (
         if (!shouldTrapFocus) return;
         focusTrap.activate();
         onCleanup(focusTrap.deactivate);
-      }
-    )
+      },
+    ),
   );
 
   createEffect(
@@ -112,8 +112,8 @@ const DrawerContext: CorrectComponentType<DrawerContextProps> = (
           if (!shouldTrapFocus) return;
           enableBodyScroll(element);
         });
-      }
-    )
+      },
+    ),
   );
 
   createEffect(
@@ -122,8 +122,8 @@ const DrawerContext: CorrectComponentType<DrawerContextProps> = (
       ({ isOpen, animationQueue }) => {
         if (isOpen) return;
         return Promise.all(animationQueue).then(() => hideElement(element));
-      }
-    )
+      },
+    ),
   );
 
   onCleanup(() => {

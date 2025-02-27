@@ -1,7 +1,8 @@
 import type { CorrectComponentType } from "../../../utils/solid-element";
 
-import { useMatch, useNavigate } from "../hooks/useRouter";
 import { createEffect, createMemo, onCleanup } from "solid-js";
+
+import { useMatch, useNavigate } from "../hooks/useRouter.js";
 
 type HashRouterLinkProps = {
   href: string;
@@ -11,7 +12,7 @@ type HashRouterLinkProps = {
 
 const HashRouterLink: CorrectComponentType<HashRouterLinkProps> = (
   props,
-  { element }
+  { element },
 ) => {
   const anchorElement = element.querySelector("a");
   if (!anchorElement)
@@ -21,10 +22,10 @@ const HashRouterLink: CorrectComponentType<HashRouterLinkProps> = (
   const isMatch = useMatch(element, () => props.href);
 
   const activeClasses = createMemo(() =>
-    props.activeClass ? props.activeClass.split(" ") : []
+    props.activeClass ? props.activeClass.split(" ") : [],
   );
   const inactiveClasses = createMemo(() =>
-    props.inactiveClass ? props.inactiveClass.split(" ") : []
+    props.inactiveClass ? props.inactiveClass.split(" ") : [],
   );
 
   createEffect(() => {

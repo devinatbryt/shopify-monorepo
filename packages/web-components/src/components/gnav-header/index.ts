@@ -3,16 +3,16 @@ import stickybits from "stickybits";
 import { onCleanup, createEffect, createSignal, on, onMount } from "solid-js";
 import { animate } from "motion";
 
-import { debounce, getCssVarValue, groupBy, updateCssVar } from "./utils";
+import { debounce, getCssVarValue, groupBy, updateCssVar } from "./utils.js";
 import { createQueueable } from "../../hooks";
-import { customShadowlessElement } from "../../utils/solid-element";
+import { customShadowlessElement } from "../../utils/solid-element.js";
 
 customShadowlessElement(
   "gnav-header",
   { sticky: true },
   (props, { element }) => {
     const sections = document.querySelectorAll<HTMLElement>(
-      "gnav-header-section"
+      "gnav-header-section",
     );
     if (!sections.length) return console.warn("No gnav-header-section found!");
     const [hasScrolledDown, setHasScrolledDown] = createSignal(false);
@@ -40,7 +40,7 @@ customShadowlessElement(
         previousScroll = Math.max(0, window.scrollY);
       }
 
-      const handleResize = debounce(function () {
+      const handleResize = debounce(function() {
         updateCssVar("headerHeight", element.offsetHeight);
         updateCssVar("collapsedHeaderHeight", getCollapsedHeaderHeight());
         if (hasScrolledDown()) handleScrollDownAnimation();
@@ -69,8 +69,8 @@ customShadowlessElement(
           return onCleanup(() => {
             s.cleanup();
           });
-        }
-      )
+        },
+      ),
     );
 
     createEffect(
@@ -79,7 +79,7 @@ customShadowlessElement(
           return queueScrollDownAnimation();
         }
         return queueScrollUpAnimation();
-      })
+      }),
     );
 
     function shouldHideSectionOnTrigger(section: HTMLElement) {
@@ -146,7 +146,7 @@ customShadowlessElement(
     function handleScrollUpAnimation() {
       updateCssVar(
         "stickyHeaderHeight",
-        element.getBoundingClientRect().height
+        element.getBoundingClientRect().height,
       );
       return Promise.allSettled([
         animate(sections, {
@@ -175,12 +175,12 @@ customShadowlessElement(
         updateCssVar("stickyHeaderTop", newValue);
       });
     }
-  }
+  },
 );
 
 // Exists as a unique identifier for the "gnav-header" component
 customShadowlessElement(
   "gnav-header-section",
   { shouldTrigger: false, position: 0, hideOnTrigger: false },
-  () => {}
+  () => { },
 );

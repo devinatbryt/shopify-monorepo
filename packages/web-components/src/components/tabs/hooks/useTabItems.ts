@@ -5,8 +5,9 @@ import {
   consume,
 } from "component-register";
 import { createSelector, mergeProps, splitProps } from "solid-js";
-import toHyphenated from "../../../utils/toHyphenated";
-import getContextFromProvider from "../../../utils/getContextFromProvider";
+
+import toHyphenated from "../../../utils/toHyphenated.js";
+import getContextFromProvider from "../../../utils/getContextFromProvider.js";
 
 type CreateContextOptions = {
   root: HTMLElement & ICustomElement;

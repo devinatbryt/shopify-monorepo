@@ -5,6 +5,8 @@ import {
 
 import { TabItems, TabTrigger, TabPanel } from "./components";
 
+export { useTabItems } from "./hooks/useTabItems.js";
+
 customShadowlessElement(
   "tab-items",
   {

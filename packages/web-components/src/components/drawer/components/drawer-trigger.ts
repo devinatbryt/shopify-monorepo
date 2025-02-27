@@ -2,9 +2,9 @@ import type { CorrectComponentType } from "../../../utils/solid-element";
 import type { Action } from "../consts";
 
 import { createEffect, on, onCleanup } from "solid-js";
-
 import { observeElementInViewport } from "observe-element-in-viewport";
-import { getDrawerContext } from "../hooks/useDrawer";
+
+import { getDrawerContext } from "../hooks/useDrawer.js";
 
 type DrawerTriggerProps = {
   target?: string;
@@ -15,7 +15,7 @@ type DrawerTriggerProps = {
 
 const DrawerTrigger: CorrectComponentType<DrawerTriggerProps> = (
   props,
-  { element }
+  { element },
 ) => {
   if (!props.target)
     return console.warn("DrawerTrigger: target prop is required!");
@@ -27,7 +27,7 @@ const DrawerTrigger: CorrectComponentType<DrawerTriggerProps> = (
     props.action !== "toggle"
   )
     return console.warn(
-      "DrawerTrigger: action prop must be 'close', 'open', or 'toggle'"
+      "DrawerTrigger: action prop must be 'close', 'open', or 'toggle'",
     );
   if (!props.on) return console.warn("DrawerTrigger: on prop is required!");
 
@@ -79,12 +79,12 @@ const DrawerTrigger: CorrectComponentType<DrawerTriggerProps> = (
             element.addEventListener(on, handleEvent);
 
             return onCleanup(() =>
-              element.removeEventListener(on, handleEvent)
+              element.removeEventListener(on, handleEvent),
             );
           }
         }
-      }
-    )
+      },
+    ),
   );
 
   // Handles the enter/exit events for the drawer.

@@ -6,8 +6,8 @@ import {
 } from "component-register";
 import { createEffect, mergeProps, on, batch, splitProps } from "solid-js";
 import { createStore } from "solid-js/store";
-import toHyphenated from "../../../utils/toHyphenated";
-import getContextFromProvider from "../../../utils/getContextFromProvider";
+import toHyphenated from "../../../utils/toHyphenated.js";
+import getContextFromProvider from "../../../utils/getContextFromProvider.js";
 
 type StoreContext = {
   animationQueue: Promise<unknown>[];

@@ -1,7 +1,8 @@
-import { createEffect, createMemo, on, onCleanup } from "solid-js";
 import type { CorrectComponentType } from "../../../utils/solid-element";
 
-import { useTabItems } from "../hooks/useTabItems";
+import { createEffect, createMemo, on, onCleanup } from "solid-js";
+
+import { useTabItems } from "../hooks/useTabItems.js";
 
 type TabTriggerProps = {
   preventDefault: boolean;

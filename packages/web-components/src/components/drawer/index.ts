@@ -1,7 +1,7 @@
 import {
   customShadowlessElement,
   correctElementType,
-} from "../../utils/solid-element";
+} from "../../utils/solid-element.js";
 
 import {
   DrawerBackdrop,
@@ -9,6 +9,8 @@ import {
   DrawerContext,
   DrawerTrigger,
 } from "./components";
+
+export { useDrawer } from "./hooks/useDrawer.js";
 
 customShadowlessElement(
   "drawer-context",
@@ -19,23 +21,23 @@ customShadowlessElement(
     shouldTrapFocus: false,
     isAnimating: false,
   },
-  correctElementType(DrawerContext)
+  correctElementType(DrawerContext),
 );
 
 customShadowlessElement(
   "drawer-trigger",
   { target: "", action: "", on: "click", preventDefault: true },
-  correctElementType(DrawerTrigger)
+  correctElementType(DrawerTrigger),
 );
 
 customShadowlessElement(
   "drawer-backdrop",
   {},
-  correctElementType(DrawerBackdrop)
+  correctElementType(DrawerBackdrop),
 );
 
 customShadowlessElement(
   "drawer-content",
   {},
-  correctElementType(DrawerContent)
+  correctElementType(DrawerContent),
 );

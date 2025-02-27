@@ -17,12 +17,36 @@ import { animate } from "motion";
 
 import { customShadowlessElement } from "../../utils/solid-element";
 import isCustomElement from "../../utils/isCustomElement";
+
+type AccordionState = {
+  activeIndex: number;
+  isAnimating: boolean;
+  items: { isExpanded: boolean }[];
+};
+
+function createAccordionContext(
+  state: AccordionState = { activeIndex: -1, isAnimating: false, items: [] },
+) {
+  return createStore(state);
+}
+
 // Context
-const AccordionContext = createContext(
-  (state = { activeIndex: -1, isAnimating: false, items: [] }) => {
-    return createStore(state);
+const AccordionContext = createContext(createAccordionContext);
+
+function useAccordion(element: HTMLElement & ICustomElement) {
+  const context: ReturnType<typeof createAccordionContext> = consume(
+    AccordionContext,
+    element,
+  );
+
+  if (!context) {
+    throw console.error(
+      "AccordionContext not found! Please ensure to wrap your custom element with accordion-block element.",
+    );
   }
-);
+
+  return context;
+}
 
 // Custom Element Definitions
 customShadowlessElement(
@@ -36,7 +60,7 @@ customShadowlessElement(
     });
     const children = Array.from(element.children) as HTMLElement[];
     const accordionItems = children.filter(
-      (child) => child.tagName === "ACCORDION-ITEM"
+      (child) => child.tagName === "ACCORDION-ITEM",
     );
 
     accordionItems.forEach((accordionItem, index) => {
@@ -56,8 +80,8 @@ customShadowlessElement(
         () => accordion.activeIndex,
         (activeIndex) => {
           element.setAttribute("active-index", activeIndex);
-        }
-      )
+        },
+      ),
     );
 
     createEffect(
@@ -65,10 +89,10 @@ customShadowlessElement(
         () => props.activeIndex,
         (activeIndex) => {
           setAccordion("activeIndex", activeIndex);
-        }
-      )
+        },
+      ),
     );
-  }
+  },
 );
 
 customShadowlessElement(
@@ -76,17 +100,15 @@ customShadowlessElement(
   { index: 0, isExpanded: false, ariaExpanded: false, tabindex: 0 },
   (props, { element }) => {
     if (!isCustomElement(element)) return;
-    const [state, setState] = consume(AccordionContext, element);
+    const [state, setState] = useAccordion(element);
 
     createEffect(
       on(
         () => props.isExpanded,
         (isExpanded) => {
-          setState("items", props.index - 1, {
-            isExpanded: isExpanded || false,
-          });
-        }
-      )
+          setState("items", props.index - 1, "isExpanded", isExpanded || false);
+        },
+      ),
     );
 
     createEffect(
@@ -96,12 +118,12 @@ customShadowlessElement(
           element.setAttribute("is-expanded", `${props.index === activeIndex}`);
           element.setAttribute(
             "aria-expanded",
-            `${props.index === activeIndex}`
+            `${props.index === activeIndex}`,
           );
-        }
-      )
+        },
+      ),
     );
-  }
+  },
 );
 
 customShadowlessElement(
@@ -109,7 +131,7 @@ customShadowlessElement(
   { preventDefault: true },
   (props, { element }) => {
     if (!isCustomElement(element)) return;
-    const [state, setAccordion] = consume(AccordionContext, element);
+    const [state, setAccordion] = useAccordion(element);
     const accordionItem = element.closest("accordion-item");
 
     const handleClick = (e: Event) => {
@@ -127,7 +149,7 @@ customShadowlessElement(
     onCleanup(() => {
       element.removeEventListener("click", handleClick);
     });
-  }
+  },
 );
 
 customShadowlessElement(
@@ -135,7 +157,7 @@ customShadowlessElement(
   { shouldScrollIntoView: false },
   (props, { element }) => {
     if (!isCustomElement(element)) return;
-    const [state, setState] = consume(AccordionContext, element);
+    const [state, setState] = useAccordion(element);
     const [isFirstRender, setIsFirstRender] = createSignal(true);
 
     onMount(() => {
@@ -189,7 +211,7 @@ customShadowlessElement(
         pb = getPaddingBottom(element);
 
       (Array.from(element.children) as HTMLElement[]).forEach(
-        (child) => (child.style.opacity = "1")
+        (child) => (child.style.opacity = "1"),
       );
 
       return animate(
@@ -200,7 +222,7 @@ customShadowlessElement(
           paddingTop: ["0px", `${pt}px`],
           paddingBottom: ["0px", `${pb}px`],
         },
-        transition
+        transition,
       ).finished.then(() => {
         element.style.maxHeight = "max-content";
         element.style.overflow = null;
@@ -222,7 +244,7 @@ customShadowlessElement(
       element.style.overflow = "hidden";
 
       (Array.from(element.children) as HTMLElement[]).forEach(
-        (child) => (child.style.opacity = "0")
+        (child) => (child.style.opacity = "0"),
       );
 
       return animate(
@@ -233,7 +255,7 @@ customShadowlessElement(
           paddingTop: [`${pt}px`, "0px"],
           paddingBottom: [`${pb}px`, "0px"],
         },
-        transition
+        transition,
       ).finished.then(() => hideElement(element));
     };
 
@@ -255,8 +277,10 @@ customShadowlessElement(
             return showElement(element);
           }
           return expand(element).then(() => setState("isAnimating", false));
-        }
-      )
+        },
+      ),
     );
-  }
+  },
 );
+
+export { useAccordion };

@@ -1,14 +1,16 @@
 import type { CorrectComponentType } from "../../../utils/solid-element";
+import type { RouteProps } from "@solidjs/router";
+
 import { createEffect, createMemo, mergeProps, createUniqueId } from "solid-js";
-import { useCurrentMatches, useMatch } from "../hooks/useRouter";
 import {
   type ICustomElement,
   createContext,
   consume,
   provide,
 } from "component-register";
-import { useRoutes } from "../hooks/useRoutes";
-import { RouteProps } from "@solidjs/router";
+
+import { useRoutes } from "../hooks/useRoutes.js";
+import { useCurrentMatches, useMatch } from "../hooks/useRouter.js";
 
 type HashRouteProps = {
   path: string;
@@ -35,7 +37,7 @@ const getRoutePath = (positions: number[]): Array<number | "children"> =>
 
 const getRoutePositions = (
   parentCtx: HashRouteContextType,
-  length: number
+  length: number,
 ): number[] => {
   if (!parentCtx) return [length];
   return [...parentCtx.positions, parentCtx.children.length];
@@ -79,14 +81,14 @@ function useRouteContext(element: HTMLElement & ICustomElement) {
 
 function provideHashRouteContext(
   element: HTMLElement & ICustomElement,
-  props: HashRouteProps
+  props: HashRouteProps,
 ): HashRouteContextType {
   return provide(HashRouteContext, mergeProps(props, { element }), element);
 }
 
 const HashRoute: CorrectComponentType<HashRouteProps> = (
   props,
-  { element }
+  { element },
 ) => {
   const route = provideHashRouteContext(element, props);
   const currentMatches = useCurrentMatches(element);
@@ -95,7 +97,7 @@ const HashRoute: CorrectComponentType<HashRouteProps> = (
     return (
       currentMatches()
         .map(
-          (match) => (match.route.key as NonNullable<HashRouteContextType>).id
+          (match) => (match.route.key as NonNullable<HashRouteContextType>).id,
         )
         .includes(route?.id || "") || isPathMatch()
     );

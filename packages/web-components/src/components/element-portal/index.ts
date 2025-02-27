@@ -1,6 +1,6 @@
 import { onCleanup, createEffect, on, createMemo } from "solid-js";
 
-import { customShadowlessElement } from "../../utils/solid-element";
+import { customShadowlessElement } from "../../utils/solid-element.js";
 
 customShadowlessElement(
   "element-portal",
@@ -28,7 +28,7 @@ customShadowlessElement(
             return console.warn(`Target element ${props.target} not found`);
           if (!targetTemplate)
             return console.warn(
-              `Target template ${props.targetTemplate} not found`
+              `Target template ${props.targetTemplate} not found`,
             );
           const clonedContent =
             targetTemplate.content.firstElementChild?.cloneNode(true);
@@ -41,7 +41,7 @@ customShadowlessElement(
               new CustomEvent("element-portal:mounted", {
                 bubbles: true,
                 detail: { target: clonedContent },
-              })
+              }),
             );
           });
           return onCleanup(() => {
@@ -50,14 +50,14 @@ customShadowlessElement(
                 new CustomEvent("element-portal:unmounted", {
                   bubbles: true,
                   detail: { target: clonedContent },
-                })
+                }),
               );
             });
             targetElement.removeChild(clonedContent);
             element.portaledElement = null;
           });
-        }
-      )
+        },
+      ),
     );
-  }
+  },
 );

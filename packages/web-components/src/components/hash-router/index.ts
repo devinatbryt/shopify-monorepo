@@ -9,7 +9,7 @@ customShadowlessElement("hash-router", {}, correctElementType(HashRouter));
 customShadowlessElement(
   "hash-route",
   { path: "/", activeClass: "", inactiveClass: "", isActive: false },
-  correctElementType(HashRoute)
+  correctElementType(HashRoute),
 );
 
 customShadowlessElement(
@@ -19,5 +19,15 @@ customShadowlessElement(
     activeClass: "",
     inactiveClass: "",
   },
-  correctElementType(HashRouterLink)
+  correctElementType(HashRouterLink),
 );
+
+export {
+  useNavigate,
+  useLocation,
+  useMatch,
+  useCurrentMatches,
+  useParams,
+  useSearchParams,
+  useIsRouting,
+} from "./hooks/useRouter.js";

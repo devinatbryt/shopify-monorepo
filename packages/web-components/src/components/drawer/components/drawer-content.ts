@@ -1,9 +1,11 @@
 import type { CorrectComponentType } from "../../../utils/solid-element";
+
 import { createRenderEffect, on, onCleanup } from "solid-js";
-import { useDrawer } from "../hooks/useDrawer";
-import { getSpringConfig, convertPositionToTranslate } from "../utils";
 import { animate, spring } from "motion";
-import { POSITION } from "../consts";
+
+import { useDrawer } from "../hooks/useDrawer.js";
+import { getSpringConfig, convertPositionToTranslate } from "../utils.js";
+import { POSITION } from "../consts.js";
 
 const DrawerContent: CorrectComponentType<{}> = (_, { element }) => {
   const [state, { updateAnimationQueue }] = useDrawer(element);
@@ -17,8 +19,8 @@ const DrawerContent: CorrectComponentType<{}> = (_, { element }) => {
         const cleanup = enter(element);
         updateAnimationQueue(cleanup.finished);
         return onCleanup(cleanup.finish);
-      }
-    )
+      },
+    ),
   );
 
   createRenderEffect(
@@ -30,8 +32,8 @@ const DrawerContent: CorrectComponentType<{}> = (_, { element }) => {
         const cleanup = exit(element);
         updateAnimationQueue(cleanup.finished);
         return onCleanup(cleanup.finish);
-      }
-    )
+      },
+    ),
   );
 
   function enter(element: HTMLElement) {
@@ -43,7 +45,7 @@ const DrawerContent: CorrectComponentType<{}> = (_, { element }) => {
       {
         transform: [from, to],
       },
-      { ...rest, easing: spring(easing) }
+      { ...rest, easing: spring(easing) },
     );
   }
 
@@ -55,7 +57,7 @@ const DrawerContent: CorrectComponentType<{}> = (_, { element }) => {
       {
         transform: [to, from],
       },
-      { ...rest, easing: spring(easing) }
+      { ...rest, easing: spring(easing) },
     );
   }
 };

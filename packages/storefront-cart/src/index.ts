@@ -246,7 +246,7 @@ const StorefrontCart = (function () {
       newLines = newLines.map((line) => ({
         id: formatId(line.id, "CartLine"),
         quantity: line.quantity,
-        attributes: line.attributes || [],
+        attributes: line.attributes || undefined,
         merchandiseId: line.merchandiseId
           ? formatId(line.merchandiseId, "ProductVariant")
           : undefined,

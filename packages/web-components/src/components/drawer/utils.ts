@@ -1,5 +1,5 @@
 import type { Easing } from "motion";
-import { type Position, POSITION } from "./consts";
+import { type Position, POSITION } from "./consts.js";
 
 export function hideElement<T extends HTMLElement>(element: T) {
   element.style.display = "none";

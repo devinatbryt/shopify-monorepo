@@ -12,7 +12,7 @@ import {
   consume,
 } from "component-register";
 import { createMemo, untrack } from "solid-js";
-import { createMatcher, expandOptionals, mergeSearchString } from "../utils";
+import { createMatcher, expandOptionals, mergeSearchString } from "../utils.js";
 
 type RouterContext = Parameters<
   NonNullable<Parameters<typeof createRouter>[0]["create"]>
@@ -28,7 +28,7 @@ export const getHashRouterContextId = () => HashRouterContext.id;
 
 export const provideRouterContext = (
   router: RouterContext,
-  element: HTMLElement
+  element: HTMLElement,
 ) => provide(HashRouterContext, router, element);
 
 const useRouterContext = (element: ICustomElement & HTMLElement) => {
@@ -43,7 +43,7 @@ export const useNavigate = (element: ICustomElement & HTMLElement) => {
 };
 
 export const useParams = <T extends Params>(
-  element: ICustomElement & HTMLElement
+  element: ICustomElement & HTMLElement,
 ) => {
   const router = useRouterContext(element);
   return router.params as T;
@@ -55,16 +55,16 @@ export const useLocation = (element: ICustomElement & HTMLElement) => {
 };
 
 export const useSearchParams = <T extends Params>(
-  element: ICustomElement & HTMLElement
+  element: ICustomElement & HTMLElement,
 ) => {
   const location = useLocation(element);
   const navigate = useNavigate(element);
   const setSearchParams = (
     params: SetParams,
-    options?: Partial<NavigateOptions>
+    options?: Partial<NavigateOptions>,
   ) => {
     const searchString = untrack(
-      () => mergeSearchString(location.search, params) + location.hash
+      () => mergeSearchString(location.search, params) + location.hash,
     );
     navigate(searchString, {
       scroll: false,
@@ -83,13 +83,13 @@ export const useIsRouting = (element: ICustomElement & HTMLElement) => {
 export const useMatch = <S extends string>(
   element: ICustomElement & HTMLElement,
   path: () => S,
-  matchFilters?: MatchFilters<S>
+  matchFilters?: MatchFilters<S>,
 ) => {
   const location = useLocation(element);
   const matchers = createMemo(() =>
     expandOptionals(path()).map((path) =>
-      createMatcher(path, undefined, matchFilters)
-    )
+      createMatcher(path, undefined, matchFilters),
+    ),
   );
   return createMemo(() => {
     for (const matcher of matchers()) {

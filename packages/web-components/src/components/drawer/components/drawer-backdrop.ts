@@ -1,15 +1,16 @@
 import type { CorrectComponentType } from "../../../utils/solid-element";
 
 import { createRenderEffect, on, onCleanup } from "solid-js";
-import { useDrawer } from "../hooks/useDrawer";
-import { getTransitionConfig } from "../utils";
 import { animate } from "motion";
+
+import { useDrawer } from "../hooks/useDrawer.js";
+import { getTransitionConfig } from "../utils.js";
 
 type DrawerBackdropProps = {};
 
 const DrawerBackdrop: CorrectComponentType<DrawerBackdropProps> = (
   _,
-  { element }
+  { element },
 ) => {
   const [state, { updateAnimationQueue, close }] = useDrawer(element);
 
@@ -21,8 +22,8 @@ const DrawerBackdrop: CorrectComponentType<DrawerBackdropProps> = (
         const cleanup = enter(element);
         updateAnimationQueue(cleanup.finished);
         return onCleanup(cleanup.finish);
-      }
-    )
+      },
+    ),
   );
 
   createRenderEffect(
@@ -33,8 +34,8 @@ const DrawerBackdrop: CorrectComponentType<DrawerBackdropProps> = (
         const cleanup = exit(element);
         updateAnimationQueue(cleanup.finished);
         return onCleanup(cleanup.finish);
-      }
-    )
+      },
+    ),
   );
 
   function enter(element: HTMLElement) {
@@ -44,7 +45,7 @@ const DrawerBackdrop: CorrectComponentType<DrawerBackdropProps> = (
       {
         opacity: [`var(--opacity-from)`, `var(--opacity-to)`],
       },
-      transition
+      transition,
     );
   }
 
@@ -55,7 +56,7 @@ const DrawerBackdrop: CorrectComponentType<DrawerBackdropProps> = (
       {
         opacity: [`var(--opacity-to)`, `var(--opacity-from)`],
       },
-      transition
+      transition,
     );
   }
 

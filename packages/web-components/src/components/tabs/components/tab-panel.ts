@@ -2,9 +2,9 @@ import type { CorrectComponentType } from "../../../utils/solid-element";
 import type { ICustomElement } from "component-register";
 
 import { createEffect, createMemo, on, onCleanup, onMount } from "solid-js";
-
-import { useTabItems } from "../hooks/useTabItems";
 import { animate } from "motion";
+
+import { useTabItems } from "../hooks/useTabItems.js";
 
 type TabPanelProps = {
   id: string;
@@ -72,7 +72,7 @@ const TabPanel: CorrectComponentType<TabPanelProps> = (props, { element }) => {
       if (!isActive) {
         if (isFirstRender) hideElement(element);
         hideTabContent(element);
-        return onCleanup(() => {});
+        return onCleanup(() => { });
       }
 
       if (isFirstRender) return showElement(element, true);

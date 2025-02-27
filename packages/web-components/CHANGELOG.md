@@ -1,5 +1,18 @@
 # @bryt-designs/web-components
 
+## 0.13.0
+
+### Minor Changes
+
+- Export context hooks from web components for easy extenability
+
+## 0.12.6
+
+### Patch Changes
+
+- Updated dependencies
+  - @bryt-designs/storefront-cart@2.2.39
+
 ## 0.12.5
 
 ### Patch Changes
