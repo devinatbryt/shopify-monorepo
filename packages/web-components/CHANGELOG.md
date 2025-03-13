@@ -1,5 +1,11 @@
 # @bryt-designs/web-components
 
+## 0.13.1
+
+### Patch Changes
+
+- Fix undefined isExpanded for accordion block
+
 ## 0.13.0
 
 ### Minor Changes
