@@ -106,7 +106,9 @@ customShadowlessElement(
       on(
         () => props.isExpanded,
         (isExpanded) => {
-          setState("items", props.index - 1, "isExpanded", isExpanded || false);
+          setState("items", props.index - 1, {
+            isExpanded: isExpanded || false,
+          });
         },
       ),
     );
