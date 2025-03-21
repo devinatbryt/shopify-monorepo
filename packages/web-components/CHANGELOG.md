@@ -1,6 +1,6 @@
 # @bryt-designs/web-components
 
-## 0.13.1
+## 0.13.2
 
 ### Patch Changes
 
@@ -9,6 +9,12 @@
   - @bryt-designs/storefront-client@0.7.7
   - @bryt-designs/storefront-cart@2.2.40
   - @bryt-designs/predictive-search@3.0.7
+
+## 0.13.1
+
+### Patch Changes
+
+- Fix undefined isExpanded for accordion block
 
 ## 0.13.0
 

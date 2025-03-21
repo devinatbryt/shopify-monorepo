@@ -177,10 +177,31 @@
       <hash-route path="/test">Hello</hash-route>
     </hash-route>
   </hash-router> -->
+    <accordion-block>
+      <accordion-item>
+        <accordion-trigger>
+          <button type="button">
+            <p>Open</p>
+          </button>
+        </accordion-trigger>
+        <accordion-content>
+          <p
+            class="py-4 mb-2 text-lg prose text-white transition-opacity font-body"
+          >
+            Description
+          </p>
+        </accordion-content>
+      </accordion-item>
+    </accordion-block>
+
+    <script
+      type="module"
+      src="./src/components/accordion-block/index.ts"
+    ></script>
+
     <script
       type="module"
       src="https://cdn.jsdelivr.net/npm/@bryt-designs/storefront-cart@2.2.4"
     ></script>
   </body>
 </html>
-
