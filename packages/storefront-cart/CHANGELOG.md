@@ -1,5 +1,11 @@
 # @bryt-designs/predictive-search
 
+## 2.2.41
+
+### Patch Changes
+
+- Added additional data to cart struct
+
 ## 2.2.40
 
 ### Patch Changes

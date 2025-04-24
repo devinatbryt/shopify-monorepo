@@ -1,5 +1,12 @@
 # @bryt-designs/web-components
 
+## 0.13.3
+
+### Patch Changes
+
+- Updated dependencies
+  - @bryt-designs/storefront-cart@2.2.41
+
 ## 0.13.2
 
 ### Patch Changes

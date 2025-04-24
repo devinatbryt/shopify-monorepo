@@ -8,15 +8,15 @@ export default function convertCartStructToREST(cart: CartFragmentFragment) {
       line.discountAllocations.reduce(
         (total, discount) =>
           total + parseFloat(discount.discountedAmount.amount) * 100,
-        0
+        0,
       ),
-    0
+    0,
   );
 
   const discount_total = cart.discountAllocations.reduce(
     (total, discount) =>
       total + parseFloat(discount.discountedAmount.amount) * 100,
-    0
+    0,
   );
 
   const subtotal =
@@ -39,14 +39,14 @@ export default function convertCartStructToREST(cart: CartFragmentFragment) {
         const discount_amount = line.discountAllocations.reduce(
           (total, discount) =>
             total + parseFloat(discount.discountedAmount.amount) * 100,
-          0
+          0,
         );
 
         const sellingPlan = line?.sellingPlanAllocation?.sellingPlan;
 
         const isDefaultVariant = line.variant.product.options.some(
           (option) =>
-            option.name === "Title" && option.values.includes("Default Title")
+            option.name === "Title" && option.values.includes("Default Title"),
         );
 
         const sellingPlanGroup = line?.variant?.product?.sellingPlanGroups
@@ -58,7 +58,7 @@ export default function convertCartStructToREST(cart: CartFragmentFragment) {
           (plan) => ({
             id: parseId(plan.id),
             name: plan.name,
-          })
+          }),
         );
 
         let max = line.variant.quantityAvailable;
@@ -72,11 +72,11 @@ export default function convertCartStructToREST(cart: CartFragmentFragment) {
             props[attr.key] = attr.value;
             return props;
           },
-          {} as Record<string, string>
+          {} as Record<string, string>,
         );
 
         const url = new URL(
-          `https://example.com/products/${line.variant.product.handle}`
+          `https://example.com/products/${line.variant.product.handle}`,
         );
 
         if (line.variant.id) {
@@ -92,7 +92,7 @@ export default function convertCartStructToREST(cart: CartFragmentFragment) {
           isInStock: !line.variant.currentlyNotInStock,
           properties,
           visible_properties: line.attributes.filter(
-            (attr) => !attr.key.startsWith("_")
+            (attr) => !attr.key.startsWith("_"),
           ),
           attributes: line.attributes,
           price,
@@ -100,6 +100,9 @@ export default function convertCartStructToREST(cart: CartFragmentFragment) {
           discount_amount,
           product_id: parseId(line.variant.product.id),
           selected_options: line.variant.selectedOptions || [],
+          selected_option_values: (line.variant.selectedOptions || []).map(
+            (o) => o.value,
+          ),
           requires_shipping: line.variant.requiresShipping,
           original_line_price,
           variant_title: line.variant.title,
@@ -141,7 +144,7 @@ export default function convertCartStructToREST(cart: CartFragmentFragment) {
     note: cart.note,
     has_note: cart.note !== "",
     requires_shipping: cart.lines.nodes.some(
-      (item) => item.variant.requiresShipping
+      (item) => item.variant.requiresShipping,
     ),
   };
 }

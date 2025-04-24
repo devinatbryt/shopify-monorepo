@@ -1,6 +1,6 @@
 {
   "name": "@bryt-designs/storefront-cart",
-  "version": "2.2.40",
+  "version": "2.2.41",
   "type": "module",
   "files": [
     "dist"
