@@ -1,5 +1,15 @@
 # @bryt-designs/web-components
 
+## 0.13.4
+
+### Patch Changes
+
+- Updated solid-js version
+- Updated dependencies
+  - @bryt-designs/storefront-client@0.7.8
+  - @bryt-designs/storefront-cart@2.2.42
+  - @bryt-designs/predictive-search@3.0.8
+
 ## 0.13.3
 
 ### Patch Changes
