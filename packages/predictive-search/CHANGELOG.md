@@ -1,5 +1,12 @@
 # @bryt-designs/predictive-search
 
+## 3.0.9
+
+### Patch Changes
+
+- Updated dependencies
+  - @bryt-designs/storefront-client@0.7.9
+
 ## 3.0.8
 
 ### Patch Changes

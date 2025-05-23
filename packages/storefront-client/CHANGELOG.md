@@ -1,5 +1,11 @@
 # @bryt-designs/storefront-client
 
+## 0.7.9
+
+### Patch Changes
+
+- Updated solid js versioning
+
 ## 0.7.8
 
 ### Patch Changes
